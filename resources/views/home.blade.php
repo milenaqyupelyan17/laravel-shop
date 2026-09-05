@@ -4,7 +4,7 @@
 <main>
     <section class="banner bg-black w-100">
         <div class=" row justify-content-between align-items-center">
-            <div class="col w-30">
+            <div class="col">
                 <div class="wrapper flex align-items-center">
                     <i class="fa-solid fa-table-list"></i>
                     <a href="{{ route('categories') }}">
@@ -21,7 +21,7 @@
                         </a>
                     </div>
                     <div class="flex gap-5 align-items-center">
-                        <i class="fa-regular fa-heart"></i>
+                        <i class="fa-regular fa-heart add-to-cart"></i>
                         <div class="title-6">Favorites</div>
                     </div>
                     <div class="flex gap-5 align-items-center">
@@ -29,7 +29,7 @@
                         <a href="{{ route('card') }}">
                             <div class="title-6">Card</div>
                         </a>
-                        <span class="cart title-7">3</span>
+                        <span id="cart-count" class="cart title-7">0</span>
                     </div>
                 </div>
             </div>
@@ -157,7 +157,7 @@
                     <img src="{{ asset('images/top-1.jpg') }}">
                     <div class="justify-content-between w-100 flex align-items-center">
                         <div class="titl-7 w-700">Mango</div>
-                        <i class="fa-regular fa-heart"></i>
+                        <i class="fa-regular fa-heart add-to-cart"></i>
                     </div>
                     <div class="title-8">Kimono & Caftan - Black - Regular fit</div>
                     <div class="flex gap-20 align-items-center">
@@ -172,7 +172,7 @@
                     <img src="{{ asset('images/top-2.jpg') }}">
                     <div class="justify-content-between w-100 flex align-items-center">
                         <div class="titl-7 w-700">Mango</div>
-                        <i class="fa-regular fa-heart"></i>
+                        <i class="fa-regular fa-heart add-to-cart"></i>
                     </div>
                     <div class="title-8">Kimono & Caftan - Black - Regular fit</div>
                     <div class="flex gap-20 align-items-center">
@@ -187,7 +187,7 @@
                     <img src="{{ asset('images/top-3.jpg') }}">
                     <div class="justify-content-between w-100 flex align-items-center">
                         <div class="titl-7 w-700">Mango</div>
-                        <i class="fa-regular fa-heart"></i>
+                       <i class="fa-regular fa-heart add-to-cart"></i>
                     </div>
                     <div class="title-8">Kimono & Caftan - Black - Regular fit</div>
                     <div class="flex gap-20 align-items-center">
@@ -202,7 +202,7 @@
                     <img src="{{ asset('images/top-4.jpg') }}">
                     <div class="justify-content-between w-100 flex align-items-center">
                         <div class="titl-7 w-700">Mango dress</div>
-                        <i class="fa-regular fa-heart"></i>
+                        <i class="fa-regular fa-heart add-to-cart"></i>
                     </div>
                     <div class="title-8">Kimono & Caftan - Colorful - Night club fit</div>
                     <div class="flex gap-20 align-items-center">

@@ -173,8 +173,6 @@ header {
 .title-8 {
     font-size: 10px;
 }
-
-
 .search-box {
     position: relative;
     width: 300px;
@@ -346,61 +344,136 @@ header {
     width: 700px;
     margin: 40px auto 0;
 }
-
-#sign_in,
-#sign_up {
-    width: 50%;
-    padding: 0 15px;
-}
-
 #sign_in {
-    border-right: 1px solid #dddddd;
-    padding-right: 25px;
+    width: 430px;
+    margin: 70px auto;
 }
 
-#sign_up {
-    padding-left: 25px;
+#sign_in .title-5 {
+    font-size: 30px;
+    margin-bottom: 8px;
 }
 
-#sign_in .title-5,
-#sign_up .title-5 {
-    margin-bottom: 50px;
+.sign-subtitle {
+    color: #999;
+    margin-bottom: 35px;
 }
 
-#sign_in .title-6,
-#sign_up .title-6 {
-    margin-bottom: 7px;
+#sign_in .title-6 {
+    margin: 20px 0 8px;
 }
 
-#sign_in>input,
-#sign_up>input {
-    display: block;
+#sign_in input[type="email"],
+#sign_in input[type="password"] {
     width: 100%;
-    height: 40px;
-    padding: 0 10px;
-    border: 1px solid #dddddd;
-    font-size: 10px;
-    color: #333;
-    margin-bottom: 20px;
+    height: 48px;
+    padding: 0 15px;
+    border: 1px solid #ddd;
+    outline: none;
+    font-size: 14px;
+    box-sizing: border-box;
 }
 
+#sign_in input:focus {
+    border-color: #222;
+}
 
 .sign-options {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: -3px;
-    margin-bottom: 20px;
+    margin: 18px 0 25px;
+    font-size: 13px;
 }
 
+.remember {
+    gap: 8px;
+}
 
-.forgot-password {
-    color: #6689d9 !important;
+.remember input {
+    width: 15px;
+    height: 15px;
+}
+
+.sign-options a,
+.signup-link a {
+    color: #222;
+    text-decoration: underline;
+}
+
+#sign_in .btn-3 {
+    width: 100%;
+    height: 50px;
+    border: none;
     cursor: pointer;
 }
 
+.signup-link {
+    text-align: center;
+    margin-top: 25px;
+    color: #888;
+    font-size: 14px;
+}
 
+#sign_up {
+    width: 430px;
+    margin: 50px auto 70px;
+}
+
+#sign_up .title-5 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+#sign_up .title-6 {
+    margin: 20px 0 8px;
+}
+
+#sign_up input[type="text"],
+#sign_up input[type="email"],
+#sign_up input[type="password"] {
+    width: 100%;
+    height: 48px;
+    padding: 0 15px;
+    border: 1px solid #ddd;
+    outline: none;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+#sign_up input:focus {
+    border-color: #222;
+}
+
+#sign_up .terms {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 22px 0 25px;
+}
+
+#sign_up .terms input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+#sign_up .terms .title-7 {
+    line-height: 1.5;
+}
+
+#sign_up .btn-3 {
+    width: 100%;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+}
+
+#sign_up .text-red {
+    margin-top: 6px;
+}
+
+#sign_up form {
+    width: 100%;
+}
 .terms {
     display: flex;
     align-items: flex-start;
@@ -432,7 +505,6 @@ header {
     object-fit: contain;
 }
 
-
 #top .row {
     display: flex;
     gap: 20px;
@@ -440,6 +512,124 @@ header {
 
 #top .product-card {
     width: calc(25% - 15px);
+}
+#dashboard {
+    padding: 70px 20px;
+}
+
+.dashboard-wrapper {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.dashboard-subtitle {
+    color: #999;
+    margin: 8px 0 35px;
+}
+
+.dashboard-card {
+    border: 1px solid #e5e5e5;
+    padding: 30px;
+}
+
+.dashboard-card-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.dashboard-info {
+    display: flex;
+    gap: 80px;
+    padding-top: 25px;
+}
+
+.dashboard-info > div {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.info-label {
+    font-size: 12px;
+    color: #999;
+}
+
+.info-value {
+    font-size: 15px;
+}
+
+.dashboard-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.dashboard-action {
+    flex: 1;
+    padding: 18px;
+    border: 1px solid #e5e5e5;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #222;
+}
+
+.dashboard-action:hover {
+    background: #f8f8f8;
+}
+
+.dashboard-logout {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 0;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    padding: 40px;
+}
+
+.product-card {
+    width: 100%;
+}
+
+.product-image {
+    width: 100%;
+    height: 420px;
+    overflow: hidden;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.product-info {
+    padding-top: 15px;
+}
+
+.product-info h2 {
+    margin: 0 0 8px;
+    font-size: 18px;
+}
+
+.product-info p {
+    margin: 0 0 10px;
+    color: #777;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: 700;
 }
 
 @media (max-width: 992px) {

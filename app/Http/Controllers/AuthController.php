@@ -9,22 +9,39 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    public function showSignIn()
+    {
+        return view('sign_in');
+    }
+
     public function register(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6',
-            'terms' => 'accepted',
-        ]);
+        $request->validate(
+            [
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email',
+                'password' => [
+                    'required',
+                    'min:6',
+                    'confirmed',
+                    'regex:/[a-z]/',
+                    'regex:/[A-Z]/',
+                ],
+            ],
+            [
+                'password.regex' => 'Password must contain at least one lowercase and one uppercase letter.',
+            ]
+        );
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),            
+            'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('login')->with('success', 'Registration successful!');
+        return redirect()
+            ->route('login')
+            ->with('success', 'Registration successful!');
     }
 
     public function login(Request $request)
@@ -35,14 +52,16 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
-            $request->session()->regenerate();
+    $request->session()->regenerate();
 
-            return redirect()->route('home');
-        }
+    return redirect()->route('dashboard');
+}
 
-        return back()->withErrors([
-            'email' => 'The email or password is incorrect.',
-        ])->withInput();
+        return back()
+            ->withErrors([
+                'email' => 'The email or password is incorrect.',
+            ])
+            ->withInput();
     }
 
     public function logout(Request $request)
