@@ -2,37 +2,35 @@
 
 @section('content')
 
-<main>
-
-    <div class="products-grid">
-
-        @foreach($products as $product)
-
-            <div class="product-card">
-
-                <div class="product-image">
-                    <img
-                        src="{{ asset($product->image) }}"
-                        alt="{{ $product->title }}"
-                    >
-                </div>
-
-                <div class="product-info">
-                    <h2>{{ $product->title }}</h2>
-
-                    <p>{{ $product->description }}</p>
-
-                    <div class="price">
-                        ${{ $product->price }}
-                    </div>
-                </div>
-
+<div class="products-grid flex flex-column gap-20">
+    @foreach($products as $product)
+    <a href="{{ route('productdetails', ['id' => $product->id]) }}" class="product-card">
+        <div class="product-image">
+            <img src="{{ asset($product->image) }}" alt="{{ $product->title }}">
+        </div>
+        <div class="product-info">
+            <div>
+                <h2 class="title-7 w-700">
+                    {{ $product->title }}
+                </h2>
+                <p class="text-grey title-8">
+                    {{ $product->description }}
+                </p>
             </div>
-
-        @endforeach
-
-    </div>
-
-</main>
+            <div class="products-info">
+                <div class="price text-red">
+                    ${{ $product->price }}
+                </div>
+                <i class="fa-regular fa-heart favorite-btn"
+                    data-id="{{ $product->id }}"
+                    data-title="{{ $product->title }}"
+                    data-price="{{ $product->price }}"
+                    data-image="{{ asset($product->image) }}">
+                </i>
+            </div>
+        </div>
+    </a>
+    @endforeach
+</div>
 
 @endsection

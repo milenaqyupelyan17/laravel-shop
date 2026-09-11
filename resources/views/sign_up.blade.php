@@ -19,7 +19,9 @@
                     </a>
                     <div class="flex gap-5 align-items-center">
                         <i class="fa-regular fa-heart"></i>
-                        <div class="title-6">Favorites</div>
+                        <a href="{{ route('favorites') }}">
+                            <div class="title-6">Favorites</div>
+                        </a>
                     </div>
                     <a href="{{ route('card') }}" class="flex gap-5 align-items-center">
                         <i class="fa-solid fa-bag-shopping"></i>
@@ -48,41 +50,33 @@
             <p class="sign-subtitle">Create your account</p>
             <form action="{{ route('register') }}" method="POST">
                 @csrf
-                <div class="title-6">
-                    Name<span class="text-red">*</span>
-                </div>
-                <input type="text" name="name" placeholder="Full name" value="{{ old('name') }}"required>
+                <div class="title-6"> Name<span class="text-red">*</span></div>
+                <input type="text" name="name" placeholder="Full name" value="{{ old('name') }}" required>
                 @error('name')
                 <p class="title-7 text-red">{{ $message }}</p>
                 @enderror
-                <div class="title-6">
-                    Email<span class="text-red">*</span>
+                <div class="title-6">Email<span class="text-red">*</span>
                 </div>
-                <input type="email"name="email" placeholder="Email address" value="{{ old('email') }} "required>
+                <input type="email" name="email" placeholder="Email address" value="{{ old('email') }} " required>
                 @error('email')
                 <p class="title-7 text-red">{{ $message }}</p>
                 @enderror
-                <div class="title-6">
-                    Password<span class="text-red">*</span>
+                <div class="title-6">Password<span class="text-red">*</span>
                 </div>
-                <input type="password" name="password"placeholder="Password"required>
+                <input type="password" name="password" placeholder="Password" required>
                 @error('password')
                 <p class="title-7 text-red"> {{ $message }}</p>
                 @enderror
-                <div class="title-6">
-                    Confirm Password<span class="text-red">*</span>
+                <div class="title-6"> Confirm Password<span class="text-red">*</span>
                 </div>
-                <input type="password"  name="password_confirmation" placeholder="Confirm password"required>
+                <input type="password" name="password_confirmation" placeholder="Confirm password" required>
                 <div class="terms">
                     <input type="checkbox" name="terms" required>
                     <div class="title-7 text-beige">I agree to the terms and conditions.</div>
                 </div>
                 <button type="submit" class="btn-3">SIGN UP</button>
             </form>
-            <div class="signup-link">
-                Already have an account?
-                <a href="{{ route('login') }}">Sign in</a>
-            </div>
+            <div class="signup-link">Already have an account?<a href="{{ route('login') }}">Sign in</a></div>
         </section>
     </div>
 </main>

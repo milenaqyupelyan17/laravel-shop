@@ -8,15 +8,12 @@
             <p class="sign-subtitle">Sign in to your account</p>
             <form action="{{ route('login.post') }}" method="POST">
                 @csrf
-                <div class="title-6">
-                    Email<span class="text-red">*</span>
-                </div>
+                <div class="title-6"> Email<span class="text-red">*</span></div>
                 <input type="email" name="email" placeholder="Email address" required>
                 @error('email')
                 <p class="title-7 text-red">{{ $message }}</p>
                 @enderror
-                <div class="title-6">
-                    Password<span class="text-red">*</span>
+                <div class="title-6">Password<span class="text-red">*</span>
                 </div>
                 <input type="password" name="password" placeholder="Password" required>
                 @error('password')
@@ -30,8 +27,7 @@
                 </div>
                 <button type="submit" class="btn-3">SIGN IN</button>
             </form>
-            <div class="signup-link">Don't have an account?<a href="{{ route('register') }}">Sign up</a>
-            </div>
+            <div class="signup-link">Don't have an account?<a href="{{ route('register') }}">Sign up</a></div>
         </section>
     </div>
 </main>

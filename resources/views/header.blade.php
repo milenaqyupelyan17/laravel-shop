@@ -1,7 +1,6 @@
 <header>
     <section id="header">
         <div class="row justify-content-between align-items-center">
-
             <div class="col">
                 <div class="wrapper flex align-items-center">
                     <a href="{{ route('home') }}">
@@ -13,19 +12,19 @@
                 </div>
             </div>
             <div class="col">
-                <div class="wrapper search-box flex align-items-center">
-                    <input class="inpSearch" type="text" placeholder="Search Products">
+                <form action="{{ route('products') }}" method="GET" class="wrapper search-box flex align-items-center">
+                    <input class="inpSearch" type="text" name="search" value="{{ request('search') }}" placeholder="Search Products">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
+                </form>
             </div>
             <nav class="nav flex gap-20">
-                <a href="{{ route('categories') }}">
+                <a href="{{ route('about') }}">
                     <div class="text-grey">About us</div>
                 </a>
-                <a href="{{ route('card') }}">
+                <a href="{{ route('contact') }}">
                     <div class="text-grey">Contact us</div>
                 </a>
-                <a href="{{ route('login') }}">
+                <a href="{{ route('help') }}">
                     <div class="text-grey">Help & support</div>
                 </a>
             </nav>

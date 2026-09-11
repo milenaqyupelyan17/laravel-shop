@@ -2,34 +2,44 @@
     <section id="letter">
         <div class="row bg-blue">
             <div class="col">
-                <div class="wrapper">
+                <div class="wrapper flex flex-column gap-20">
                     <div class="title-2 w-700 text-white">Luminae Store</div>
                     <div class="text-white">Register your email not to miss the last minutes off+ Free delivery
                     </div>
                     <input type="email" placeholder="Enter your email">
+                    <div class="btn-2 text-white">Send Email</div>
                 </div>
             </div>
         </div>
     </section>
     <section id="about">
         <div class="row footer-bg-2 justify-content-between">
-            <div class="col">
-                <div class="wrapper">
-                    <div class="title-6 w-700">Company</div>
-                    <div class="title-6">About Us<br> Our Store<br>Contact us</div>
-                </div>
+            <div class="col flex flex-column gap-20">
+                <div class="title-6 w-700">Company</div>
+                <a href="{{ route('about') }}">
+                    <div class="text-grey title-6">About us</div>
+                </a>
+                <a href="{{ route('contact') }}" class="title-6 text-grey">
+                    Our Store
+                </a>
             </div>
-            <div class="col">
-                <div class="wrapper">
-                    <div class="title-6 w-700">Career Opportunities</div>
-                    <div class="title-6">Selling Programs<br>Advertise<br>Cooperation </div>
-                </div>
+            <div class="col flex flex-column gap-20">
+                <div class="title-6 w-700">Career Opportunities</div>
+                <a href="{{ route('contact') }}" class="title-6 text-grey">
+                    Selling Programs
+                </a>
+                <a href="{{ route('contact') }}" class="title-6 text-grey">
+                    Advertise
+                </a>
+                <a href="{{ route('contact') }}" class="title-6 text-grey">
+                    Cooperation
+                </a>
             </div>
-            <div class="col">
-                <div class="wrapper">
-                    <div class="title-6 w-700">Help</div>
-                    <div class="title-6">Contact Us</div>
-                </div>
+            <div class="col flex flex-column gap-20">
+                <div class="title-6 w-700">Help</div>
+                <a href="{{ route('contact') }}" class="title-6 text-grey">
+                    Contact Us
+                </a>
             </div>
         </div>
     </section>
@@ -46,10 +56,10 @@
                 </div>
             </div>
             <div class="col w-20">
-                <div class="wrapper">
-                    <i class="fa-brands fa-instagram"></i>
-                    <i class="fa-brands fa-facebook-f"></i>
-                    <i class="fa-brands fa-telegram"></i>
+                <div class="wrapper flex">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"> <i class="fa-brands fa-telegram"></i></a>
                 </div>
             </div>
         </div>

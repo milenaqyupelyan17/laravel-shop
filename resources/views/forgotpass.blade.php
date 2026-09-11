@@ -15,7 +15,9 @@
                     <i class="fa-regular fa-user"></i>
                     <div class="title-6">Sign in</div>
                     <i class="fa-regular fa-heart"></i>
-                    <div class="title-6">Favorites</div>
+                    <a href="{{ route('favorites') }}">
+                        <div class="title-6">Favorites</div>
+                    </a>
                     <i class="fa-solid fa-bag-shopping"></i>
                     <div class="title-6">Card</div>
                     <span class="cart">3</span>

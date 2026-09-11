@@ -1,77 +1,207 @@
 @extends('layouts.app')
 
 @section('content')
+
 <main>
     <section class="bg-black w-100">
-        <div class=" row justify-content-between align-items-center">
-            <div class="col w-30">
+        <div class="row justify-content-between align-items-center">
+            <div class="col">
                 <div class="wrapper flex align-items-center gap-5">
                     <i class="fa-solid fa-table-list"></i>
-                    <div class="title-5 w-700">Categories</div>
+                    <a href="{{ route('categories') }}">
+                        <div class="title-5 w-700">Categories</div>
+                    </a>
                 </div>
             </div>
             <div class="col flex">
                 <div class="wrapper flex align-items-center gap-20">
-                    <i class="fa-regular fa-user"></i>
-                    <div class="title-6">Sign in</div>
-                    <i class="fa-regular fa-heart"></i>
-                    <div class="title-6">Favorites</div>
-                    <i class="fa-solid fa-bag-shopping"></i>
-                    <div class="title-6">Card</div>
-                    <span class="cart">3</span>
+                    <div class="flex gap-5 align-items-center">
+                        <i class="fa-regular fa-user"></i>
+                        <a href="{{ route('login') }}">
+                            <div class="title-6"> Sign in</div>
+                        </a>
+                    </div>
+                    <div class="flex gap-5 align-items-center">
+                        <i class="fa-solid fa-heart"></i>
+                        <a href="{{ route('favorites') }}">
+                            <div class="title-6">Favorites</div>
+                        </a>
+                    </div>
+                    <div class="flex gap-5 align-items-center">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <a href="{{ route('card') }}">
+                            <div class="title-6">Card</div>
+                        </a>
+                        <span id="cart-count" class="cart title-7">0</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-    <section id="">
+    <section>
         <div class="row">
             <div class="col">
                 <div class="wrapper">
-                    <div class="title-6">Homepage <i class="fa-solid fa-chevron-right"></i> Card</div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="wrapper flex gap-20">
-                    <div class="title-6 w-700">CARD(3)</div>
-                    <div class="title-6 text-grey w-700">SHIPPING & PAYMENT </div>
-                    <div class="title-6 text-grey w-700">PRODUCT CONFIRMATION</div>
-                </div>
-            </div>
-        </div>
-        <div class="line"></div>
-        <div class="row">
-            <div class="col">
-                <div class="wrapper">
-                    <div class="title-5 w-700">Card</div>
-                    <div class="text-grey title-5">3</div>
+                    <div class="title-6">Homepage<i class="fa-solid fa-chevron-right"></i>Card</div>
                 </div>
             </div>
         </div>
     </section>
-    <section class="bg-grey br w-50">
+    <section id="cart">
         <div class="row">
-            <div class="col">
+            <div class="col w-60">
                 <div class="wrapper">
-                    <div class="w-700">Order Summary</div>
-                    <div class="text-grey title-6">Price</div>
-                    <div class="text-grey title-6">Discount price</div>
-                    <div class="text-grey title-6">Total Price</div>
-                    <div class="btn-2">Shop now</div>
+                    <div class="flex justify-content-between align-items-center">
+                        <a href="{{ route('card') }}">
+                            <div class="title-6">Card</div>
+                        </a>
+                        <div id="cart-items-count" class="text-grey title-6">0 products</div>
+                    </div>
+                    <div id="cart-products" class="cart-products-list"></div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="wrapper">
-                    <input type="text" placeholder="210548">
-                    <div class="btn-1">Apply code</div>
+            <div class="col w-40">
+                <div class="wrapper bg-grey br">
+                    <div class="wrapper bg-grey br order-summary">
+                        <div class="flex justify-content-between">
+                            <div class="text-grey title-6">Price</div>
+                            <div id="cart-price" class="title-6">$0</div>
+                        </div>
+                        <div class="flex justify-content-between">
+                            <div class="text-grey title-6">Discount price</div>
+                            <div class="title-6">$0</div>
+                        </div>
+                        <div class="line"></div>
+                        <div class="flex justify-content-between">
+                            <div class="title-6 w-700"> Total Price</div>
+                            <div id="cart-total" class="title-6 w-700 text-red">$0</div>
+                        </div>
+                        <a href="{{ route('payment') }}" class="btn-2">Shop now</a>
+                    </div>
                 </div>
-
             </div>
-        </div>
     </section>
-
 </main>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        const container = document.getElementById('cart-products');
+        const priceElement = document.getElementById('cart-price');
+        const totalElement = document.getElementById('cart-total');
+        const cartCountElement = document.getElementById('cart-count');
+        const itemsCountElement = document.getElementById('cart-items-count');
+        let total = 0;
+        let totalQuantity = 0;
+        if (cart.length === 0) {
+            container.innerHTML = `
+            <div class="empty-cart">
+                <div class="title-4">Your cart is empty</div>
+                <p class="text-grey title-6">Add products to your cart.</p>
+                <a href="{{ route('products') }}" class="btn-2"> Continue Shopping</a>
+            </div> `;
+            priceElement.textContent = '$0';
+            totalElement.textContent = '$0';
+            cartCountElement.textContent = '0';
+            itemsCountElement.textContent = '0 products';
+            return;
+        }
+        cart.forEach(function(product) {
+            product.quantity = Number(product.quantity) || 1;
+            const productTotal = Number(product.price) * product.quantity;
+            total += productTotal;
+            totalQuantity += product.quantity;
+            const card = document.createElement('div');
+            card.className = 'cart-product';
+            card.innerHTML = `
+            <div class="cart-product-image">
+                <img src="${product.image}" alt="${product.title}">
+            </div>
+            <div class="cart-product-info">
+                <div>
+                    <div class="title-6 w-700">
+                        ${product.title}
+                    </div>
+                    <div class="text-grey title-6">
+                        $${product.price}
+                    </div>
+                </div>
+                <div class="quantity">
+                    <button type="button" class="cart-minus" data-id="${product.id}">-</button>
+                    <span class="quantity-number">${product.quantity}</span>
+                    <button type="button" class="cart-plus" data-id="${product.id}">+</button>
+                </div>
+                <div class="title-6 w-700">
+                    $${productTotal.toFixed(2)}
+                </div>
+                <button type="button" class="cart-remove" data-id="${product.id}">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </div>`;
+            container.appendChild(card);
+        });
+        priceElement.textContent = '$' + total.toFixed(2);
+        totalElement.textContent = '$' + total.toFixed(2);
+        cartCountElement.textContent = totalQuantity;
+        itemsCountElement.textContent =
+            totalQuantity +
+            (totalQuantity === 1 ?
+                ' product' :
+                ' products'
+            );
+        document.querySelectorAll('.cart-plus').forEach(function(button) {
+            button.addEventListener('click', function() {
+                const id = this.dataset.id;
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const product =
+                    cart.find(function(item) {
+                        return item.id == id;
+                    });
+                if (product) {
+                    product.quantity =
+                        (Number(product.quantity) || 1) + 1;
+                    localStorage.setItem(
+                        'cart',
+                        JSON.stringify(cart)
+                    );
+                    location.reload();
+                }
+            });
+        });
+        document.querySelectorAll('.cart-minus').forEach(function(button) {
+            button.addEventListener('click', function() {
+                const id = this.dataset.id;
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const index = cart.findIndex(function(item) {
+                    return item.id == id;
+                });
+                if (index !== -1) {
+                    if (
+                        Number(cart[index].quantity) > 1
+                    ) {
+                        cart[index].quantity--;
+                    } else {
+                        cart.splice(index, 1);
+                    }
+                    localStorage.setItem(
+                        'cart',
+                        JSON.stringify(cart)
+                    );
+                    location.reload();
+                }
+            });
+        });
+        document.querySelectorAll('.cart-remove').forEach(function(button) {
+            button.addEventListener('click', function() {
+                const id = this.dataset.id;
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cart = cart.filter(function(product) {
+                    return product.id != id;
+                });
+                localStorage.setItem('cart', JSON.stringify(cart));
+                location.reload();
+            });
+        });
+    });
+</script>
 @endsection

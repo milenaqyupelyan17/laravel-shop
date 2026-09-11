@@ -42,7 +42,6 @@
                         <div class="text-grey">Back to the website</div>
                     </a>
                 </div>
-
             </div>
         </div>
     </section>
@@ -57,23 +56,17 @@
             <div class="dashboard-card">
                 <div class="dashboard-card-title">
                     <i class="fa-regular fa-user"></i>
-                    <span class="title-6 w-700">
-                        Personal information
-                    </span>
+                    <span class="title-6 w-700">Personal information</span>
                 </div>
                 <div class="dashboard-info">
                     <div>
-                        <span class="info-label">
-                            Name
-                        </span>
+                        <span class="info-label">Name</span>
                         <span class="info-value">
                             {{ auth()->user()->name }}
                         </span>
                     </div>
                     <div>
-                        <span class="info-label">
-                            Email
-                        </span>
+                        <span class="info-label">Email</span>
                         <span class="info-value">
                             {{ auth()->user()->email }}
                         </span>

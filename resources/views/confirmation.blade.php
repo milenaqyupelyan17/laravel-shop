@@ -15,10 +15,11 @@
                     <i class="fa-regular fa-user"></i>
                     <div class="title-6">Sign in</div>
                     <i class="fa-regular fa-heart"></i>
-                    <div class="title-6">Favorites</div>
+                    <a href="{{ route('favorites') }}">
+                        <div class="title-6">Favorites</div>
+                    </a>
                     <i class="fa-solid fa-bag-shopping"></i>
-                    <div class="title-6">Card</div>
-                    <span class="cart">3</span>
+                    <a href="{{ route('card') }}" id="card-header-count" class="title-6 w-700 text-grey"> CARD(0) </a>
                 </div>
             </div>
         </div>
@@ -34,9 +35,10 @@
         <div class="row">
             <div class="col">
                 <div class="wrapper flex gap-20">
-                    <div class="title-6 w-700 text-grey">CARD(3)</div>
-                    <div class="title-6 w-700 text-grey">SHIPPING & PAYMENT </div>
-                    <div class="title-6 w-700">PRODUCT CONFIRMATION</div>
+                    <a href="{{ route('card') }}" id="card-header-count" class="title-6 w-700 text-grey">CARD</a>
+                    <a href="{{ route('payment') }}"
+                        class="title-6 w-700 text-grey"> SHIPPING & PAYMENT </a>
+                    <a href="{{ route('confirmation') }}"class="title-6 text-grey w-700"> PRODUCT CONFIRMATION</a>
                 </div>
             </div>
         </div>
@@ -59,7 +61,6 @@
                     <input type="text" placeholder="210548">
                     <div class="btn-1">Apply code</div>
                 </div>
-
             </div>
         </div>
     </section>
