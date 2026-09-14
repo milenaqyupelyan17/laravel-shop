@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\NewsletterController;
 
 Route::get('/', [ProductController::class, 'home'])
     ->name('home');
@@ -60,7 +61,7 @@ Route::get('/forgot-password', function () {
 
 Route::get('/payment', function () {
     return view('payment');
-})->name('payment');
+})->middleware('auth')->name('payment');
 
 Route::get('/confirmation', function () {
     return view('confirmation');
@@ -73,3 +74,21 @@ Route::get('/dashboard', function () {
 Route::get('/favorites', function () {
     return view('favorites');
 })->name('favorites');
+
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->name('logout');
+
+Route::get('/settings', function () {
+    return view('settings');
+})->middleware('auth')->name('settings');
+
+Route::put('/settings', [AuthController::class, 'updateSettings'])
+    ->middleware('auth')
+    ->name('settings.update');
+
+Route::post('/newsletter', [NewsletterController::class, 'store'])
+    ->name('newsletter.store');
+
+Route::get('/carts', function () {
+    return view('carts');
+})->name('carts');

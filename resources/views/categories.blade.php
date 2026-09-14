@@ -107,7 +107,7 @@
             </div>
         </div>
         <div class="title-6 text-grey">
-            {{ $products->count() }} products found
+            ///
         </div>
     </div>
     <div class="col">

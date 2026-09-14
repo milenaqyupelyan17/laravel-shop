@@ -3,41 +3,6 @@
 @section('content')
 
 <main>
-    <section class="bg-black w-100">
-        <div class="row justify-content-between align-items-center">
-            <div class="col">
-                <div class="wrapper flex align-items-center gap-5">
-                    <i class="fa-solid fa-table-list"></i>
-                    <a href="{{ route('categories') }}">
-                        <div class="title-5 w-700">Categories</div>
-                    </a>
-                </div>
-            </div>
-            <div class="col flex">
-                <div class="wrapper flex align-items-center gap-20">
-                    <div class="flex gap-5 align-items-center">
-                        <i class="fa-regular fa-user"></i>
-                        <a href="{{ route('login') }}">
-                            <div class="title-6">Sign in </div>
-                        </a>
-                    </div>
-                    <div class="flex gap-5 align-items-center">
-                        <i class="fa-solid fa-heart"></i>
-                        <a href="{{ route('favorites') }}">
-                            <div class="title-6"> Favorites</div>
-                        </a>
-                    </div>
-                    <div class="flex gap-5 align-items-center">
-                        <i class="fa-solid fa-bag-shopping"></i>
-                        <a href="{{ route('card') }}">
-                            <div class="title-6">Card </div>
-                        </a>
-                        <span id="cart-count" class="cart title-7">0</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
     <section id="favorites">
         <div class="row">
             <div class="col w-100">
@@ -68,7 +33,8 @@
 </main>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        const favoritesKey = 'favorites_user_{{ auth()->id() }}';
+        let favorites = JSON.parse(localStorage.getItem(favoritesKey)) || [];
         const container = document.getElementById('favorites-products');
         const emptyMessage = document.getElementById('empty-favorites');
         const count = document.getElementById('favorites-count');
@@ -100,17 +66,6 @@
                     <div class="price text-red title-6 w-700">
                         $${product.price}
                     </div>
-                    <div class="quantity flex align-items-center gap-5">
-                        <button type="button" class="favorite-minus"  data-id="${product.id}">−</button>
-                        <span class="favorite-quantity">
-                            ${product.quantity}
-                        </span>
-                        <button type="button" class="favorite-plus" data-id="${product.id}">+</button>
-                    </div>
-                    <button type="button" class="add-to-cart" data-id="${product.id}">
-                        <i class="fa-solid fa-bag-shopping"></i>
-                        Add to Cart
-                    </button>
                     <button type="button" class="remove-favorite" data-id="${product.id}">
                         <i class="fa-solid fa-heart"></i>
                     </button>
@@ -130,7 +85,7 @@
                 if (product) {
                     product.quantity = (product.quantity || 1) + 1;
                     localStorage.setItem(
-                        'favorites',
+                        favoritesKey,
                         JSON.stringify(favorites)
                     );
                     location.reload();
@@ -222,14 +177,11 @@
 
         let totalQuantity = cart.reduce(
             function(total, product) {
-                return total +
-                    (product.quantity || 1);
+                return total + (product.quantity || 1);
             },
             0
         );
-
-        const cartCount =
-            document.getElementById('cart-count');
+        const cartCount = document.getElementById('cart-count');
         if (cartCount) {
             cartCount.textContent = totalQuantity;
         }

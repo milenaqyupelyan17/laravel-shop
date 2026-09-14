@@ -10,13 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     hearts.forEach((heart) => {
-
         heart.addEventListener('click', () => {
-
             cart.push(1);
-
             localStorage.setItem('cart', JSON.stringify(cart));
-
             updateCartCount();
 
         });

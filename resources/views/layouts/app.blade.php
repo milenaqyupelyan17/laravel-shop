@@ -19,6 +19,20 @@
     @include('footer')
 
     <script src="{{ asset('js/main.js') }}"></script>
+    <script>
+        function updateCartCount() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let totalQuantity = 0;
+            cart.forEach(function(product) {
+                totalQuantity += Number(product.quantity) || 1;
+            });
+            let cartCount = document.getElementById('cart-count');
+            if (cartCount) {
+                cartCount.textContent = totalQuantity;
+            }
+        }
+        updateCartCount();
+    </script>
 </body>
 
 </html>

@@ -3,46 +3,15 @@
 @section('content')
 
 <main>
-    <section class="bg-black w-100">
-        <div class="row justify-content-between align-items-center">
-            <div class="col">
-                <div class="wrapper flex align-items-center gap-5">
-                    <i class="fa-solid fa-table-list"></i>
-                    <a href="{{ route('categories') }}">
-                        <div class="title-5 w-700">Categories</div>
-                    </a>
-                </div>
-            </div>
-            <div class="col flex">
-                <div class="wrapper flex align-items-center gap-20">
-                    <div class="flex gap-5 align-items-center">
-                        <i class="fa-regular fa-user"></i>
-                        <a href="{{ route('login') }}">
-                            <div class="title-6"> Sign in</div>
-                        </a>
-                    </div>
-                    <div class="flex gap-5 align-items-center">
-                        <i class="fa-solid fa-heart"></i>
-                        <a href="{{ route('favorites') }}">
-                            <div class="title-6">Favorites</div>
-                        </a>
-                    </div>
-                    <div class="flex gap-5 align-items-center">
-                        <i class="fa-solid fa-bag-shopping"></i>
-                        <a href="{{ route('card') }}">
-                            <div class="title-6">Card</div>
-                        </a>
-                        <span id="cart-count" class="cart title-7">0</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
     <section>
         <div class="row">
             <div class="col">
                 <div class="wrapper">
-                    <div class="title-6">Homepage<i class="fa-solid fa-chevron-right"></i>Card</div>
+                    <div class="title-6 flex gap-5 align-items-center">
+                        <a href="{{ route('home') }}">Homepage</a>
+                        <i class="fa-solid fa-chevron-right"></i>
+                        <span>Card</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -52,9 +21,7 @@
             <div class="col w-60">
                 <div class="wrapper">
                     <div class="flex justify-content-between align-items-center">
-                        <a href="{{ route('card') }}">
-                            <div class="title-6">Card</div>
-                        </a>
+                        <a href="{{ route('card') }}"><div class="title-6">Card</div></a>
                         <div id="cart-items-count" class="text-grey title-6">0 products</div>
                     </div>
                     <div id="cart-products" class="cart-products-list"></div>
@@ -76,7 +43,7 @@
                             <div class="title-6 w-700"> Total Price</div>
                             <div id="cart-total" class="title-6 w-700 text-red">$0</div>
                         </div>
-                        <a href="{{ route('payment') }}" class="btn-2">Shop now</a>
+                        <a href="{{ route('payment') }}" class="btn-1">Shop now</a>
                     </div>
                 </div>
             </div>
@@ -169,20 +136,15 @@
             });
         });
         document.querySelectorAll('.cart-minus').forEach(function(button) {
+
             button.addEventListener('click', function() {
                 const id = this.dataset.id;
                 let cart = JSON.parse(localStorage.getItem('cart')) || [];
-                const index = cart.findIndex(function(item) {
+                const product = cart.find(function(item) {
                     return item.id == id;
                 });
-                if (index !== -1) {
-                    if (
-                        Number(cart[index].quantity) > 1
-                    ) {
-                        cart[index].quantity--;
-                    } else {
-                        cart.splice(index, 1);
-                    }
+                if (product && Number(product.quantity) > 1) {
+                    product.quantity--;
                     localStorage.setItem(
                         'cart',
                         JSON.stringify(cart)

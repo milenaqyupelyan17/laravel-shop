@@ -17,17 +17,29 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </form>
             </div>
-            <nav class="nav flex gap-20">
-                <a href="{{ route('about') }}">
-                    <div class="text-grey">About us</div>
-                </a>
-                <a href="{{ route('contact') }}">
-                    <div class="text-grey">Contact us</div>
-                </a>
-                <a href="{{ route('help') }}">
-                    <div class="text-grey">Help & support</div>
-                </a>
-            </nav>
+            <div class="col flex">
+                <div class="wrapper flex align-items-center gap-20">
+                    <div class="flex gap-5 align-items-center">
+                        <i class="fa-regular fa-user"></i>
+                        <a href="{{ route('login') }}">
+                            <div class="title-6">Sign in</div>
+                        </a>
+                    </div>
+                    <div class="flex gap-5 align-items-center">
+                        <i class="fa-regular fa-heart add-to-cart"></i>
+                        <a href="{{ route('favorites') }}">
+                            <div class="title-6">Favorites</div>
+                        </a>
+                    </div>
+                    <div class="flex gap-5 align-items-center">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <a href="{{ route('card') }}">
+                            <div class="title-6">Card</div>
+                        </a>
+                        <span id="cart-count" class="cart title-7">0</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </header>

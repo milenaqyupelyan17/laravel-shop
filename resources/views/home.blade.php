@@ -2,49 +2,14 @@
 
 @section('content')
 <main>
-    <section class="banner bg-black w-100">
-        <div class=" row justify-content-between align-items-center">
-            <div class="col">
-                <div class="wrapper flex align-items-center gap-5">
-                    <i class="fa-solid fa-table-list"></i>
-                    <a href="{{ route('categories') }}">
-                        <div class="title-5 w-700">Categories</div>
-                    </a>
-                </div>
-            </div>
-            <div class="col flex">
-                <div class="wrapper flex align-items-center gap-20">
-                    <div class="flex gap-5 align-items-center">
-                        <i class="fa-regular fa-user"></i>
-                        <a href="{{ route('login') }}">
-                            <div class="title-6">Sign in</div>
-                        </a>
-                    </div>
-                    <div class="flex gap-5 align-items-center">
-                        <i class="fa-regular fa-heart add-to-cart"></i>
-                        <a href="{{ route('favorites') }}">
-                            <div class="title-6">Favorites</div>
-                        </a>
-                    </div>
-                    <div class="flex gap-5 align-items-center">
-                        <i class="fa-solid fa-bag-shopping"></i>
-                        <a href="{{ route('card') }}">
-                            <div class="title-6">Card</div>
-                        </a>
-                        <span id="cart-count" class="cart title-7">0</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
     <section id="categories">
         <div class="row">
             <div class="col w-100">
                 <div class="wrapper flex justify-content-between">
-                    <a href="{{ route('categories') }}">
+                    <a href="{{ route('products') }}">
                         <div class="text-orange title-6">Woman</div>
                     </a>
-                    <a href="{{ route('categories') }}">
+                    <a href="{{ route('products') }}">
                         <div class="text-grey title-6">Best seller</div>
                     </a>
                 </div>
@@ -52,7 +17,7 @@
         </div>
     </section>
     <section id="hero">
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col w-50">
                 <div class="wrapper flex justify-content-center">
                     <img src="{{ asset('images/hero-left.jpg') }}" alt="Summer collection">
@@ -91,13 +56,15 @@
         </div>
     </section>
     <section id="products">
-        <div class="row gap-5">
+        <div class="row justify-content-between">
             @foreach($mustHaveProducts as $product)
             <div class="col">
                 <div class="wrapper product-card">
-                    <img src="{{ asset($product->image) }}"
-                        alt="{{ $product->title }}">
-                    <div class="product-info">
+                    <img
+                        src="{{ asset($product->image) }}"
+                        alt="{{ $product->title }}"
+                        style="width: 100%; height: 500px; object-fit: cover;">
+                    <div class="product-info bg-black">
                         <div>
                             <div class="w-700">
                                 {{ $product->title }}
