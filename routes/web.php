@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NewsletterController;
 
+
 Route::get('/', [ProductController::class, 'home'])
     ->name('home');
 

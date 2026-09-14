@@ -1,17 +1,16 @@
 @extends('layouts.app')
 @section('content')
 <main class="contact-page">
-
     <section class="contact-hero">
         <div class="wrapper w-100 text-center">
             <div class="title-1">Contact Us</div>
-            <p class="text-center w-50 text-grey">
+            <p class="text-grey text-center w-50" style="margin: 0 auto;">
                 Have a question or need help? We would love to hear from you.
                 Contact the Luminae team and we will get back to you as soon as possible.
             </p>
         </div>
     </section>
-    <section class="contact-content">
+    <section class="contact-content flex justify-content-center">
         <div class="row gap-20">
             <div class="col w-60">
                 <div class="wrapper contact-info">

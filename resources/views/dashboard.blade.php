@@ -54,29 +54,41 @@
     <div class="row w-100 align-items-start">
         <section id="account" class="w-20" style="min-height: 100vh;">
             <div class="wrapper bg-grey" style="min-height: 100vh;">
-                <div class="flex flex-column gap-20">
+                <div class="flex flex-column gap-40" style="padding: 30px;">
                     <div class="title-5 w-700">
                         My Account
                     </div>
-                    <a href="{{ route('dashboard') }}" class="title-6">
-                        <i class="fa-regular fa-user"></i>
-                        Account
-                    </a>
-                    <a href="settings" class="title-6">
-                        <i class="fa-solid fa-gear"></i>
-                        Settings
-                    </a>
-                    <a href="{{ route('card') }}" class="title-6">
-                        <i class="fa-regular fa-credit-card"></i>
-                        My Cards
-                    </a>
-                    <a href="{{ route('favorites') }}" class="title-6">
-                        <i class="fa-regular fa-heart"></i>
-                        Favorites
-                    </a>
+                    <form action="{{ route('dashboard') }}" method="GET">
+                        <button type="submit"
+                            class="title-6 menu-button {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                            <i class="fa-regular fa-user"></i>
+                            Account
+                        </button>
+                    </form>
+                    <form action="{{ url('settings') }}" method="GET">
+                        <button type="submit"
+                            class="title-6 menu-button {{ request()->is('settings') ? 'active' : '' }}">
+                            <i class="fa-solid fa-gear"></i>
+                            Settings
+                        </button>
+                    </form>
+                    <form action="{{ route('carts') }}" method="GET">
+                        <button type="submit"
+                            class="title-6 menu-button {{ request()->routeIs('carts') ? 'active' : '' }}">
+                            <i class="fa-regular fa-credit-card"></i>
+                            My Cards
+                        </button>
+                    </form>
+                    <form action="{{ route('favorites') }}" method="GET">
+                        <button type="submit"
+                            class="title-6 menu-button {{ request()->routeIs('favorites') ? 'active' : '' }}">
+                            <i class="fa-regular fa-heart"></i>
+                            Favorites
+                        </button>
+                    </form>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button type="submit" class="title-6">
+                        <button type="submit" class="title-6 menu-button {{ request()->routeIs('favorites') ? 'active' : '' }}">
                             <i class="fa-solid fa-right-from-bracket"></i>
                             Logout
                         </button>

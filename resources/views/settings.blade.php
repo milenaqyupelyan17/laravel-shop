@@ -3,35 +3,6 @@
 @section('content')
 
 <main>
-    <section class="bg-black w-100">
-        <div class="row justify-content-between align-items-center">
-            <div class="col">
-                <div class="wrapper flex align-items-center gap-5">
-                    <i class="fa-solid fa-table-list"></i>
-                    <a href="{{ route('categories') }}">
-                        <div class="title-5 w-700">Categories</div>
-                    </a>
-                </div>
-            </div>
-            <div class="col flex">
-                <div class="wrapper flex align-items-center gap-20">
-                    <a href="{{ route('dashboard') }}" class="flex gap-5 align-items-center">
-                        <i class="fa-regular fa-user"></i>
-                        <div class="title-6">Account</div>
-                    </a>
-                    <a href="{{ route('favorites') }}" class="flex gap-5 align-items-center">
-                        <i class="fa-regular fa-heart"></i>
-                        <div class="title-6">Favorites</div>
-                    </a>
-                    <a href="{{ route('card') }}" class="flex gap-5 align-items-center">
-                        <i class="fa-solid fa-bag-shopping"></i>
-                        <div class="title-6">Card</div>
-                        <span id="cart-count" class="cart title-7">0</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
     <section>
         <div class="row">
             <div class="col">
@@ -49,40 +20,44 @@
             </div>
         </div>
     </section>
-    <div class="row w-100 align-items-start">
-        <section id="account" class="w-20">
-            <a href="{{ route('home') }}">
-                <img class="logoImage" src="{{ asset('images/logo.png') }}" alt="Luminae">
-            </a>
-            <a href="{{ route('home') }}">
-                <div class="title-2 w-700">Luminae</div>
-            </a>
-            <div class="wrapper bg-grey"
-                style="min-height: 100vh;">
-                <div class="flex flex-column gap-20">
-                    <div class="title-5 w-700">My Account</div>
-                    <a href="{{ route('dashboard') }}"
-                        class="title-6">
-                        <i class="fa-regular fa-user"></i>
-                        Account
-                    </a>
-                    <a href="{{ route('settings') }}"
-                        class="title-6">
-                        <i class="fa-solid fa-gear"></i>
-                        Settings
-                    </a>
-                    <a href="carts"
-                        class="title-6">
-                        <i class="fa-regular fa-credit-card"></i>
-                        My Cards
-                    </a>
-                    <a href="{{ route('favorites') }}" class="title-6">
-                        <i class="fa-regular fa-heart"></i> Favorites</a>
-                    <form action="{{ route('logout') }}"
-                        method="POST">
-                        @csrf
+    <div class="row gap-40 align-items-start">
+        <section id="account" class="w-20" style="min-height: 100vh;">
+            <div class="wrapper bg-grey" style="min-height: 100vh;">
+                <div class="flex flex-column gap-40" style="padding: 30px;">
+                    <div class="title-5 w-700">
+                        My Account
+                    </div>
+                    <form action="{{ route('dashboard') }}" method="GET">
                         <button type="submit"
-                            class="title-6">
+                            class="title-6 menu-button {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                            <i class="fa-regular fa-user"></i>
+                            Account
+                        </button>
+                    </form>
+                    <form action="{{ url('settings') }}" method="GET">
+                        <button type="submit"
+                            class="title-6 menu-button {{ request()->is('settings') ? 'active' : '' }}">
+                            <i class="fa-solid fa-gear"></i>
+                            Settings
+                        </button>
+                    </form>
+                    <form action="{{ route('carts') }}" method="GET">
+                        <button type="submit"
+                            class="title-6 menu-button {{ request()->routeIs('carts') ? 'active' : '' }}">
+                            <i class="fa-regular fa-credit-card"></i>
+                            My Cards
+                        </button>
+                    </form>
+                    <form action="{{ route('favorites') }}" method="GET">
+                        <button type="submit"
+                            class="title-6 menu-button {{ request()->routeIs('favorites') ? 'active' : '' }}">
+                            <i class="fa-regular fa-heart"></i>
+                            Favorites
+                        </button>
+                    </form>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="title-6 menu-button {{ request()->routeIs('favorites') ? 'active' : '' }}">
                             <i class="fa-solid fa-right-from-bracket"></i>
                             Logout
                         </button>
@@ -91,7 +66,7 @@
             </div>
         </section>
         <section id="settings" class="w-80">
-            <div class="wrapper">
+            <div class="wrapper flex flex-column gap-40">
                 <div class="title-3 w-700">Settings</div>
                 <p class="text-grey title-6">
                     Manage your account information and password.
@@ -116,7 +91,7 @@
                         <div class="title-5 w-700">Personal Information</div>
                         <div class="flex flex-column gap-5">
                             <div class="title-6">Full Name</div>
-                            <input type="text" name="name" value="{{ auth()->user()->name }}" form="settings-form" placeholder="Full name" required>
+                            <input type="text" name="name" value="{{ auth()->user()->name }}" form="settings-form" placeholder="Full name" required style="padding: 15px;">
                         </div>
                         <div class="flex flex-column gap-5">
                             <div class="title-6">Email</div>
@@ -129,16 +104,16 @@
                         <div class="title-5 w-700">Change Password</div>
                         <div class="flex flex-column gap-5">
                             <div class="title-6">Current Password</div>
-                            <input type="password" name="current_password" form="settings-form" placeholder="Current password">
+                            <input type="password" name="current_password" form="settings-form" placeholder="Current password" style="padding: 15px;">
                         </div>
                         <div class="flex flex-column gap-5">
                             <div class="title-6">New Password</div>
-                            <input type="password" name="password" form="settings-form" placeholder="New password">
+                            <input type="password" name="password" form="settings-form" placeholder="New password" style="padding: 15px;">
                         </div>
                         <div class="flex flex-column gap-5">
                             <div class="title-6">Confirm New Password</div>
                             <input type="password" name="password_confirmation" form="settings-form"
-                                placeholder="Confirm new password">
+                                placeholder="Confirm new password" style="padding: 15px;">
                         </div>
                     </div>
                 </div>

@@ -16,26 +16,28 @@
                     method="GET"
                     class="wrapper search-box flex align-items-center"
                     id="search-form">
-                    <input
-                        class="inpSearch"
+                    <input class="inpSearch"
                         type="text"
                         name="search"
                         value="{{ request('search') }}"
                         placeholder="Search Products">
-                    <i
-                        class="fa-solid fa-magnifying-glass"
-                        id="search-button"
-                        style="cursor: pointer;">
+                    <i class="fa-solid fa-magnifying-glass" id="search-button" style="cursor: pointer;">
                     </i>
                 </form>
             </div>
             <div class="col flex">
                 <div class="wrapper flex align-items-center gap-20">
                     <div class="flex gap-5 align-items-center">
+                        @auth
+                        <a href="{{ route('dashboard') }}">
+                            <div class="title-6">Dashboard</div>
+                        </a>
+                        @else
                         <i class="fa-regular fa-user"></i>
                         <a href="{{ route('login') }}">
                             <div class="title-6">Sign in</div>
                         </a>
+                        @endauth
                     </div>
                     <div class="flex gap-5 align-items-center">
                         <i class="fa-regular fa-heart add-to-cart"></i>

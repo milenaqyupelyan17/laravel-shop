@@ -16,8 +16,16 @@
 
     @yield('content')
 
-    @include('footer')
+    @if(
+    request()->routeIs('home') ||
+    request()->routeIs('products') ||
+    request()->routeIs('about') ||
+    request()->routeIs('contact')
+    )
+    @include('letter')
+    @endif
 
+    @include('footer')
     <script src="{{ asset('js/main.js') }}"></script>
     <script>
         function updateCartCount() {
