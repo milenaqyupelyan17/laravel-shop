@@ -7,17 +7,11 @@
                     <div class="text-white">
                         Register your email not to miss the latest offers + Free delivery
                     </div>
-                    <form action="{{ route('newsletter.store') }}"
-                        method="POST" class="flex gap-10">
+                    <form action="{{ route('newsletter.store') }} "
+                        method="POST" class="flex gap-20 text-center">
                         @csrf
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="Enter your email"
-                            required>
-                        <button type="submit" class="btn-2 text-white">
-                            Send Email
-                        </button>
+                        <input type="email" name="email" placeholder="Enter your email" required>
+                        <button type="submit" class="btn-2 text-white">Send Email</button>
                     </form>
                     @if(session('success'))
                     <div class="text-white">
@@ -41,7 +35,7 @@
                 </a> <a href="{{ route('contact') }}" class="title-6 text-grey"> Our Store </a>
             </div>
             <div class="col flex flex-column gap-20">
-                <div class="title-6 w-700">Career Opportunities</div> <a href="{{ route('contact') }}" class="title-6 text-grey"> Selling Programs </a> <a href="{{ route('contact') }}" class="title-6 text-grey"> Advertise </a> <a href="{{ route('contact') }}" class="title-6 text-grey"> Cooperation </a>
+                <div class="title-6 w-700">Career Opportunities</div> <a href="{{ route('home') }}" class="title-6 text-grey"> Selling Programs </a> <a href="{{ route('home') }}" class="title-6 text-grey"> Advertise </a> <a href="{{ route('home') }}" class="title-6 text-grey"> Cooperation </a>
             </div>
             <div class="col flex flex-column gap-20">
                 <div class="title-6 w-700">Help</div> <a href="{{ route('contact') }}" class="title-6 text-grey"> Contact Us </a>

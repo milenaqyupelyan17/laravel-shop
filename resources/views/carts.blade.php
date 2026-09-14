@@ -8,65 +8,56 @@
             <div class="col">
                 <div class="wrapper">
                     <div class="title-6 flex gap-5 align-items-center">
-                        <a href="{{ route('home') }}">
-                            Homepage
-                        </a>
+                        <a href="{{ route('home') }}">Homepage</a>
                         <i class="fa-solid fa-chevron-right"></i>
-                        <span>
-                            Cart
-                        </span>
+                        <span>Cart</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <section id="cart-table">
-        <div class="wrapper">
-            <div class="title-3 w-700">
-                Shopping Cart
-            </div>
-            <div style="overflow-x:auto;">
-                <table style="width:100%; border-collapse:collapse;">
-                    <thead>
-                        <tr>
-                            <th class="title-6">
-                                Product
-                            </th>
-                            <th class="title-6">
-                                Quantity
-                            </th>
-                            <th class="title-6">
-                                Color
-                            </th>
-                            <th class="title-6">
-                                Size
-                            </th>
-                            <th class="title-6">
-                                Price
-                            </th>
-                            <th class="title-6">
-                                Orders
-                            </th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="cart-table-body">
-                    </tbody>
-                </table>
-            </div>
-            <div id="empty-cart" class="text-center" style="display:none; padding:40px;">
-                <div class="title-4">Your cart is empty</div>
-                <p class="text-grey title-6">Add some products to your cart.</p>
-                <a href="{{ route('products') }}" class="btn-1">
-                    Continue Shopping
-                </a>
-            </div>
-            <div class="flex justify-content-end" style="margin-top:30px;">
-                <div class="title-4 w-700">
-                    Total:
-                    <span id="cart-total">$0</span>
+        <div class="row">
+            <div class="col">
+                <div class="wrapper">
+                    <div class="title-3 w-700">Shopping Cart</div>
+                    <div class="wrapper bg-grey br">
+                        <div style="overflow-x:auto;">
+                            <table style="width:100%; border-collapse:collapse;">
+                                <thead>
+                                    <tr>
+                                        <th class="title-6 text-left">Product</th>
+                                        <th class="title-6">Quantity</th>
+                                        <th class="title-6">Color</th>
+                                        <th class="title-6">Size</th>
+                                        <th class="title-6">Price</th>
+                                        <th class="title-6">Orders</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cart-table-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div
+                        id="empty-cart" class="wrapper text-center flex flex-column align-items-center"
+                        style="display:none;">
+                        <div class="flex flex-column gap-20">
+                            <div class="title-4">Your cart is empty</div>
+                            <p class="text-grey title-6">Add some products to your cart.</p>
+                            <a href="{{ route('products') }}" class="btn-1">Continue Shopping</a>
+                        </div>
+                    </div>
+                    <div class="flex justify-content-end">
+                        <div class="wrapper br">
+                            <div class="title-5 w-700" style=" padding: 20px;">Total:
+                                <span id="cart-total" class="text-red">$0</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 </main>

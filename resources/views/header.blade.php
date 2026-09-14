@@ -12,9 +12,21 @@
                 </div>
             </div>
             <div class="col">
-                <form action="{{ route('products') }}" method="GET" class="wrapper search-box flex align-items-center">
-                    <input class="inpSearch" type="text" name="search" value="{{ request('search') }}" placeholder="Search Products">
-                    <i class="fa-solid fa-magnifying-glass"></i>
+                <form action="{{ route('products') }}"
+                    method="GET"
+                    class="wrapper search-box flex align-items-center"
+                    id="search-form">
+                    <input
+                        class="inpSearch"
+                        type="text"
+                        name="search"
+                        value="{{ request('search') }}"
+                        placeholder="Search Products">
+                    <i
+                        class="fa-solid fa-magnifying-glass"
+                        id="search-button"
+                        style="cursor: pointer;">
+                    </i>
                 </form>
             </div>
             <div class="col flex">
@@ -43,3 +55,8 @@
         </div>
     </section>
 </header>
+<script>
+    document.getElementById('search-button').addEventListener('click', function() {
+        document.getElementById('search-form').submit();
+    });
+</script>

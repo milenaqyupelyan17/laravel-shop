@@ -18,7 +18,7 @@
             </div>
         </div>
     </section>
-    <section id="products">
+    <section id="products-blade">
         <div class="row gap-20 align-items-start">
             <aside class="col w-20">
                 <div class="wrapper bg-grey br">
@@ -96,7 +96,7 @@
                                 Apply Filter
                             </button>
                             <a href="{{ route('products') }}"
-                                class="btn-2 text-center">
+                                class="btn-1 text-center">
                                 Clear Filter
                             </a>
                         </form>

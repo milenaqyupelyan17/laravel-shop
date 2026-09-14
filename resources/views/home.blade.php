@@ -22,11 +22,11 @@
                 <div class="wrapper flex justify-content-center">
                     <img src="{{ asset('images/hero-left.jpg') }}" alt="Summer collection">
                     <img src="{{ asset('images/hero-right.png') }}" alt="Blue Background">
-                    <div class="hero-content">
-                        <div class="title-2 w-700 text-white">KIMONOS, CAFTANS & PAREOS</div>
-                        <div class="title-3 w-500 text-white">Poolside glam included From $4.99</div>
+                    <div class="hero-content flex flex-column gap-20">
+                        <div class="title-2 w-700">KIMONOS, CAFTANS & PAREOS</div>
+                        <div class="title-3 w-500">Poolside glam included From $4.99</div>
                         <a href="{{ route('products') }}">
-                            <div class="btn-1 text-white">
+                            <div class="btn-1">
                                 <i class="fa-solid fa-cart-flatbed-suitcase"></i>
                                 SHOP NOW
                             </div>
@@ -166,38 +166,6 @@
             <div class="col">
                 <div class="wrapper">
                     <img src="{{ asset('images/iphone.png') }}">
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="banner-2">
-        <div class="row">
-            <div class="col bg-red">
-                <div class="wrapper-color">
-                    <div class="title-1 text-white">Never-Ending Summer</div>
-                    <div class="title-3 text-white">Throwback Shirts & all-day dressed</div>
-                    <a href="{{ route('products') }}">
-                        <div class="title-5 text-white">Explore all category</div>
-                    </a>
-                </div>
-            </div>
-            <div class="col">
-                <div class="wrapper">
-                    <img src="{{ asset('images/rectangle-1.png') }}">
-                </div>
-            </div>
-            <div class="col bg-green">
-                <div class="wrapper-color">
-                    <div class="title-1 text-white">The most famous sport brands</div>
-                    <div class="title-3 text-white">Get in gym essentials</div>
-                    <a href="{{ route('products') }}">
-                        <div class="title-5 text-white">Explore all category</div>
-                    </a>
-                </div>
-            </div>
-            <div class="col">
-                <div class="wrapper">
-                    <img src="{{ asset('images/rectangle-2.png') }}">
                 </div>
             </div>
         </div>

@@ -17,17 +17,19 @@
         </div>
     </section>
     <section id="cart">
-        <div class="row">
-            <div class="col w-60">
+        <div class="row" style="gap:20px">
+            <div class="col w-50">
                 <div class="wrapper">
                     <div class="flex justify-content-between align-items-center">
-                        <a href="{{ route('card') }}"><div class="title-6">Card</div></a>
+                        <a href="{{ route('card') }}">
+                            <div class="title-6">Card</div>
+                        </a>
                         <div id="cart-items-count" class="text-grey title-6">0 products</div>
                     </div>
                     <div id="cart-products" class="cart-products-list"></div>
                 </div>
             </div>
-            <div class="col w-40">
+            <div class="col w-50">
                 <div class="wrapper bg-grey br">
                     <div class="wrapper bg-grey br order-summary">
                         <div class="flex justify-content-between">

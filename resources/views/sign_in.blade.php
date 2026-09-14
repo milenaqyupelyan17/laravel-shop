@@ -25,9 +25,9 @@
                         <span>Remember me</span>
                     </label>
                 </div>
-                <button type="submit" class="btn-3">SIGN IN</button>
+                <button type="submit" class="btn-1 w-100">SIGN IN</button>
             </form>
-            <div class="signup-link">Don't have an account?<a href="{{ route('register') }}">Sign up</a></div>
+            <div class="signup-link flex gap-5">Don't have an account?<a href="{{ route('register') }}">Sign up</a></div>
         </section>
     </div>
 </main>

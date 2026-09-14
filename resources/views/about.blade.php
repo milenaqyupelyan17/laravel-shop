@@ -4,9 +4,11 @@
 
 <main class="about-page">
     <section class="about-hero">
-        <div class="wrapper w-100 text-center">
-            <div class="title-1">About Luminae</div>
-            <p class="text-grey w-30 text-center">
+        <div class="wrapper w-100 text-center flex flex-column align-items-center gap-20">
+            <div class="title-1">
+                About Luminae
+            </div>
+            <p class="text-grey">
                 Welcome to Luminae — a modern online shop created for those
                 who love fashion, comfort and timeless style.
             </p>
@@ -14,9 +16,11 @@
     </section>
     <section class="about-content">
         <div class="row align-items-center">
-            <div class="col flex">
-                <div class="wrapper logo">
-                    <img src="{{ asset('images/logo.png') }}" alt="Luminae">
+            <div class="col">
+                <div class="wrapper text-center">
+                    <img src="{{ asset('images/logo.png') }}"
+                        alt="Luminae"
+                        style="max-width: 220px;">
                 </div>
             </div>
             <div class="col">
@@ -46,7 +50,9 @@
                 <div class="col">
                     <div class="about-box">
                         <div class="title-5">Quality</div>
-                        <p class="text-grey">We focus on products that combine style and quality.</p>
+                        <p class="text-grey">
+                            We focus on products that combine style and quality.
+                        </p>
                     </div>
                 </div>
                 <div class="col">
@@ -58,21 +64,23 @@
                 <div class="col">
                     <div class="about-box">
                         <div class="title-5">Simple Shopping</div>
-                        <p class="text-grey">A clean and easy shopping experience from start to finish.</p>
+                        <p class="text-grey">
+                            A clean and easy shopping experience from start to finish.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <section class="about-bottom w-40 text-center">
-        <div class="wrapper flex flex-wrap gap-20">
+    <section class="about-bottom">
+        <div class="wrapper text-center flex flex-column align-items-center gap-20">
             <div class="title-4">Find Your Style With Luminae</div>
-            <p class="title-7">
+            <p class="text-grey">
                 Explore our collection and discover pieces made to become
                 part of your everyday style.
             </p>
-            <a href="{{ route('products') }}">
-                <div class="btn-1">SHOP NOW</div>
+            <a href="{{ route('products') }}" class="btn-1">
+                SHOP NOW
             </a>
         </div>
     </section>
