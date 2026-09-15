@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\OrderController;
 
 
 Route::get('/', [ProductController::class, 'home'])
@@ -62,11 +63,13 @@ Route::get('/forgot-password', function () {
 
 Route::get('/payment', function () {
     return view('payment');
-})->middleware('auth')->name('payment');
+})->name('payment');
 
-Route::get('/confirmation', function () {
-    return view('confirmation');
-})->name('confirmation');
+Route::post('/payment', [OrderController::class, 'store'])
+    ->name('payment.store');
+
+Route::get('/confirmation', [OrderController::class, 'confirmation'])
+    ->name('confirmation');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -88,5 +91,10 @@ Route::post('/newsletter', [NewsletterController::class, 'store'])
     ->name('newsletter.store');
 
 Route::get('/carts', function () {
-    return view('carts');
-})->name('carts');
+    $orders = auth()->user()
+        ->orders()
+        ->with('items.product')
+        ->latest()
+        ->get();
+    return view('carts', compact('orders'));
+})->middleware('auth')->name('carts');

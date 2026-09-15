@@ -51,39 +51,43 @@
         <section id="information" class="w-70">
             <div class="wrapper">
                 <div class="br">
-                    <div class="flex flex-column gap-20">
-                        <div class="title-4 w-700">Customer Information</div>
-                        <div class="title-6 w-700">Contact Information</div>
-                        <div class="flex flex-column gap-5">
-                            <div class="title-6">E-mail</div>
-                            <input type="email" name="email" value="{{ auth()->user()->email }}" placeholder="Email">
+                    <form action="{{ route('payment.store') }}" method="POST" id="payment-form">
+                        @csrf
+
+                        <div class="flex flex-column gap-20">
+                            <div class="title-4 w-700">Customer Information</div>
+                            <div class="title-6 w-700">Contact Information</div>
+                            <div class="flex flex-column gap-5">
+                                <div class="title-6">E-mail</div>
+                                <input type="email" name="email" value="{{ auth()->user()->email }}" placeholder="Email">
+                            </div>
+                            <div class="flex flex-column gap-5">
+                                <div class="title-6">Name</div>
+                                <input type="text" name="name" value="{{ auth()->user()->name }}" placeholder="Full name">
+                            </div>
+                            <div class="title-6 w-700"> Shipping Address
+                            </div>
+                            <div class="flex flex-column gap-5">
+                                <div class="title-6">Country</div>
+                                <input type="text" name="country" placeholder="Australia">
+                            </div>
+                            <div class="flex flex-column gap-5">
+                                <div class="title-6">State / Region</div>
+                                <input type="text" name="state" placeholder="Melbourne">
+                            </div>
+                            <div class="flex flex-column gap-5">
+                                <div class="title-6">Address</div>
+                                <input type="text" name="address" placeholder="10 Beach Street, Melbourne, 2281">
+                            </div>
+                            <div class="flex flex-column gap-5">
+                                <div class="title-6">Phone Number</div>
+                                <input type="text" name="phone" placeholder="(+374) 99 000 000">
+                            </div>
+                            <button type="submit" form="payment-form" class="btn-1">
+                                Continue to Payment
+                            </button>
                         </div>
-                        <div class="flex flex-column gap-5">
-                            <div class="title-6">Name</div>
-                            <input type="text" name="name" value="{{ auth()->user()->name }}" placeholder="Full name">
-                        </div>
-                        <div class="title-6 w-700"> Shipping Address
-                        </div>
-                        <div class="flex flex-column gap-5">
-                            <div class="title-6">Country</div>
-                            <input type="text" name="country" placeholder="Australia">
-                        </div>
-                        <div class="flex flex-column gap-5">
-                            <div class="title-6">State / Region</div>
-                            <input type="text" name="state" placeholder="Melbourne">
-                        </div>
-                        <div class="flex flex-column gap-5">
-                            <div class="title-6">Address</div>
-                            <input type="text" name="address" placeholder="10 Beach Street, Melbourne, 2281">
-                        </div>
-                        <div class="flex flex-column gap-5">
-                            <div class="title-6">Phone Number</div>
-                            <input type="text" name="phone" placeholder="(+374) 99 000 000">
-                        </div>
-                        <a href="{{ route('confirmation') }}" class="btn-1 text-center">
-                            Continue to Payment
-                        </a>
-                    </div>
+                    </form>
                 </div>
             </div>
         </section>
@@ -111,4 +115,26 @@
         </section>
     </div>
 </main>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const cartKey = 'cart_user_{{ auth()->id() }}';
+        const form = document.getElementById('payment-form');
+        form.addEventListener('submit', function(event) {
+            const cart = JSON.parse(
+                localStorage.getItem(cartKey)
+            ) || [];
+            if (cart.length === 0) {
+                event.preventDefault();
+                alert('Your cart is empty. Please add a product first.');
+                window.location.href = "{{ route('card') }}";
+                return;
+            }
+            const cartInput = document.createElement('input');
+            cartInput.type = 'hidden';
+            cartInput.name = 'cart';
+            cartInput.value = JSON.stringify(cart);
+            form.appendChild(cartInput);
+        });
+    });
+</script>
 @endsection

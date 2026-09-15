@@ -45,7 +45,11 @@
                             <div class="title-6 w-700"> Total Price</div>
                             <div id="cart-total" class="title-6 w-700 text-red">$0</div>
                         </div>
-                        <a href="{{ route('payment') }}" class="btn-1">Shop now</a>
+                        <a href="{{ route('payment') }}"
+                            class="btn-1"
+                            id="payment-button">
+                            Shop now
+                        </a>
                     </div>
                 </div>
             </div>
@@ -53,9 +57,7 @@
 </main>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-
         const cartKey = 'cart_user_{{ auth()->id() }}';
-
         let cart = JSON.parse(
             localStorage.getItem(cartKey)
         ) || [];
@@ -149,7 +151,6 @@
                     </div>
                 `;
                 container.appendChild(card);
-
             });
             priceElement.textContent = '$' + total.toFixed(2);
             totalElement.textContent = '$' + total.toFixed(2);
@@ -241,6 +242,16 @@
             });
         }
         updateCart();
+        const paymentButton = document.getElementById('payment-button');
+        paymentButton.addEventListener('click', function(event) {
+            let cart = JSON.parse(
+                localStorage.getItem(cartKey)
+            ) || [];
+            if (cart.length === 0) {
+                event.preventDefault();
+                alert('Your cart is empty. Please add a product first.');
+            }
+        });
     });
 </script>
 

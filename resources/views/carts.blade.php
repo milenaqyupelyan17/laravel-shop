@@ -78,7 +78,68 @@
                                     <th></th>
                                 </tr>
                             </thead>
-                            <tbody id="cart-table-body"></tbody>
+                            <tbody>
+                                @forelse($orders as $order)
+                                @foreach($order->items as $item)
+                                <tr>
+                                    <td style="padding:20px 10px;">
+                                        <div class="flex align-items-center gap-10">
+                                            <img src="{{ asset($item->product->image) }}" alt="{{ $item->product->title }}"
+                                                style=" width:70px; height:90px; object-fit:cover;">
+                                            <div>
+                                                <div class="title-6 w-700">
+                                                    {{ $item->product->title }}
+                                                </div>
+                                                <div class="text-grey title-7">
+                                                    Order #{{ $order->id }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="padding:20px 10px;">
+                                        <span class="title-6">
+                                            {{ $item->quantity }}
+                                        </span>
+                                    </td>
+                                    <td style="padding:20px 10px;">
+                                        <span class="title-6">
+                                            {{ $item->color ?? 'Default' }}
+                                        </span>
+                                    </td>
+                                    <td style="padding:20px 10px;">
+                                        <span class="title-6">
+                                            {{ $item->size ?? 'Default' }}
+                                        </span>
+                                    </td>
+                                    <td style="padding:20px 10px;">
+                                        <span class="title-6 w-700">
+                                            ${{ number_format($item->price * $item->quantity, 2) }}
+                                        </span>
+                                    </td>
+                                    <td style="padding:20px 10px;">
+                                        <span class="title-6">
+                                            {{ $order->status }}
+                                        </span>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                @endforeach
+                                @empty
+                                <tr>
+                                    <td colspan="7" class="text-center" style="padding:50px;">
+                                        <div class="title-4">
+                                            No orders yet
+                                        </div>
+                                        <p class="text-grey title-6">
+                                            You haven't purchased any products yet.
+                                        </p>
+                                        <a href="{{ route('products') }}" class="btn-1">
+                                            Continue Shopping
+                                        </a>
+                                    </td>
+                                </tr>
+                                @endforelse
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -91,229 +152,16 @@
                     </div>
                 </div>
                 <div class="flex justify-content-end">
-                    <div class="wrapper br">
-                        <div class="title-5 w-700" style=" padding: 20px;">Total:
-                            <span id="cart-total" class="text-red">$0</span>
-                        </div>
+                    <div class="title-5 w-700" style="padding: 20px;">
+                        Total:
+                        <span class="text-red">
+                            ${{ number_format($orders->sum('total_price'), 2) }}
+                        </span>
                     </div>
                 </div>
             </div>
         </section>
     </div>
 </main>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const cartKey = 'cart_user_{{ auth()->id() }}';
-        let cart = JSON.parse(
-            localStorage.getItem(cartKey)
-        ) || [];
-        const tableBody = document.getElementById('cart-table-body');
-        const emptyCart = document.getElementById('empty-cart');
-        const totalElement = document.getElementById('cart-total');
-        const cartCount = document.getElementById('cart-count');
-        let total = 0;
-        if (cart.length === 0) {
-            emptyCart.style.display = 'block';
-            totalElement.textContent = '$0';
-            if (cartCount) {
-                cartCount.textContent = '0';
-            }
-            return;
-        }
-        cart.forEach(function(product) {
-            product.quantity = Number(product.quantity) || 1;
-            product.price = Number(product.price) || 0;
-            const productTotal = product.price * product.quantity;
-            total += productTotal;
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td style="padding:20px 10px;">
-                    <div class="flex align-items-center gap-10">
-                        <img
-                            src="${product.image}"
-                            alt="${product.title}"
-                            style=" width:70px;
-                                height:90px;
-                                object-fit:cover;">
-                        <div>
-                            <div class="title-6 w-700">
-                                ${product.title}
-                            </div>
-                            <div class="text-grey title-7">
-                                $${product.price.toFixed(2)}
-                            </div>
-                        </div>
-                    </div>
-                </td>
-                <td style="padding:20px 10px;">
-                    <div class="quantity flex align-items-center">
-                        <button
-                            type="button"
-                            class="quantity-minus"
-                            data-id="${product.id}"
-                            data-color="${product.color || ''}"
-                            data-size="${product.size || ''}">
-                            −
-                        </button>
-                        <span class="quantity-number"
-                            style="padding:0 15px;">
-                            ${product.quantity}
-                        </span>
-                        <button
-                            type="button"
-                            class="quantity-plus"
-                            data-id="${product.id}"
-                            data-color="${product.color || ''}"
-                            data-size="${product.size || ''}">
-                            +
-                        </button>
-                    </div>
-                </td>
-                <td style="padding:20px 10px;">
-                    <div class="flex align-items-center gap-5">
-                        <span
-                            style="
-                                width:20px;
-                                height:20px;
-                                border-radius:50%;
-                                background:${getColor(product.color)};
-                                display:inline-block;">
-                        </span>
-                        <span>
-                            ${product.color || 'Default'}
-                        </span>
-                    </div>
-                </td>
-                <td style="padding:20px 10px;">
-                    <span class="title-6">
-                        ${product.size || 'M'}
-                    </span>
-                </td>
-                <td style="padding:20px 10px;">
-                    <span class="title-6 w-700">
-                        $${productTotal.toFixed(2)}
-                    </span>
-                </td>
-                <td style="padding:20px 10px;">
-                    <span class="title-6">
-                        ${product.quantity}
-                    </span>
-                </td>
-                <td style="padding:20px 10px;">
-                    <button
-                        type="button"
-                        class="remove-product"
-                        data-id="${product.id}"
-                        data-color="${product.color || ''}"
-                        data-size="${product.size || ''}"
-                        style="
-                            border:none;
-                            background:none;
-                            cursor:pointer;">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                </td>
-            `;
-            tableBody.appendChild(row);
-        });
-        totalElement.textContent = '$' + total.toFixed(2);
-        if (cartCount) {
-            cartCount.textContent = cart.length;
-        }
-        document.querySelectorAll('.quantity-plus').forEach(function(button) {
-            button.addEventListener('click', function() {
-                const id = this.dataset.id;
-                const color = this.dataset.color;
-                const size = this.dataset.size;
-                let cart = JSON.parse(
-                    localStorage.getItem(cartKey)
-                ) || [];
-                const product = cart.find(function(item) {
-                    return item.id == id &&
-                        item.color == color &&
-                        item.size == size;
-                });
-                if (product) {
-                    product.quantity = Number(product.quantity) + 1;
-                    localStorage.setItem(
-                        cartKey,
-                        JSON.stringify(cart)
-                    );
-                    location.reload();
-                }
-            });
-        });
-        document.querySelectorAll('.quantity-minus').forEach(function(button) {
-            button.addEventListener('click', function() {
-                const id = this.dataset.id;
-                const color = this.dataset.color;
-                const size = this.dataset.size;
-                let cart =
-                    JSON.parse(
-                        localStorage.getItem(cartKey)
-                    ) || [];
-                const index = cart.findIndex(function(item) {
-                    return item.id == id &&
-                        item.color == color &&
-                        item.size == size;
-                });
-                if (index !== -1) {
-                    if (
-                        Number(cart[index].quantity) > 1
-                    ) {
-                        cart[index].quantity--;
-                    } else {
-                        cart.splice(index, 1);
-                    }
-                    localStorage.setItem(
-                        cartKey,
-                        JSON.stringify(cart)
-                    );
-                    location.reload();
-                }
-            });
-        });
-        document.querySelectorAll('.remove-product').forEach(function(button) {
-            button.addEventListener('click', function() {
-                const id = this.dataset.id;
-                const color = this.dataset.color;
-                const size = this.dataset.size;
-                let cart =
-                    JSON.parse(
-                        localStorage.getItem(cartKey)
-                    ) || [];
-                cart = cart.filter(function(item) {
-                    return !(
-                        item.id == id &&
-                        item.color == color &&
-                        item.size == size
-                    );
-                });
-                localStorage.setItem(
-                    cartKey,
-                    JSON.stringify(cart)
-                );
-                location.reload();
-            });
-        });
-
-        function getColor(color) {
-            if (!color) {
-                return '#cccccc';
-            }
-            const colors = {
-                Red: '#FF2E00',
-                Pink: '#F7DDD0',
-                Blue: '#66A5FF',
-                Orange: '#FF9D41',
-                Yellow: '#FFD36C',
-                Green: '#4BCB88',
-                Black: '#000000',
-                White: '#ffffff'
-            };
-            return colors[color] || '#cccccc';
-        }
-    });
-</script>
 
 @endsection

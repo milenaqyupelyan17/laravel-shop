@@ -52,25 +52,50 @@
         <div class="row justify-content-center flex flex-column gap-20">
             <div class="col">
                 <div class="wrapper">
-
                     <div class="title-5 w-700">
                         Order Summary
                     </div>
-
-                    <div id="order-products"></div>
-
+                    <div id="order-products">
+                        @foreach($order->items as $item)
+                        <div class="flex justify-content-between" style="margin-bottom: 15px;">
+                            <div>
+                                <div class="title-6 w-700">
+                                    {{ $item->product->title }}
+                                </div>
+                                <div class="text-grey title-7">
+                                    Quantity: {{ $item->quantity }}
+                                </div>
+                                <div class="text-grey title-7">
+                                    Color: {{ $item->color ?? 'Not selected' }}
+                                </div>
+                                <div class="text-grey title-7">
+                                    Size: {{ $item->size ?? 'Not selected' }}
+                                </div>
+                            </div>
+                            <div class="title-6 w-700">
+                                ${{ number_format($item->price * $item->quantity, 2) }}
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
                     <div class="line"></div>
                     <div class="flex flex-column gap-20">
                         <div class="flex justify-content-between">
                             <div class="text-grey title-6">Price</div>
-                            <div id="order-price" class="title-6">$0</div>
+                            <div class="title-6">
+                                ${{ number_format($order->total_price, 2) }}
+                            </div>
                         </div>
                         <div class="flex justify-content-between">
-                            <div class="text-grey title-6">Quantity</div>
+                            <div class="title-6">
+                                {{ $order->total_quantity }}
+                            </div>
                             <div id="order-quantity" class="title-6">0</div>
                         </div>
                         <div class="flex justify-content-between">
-                            <div class="title-6 w-700">Total Price</div>
+                            <div class="title-6 w-700 text-red">
+                                ${{ number_format($order->total_price, 2) }}
+                            </div>
                             <div id="order-total"
                                 class="title-6 w-700 text-red">
                                 $0
@@ -95,46 +120,8 @@
 </main>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        let orderProducts = document.getElementById('order-products');
-        let orderPrice = document.getElementById('order-price');
-        let orderQuantity = document.getElementById('order-quantity');
-        let orderTotal = document.getElementById('order-total');
-        let total = 0;
-        let quantity = 0;
-
-        cart.forEach(function(product) {
-            let productQuantity = Number(product.quantity) || 1;
-            let productPrice = Number(product.price) || 0;
-            let productTotal = productPrice * productQuantity;
-            total += productTotal;
-            quantity += productQuantity;
-            orderProducts.innerHTML += `
-            <div class="flex justify-content-between"
-                 style="margin-bottom:15px;">
-                <div>
-                    <div class="title-6 w-700">
-                        ${product.title}
-                    </div>
-                    <div class="text-grey title-7">
-                        Quantity: ${productQuantity}
-                    </div>
-                    <div class="text-grey title-7">
-                        Color: ${product.color || 'Not selected'}
-                    </div>
-                    <div class="text-grey title-7">
-                        Size: ${product.size || 'Not selected'}
-                    </div>
-                </div>
-                <div class="title-6 w-700">
-                    $${productTotal.toFixed(2)}
-                </div>
-            </div>
-        `;
-        });
-        orderPrice.textContent = '$' + total.toFixed(2);
-        orderQuantity.textContent = quantity;
-        orderTotal.textContent = '$' + total.toFixed(2);
+        const cartKey = 'cart_user_{{ auth()->id() }}';
+        localStorage.removeItem(cartKey);
     });
 </script>
 @endsection
