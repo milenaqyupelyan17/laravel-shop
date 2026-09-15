@@ -3,9 +3,9 @@
 @section('content')
 
 <main>
-    <section id="back_to_website p-top">
-        <div class="row p-top">
-            <div class="col w-100 p-top">
+    <section id="back_to_website">
+        <div class="row">
+            <div class="col w-100">
                 <div class="wrapper flex justify-content-end">
                     <a href="{{ route('home') }}" class="flex gap-5 align-items-center">
                         <i class="fa-solid fa-arrow-left"></i>
@@ -43,7 +43,7 @@
                 <input type="password" name="password_confirmation" placeholder="Confirm password" required>
                 <button type="submit" class="btn-1 w-100">SIGN UP</button>
             </form>
-            <div class="signup-link">Already have an account?<a href="{{ route('login') }}">Sign in</a></div>
+            <div class="signup-link flex gap-5">Already have an account?<a href="{{ route('login') }}">Sign in</a></div>
         </section>
     </div>
 </main>

@@ -3,6 +3,21 @@
 @section('content')
 
 <main>
+    <section>
+        <div class="row">
+            <div class="col">
+                <div class="wrapper">
+                    <div class="title-6">
+                        <a href="{{ route('home') }}">
+                            Homepage
+                        </a>
+                        <i class="fa-solid fa-chevron-right"></i>
+                        <a href="{{ route('dashboard') }}">Account</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <aside class="dashboard-sidebar" id="dashboardSidebar">
         <div class="sidebar-header">
             <div class="title-5 w-700">My Account</div>
@@ -35,26 +50,10 @@
         </div>
     </aside>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
-    <section id="back_to_website">
-        <div class="row">
-            <div class="col w-100">
-                <div class="wrapper flex justify-content-end align-items-center gap-5">
-                    <a href="{{ route('home') }}">
-                        <i class="fa-solid fa-arrow-left"></i>
-                    </a>
-                    <a href="{{ route('home') }}">
-                        <div class="text-grey">
-                            Back to the website
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
     <div class="row w-100 align-items-start">
         <section id="account" class="w-20" style="min-height: 100vh;">
             <div class="wrapper bg-grey" style="min-height: 100vh;">
-                <div class="flex flex-column gap-40" style="padding: 30px;">
+                <div class="flex flex-column gap-20" style="padding: 30px;">
                     <div class="title-5 w-700">
                         My Account
                     </div>

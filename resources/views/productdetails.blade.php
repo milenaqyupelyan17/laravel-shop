@@ -48,8 +48,7 @@
                                 </div>
                             </div>
                             <div class="flex gap-10">
-                                <button
-                                    type="button"
+                                <button type="button"
                                     id="add-to-cart"
                                     class="btn-1">
                                     Add to Cart
@@ -133,7 +132,6 @@
             selectedColor = this.dataset.color;
         });
     });
-
     document.querySelectorAll('.size-option').forEach(function(button) {
         button.addEventListener('click', function() {
             document.querySelectorAll('.size-option')
@@ -154,8 +152,7 @@
                 alert('Please select a size.');
                 return;
             }
-            const quantity =
-                Number(document.getElementById('quantity').value) || 1;
+            const quantity = Number(document.getElementById('quantity').value) || 1;
             const product = {
                 id: "{{ $product->id }}",
                 title: "{{ $product->title }}",
@@ -171,7 +168,6 @@
                 return item.id == product.id &&
                     item.color == product.color &&
                     item.size == product.size;
-
             });
             if (existingProduct) {
                 existingProduct.quantity += product.quantity;
@@ -179,7 +175,7 @@
                 cart.push(product);
             }
             localStorage.setItem(
-                'cart',
+                cartKey,
                 JSON.stringify(cart)
             );
         });

@@ -80,7 +80,7 @@
                             <div class="title-6">Phone Number</div>
                             <input type="text" name="phone" placeholder="(+374) 99 000 000">
                         </div>
-                        <a href="{{ route('confirmation') }}" class="btn-1">
+                        <a href="{{ route('confirmation') }}" class="btn-1 text-center">
                             Continue to Payment
                         </a>
                     </div>
@@ -102,7 +102,7 @@
                     <div class="w-700 title-6">Total Price</div>
                     <div class="w-700 title-6 text-red">$0</div>
                 </div>
-                <a href="{{ route('products') }}" class="btn-1">Shop now</a>
+                <a href="{{ route('products') }}" class="btn-1 text-center">Shop now</a>
                 <div class="flex gap-5">
                     <input type="text" placeholder="210548">
                     <div class="btn-1">Apply code</div>

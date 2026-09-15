@@ -12,18 +12,16 @@
                             Homepage
                         </a>
                         <i class="fa-solid fa-chevron-right"></i>
-                        <a href="{{ route('dashboard') }}">Account</a>
-                        <i class="fa-solid fa-chevron-right"></i>
                         Settings
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <div class="row gap-40 align-items-start">
+    <div class="row gap-20 align-items-start">
         <section id="account" class="w-20" style="min-height: 100vh;">
             <div class="wrapper bg-grey" style="min-height: 100vh;">
-                <div class="flex flex-column gap-40" style="padding: 30px;">
+                <div class="flex flex-column gap-20" style="padding: 30px;">
                     <div class="title-5 w-700">
                         My Account
                     </div>
@@ -99,7 +97,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="wrapper bg-grey br">
+                <div class="wrapper br">
                     <div class="flex flex-column gap-20">
                         <div class="title-5 w-700">Change Password</div>
                         <div class="flex flex-column gap-5">

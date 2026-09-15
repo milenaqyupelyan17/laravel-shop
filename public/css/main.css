@@ -34,11 +34,33 @@ header {
     border-radius: 8px;
 }
 
+.cart-toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 99999;
+    background: #222;
+    color: #fff;
+    padding: 14px 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .2);
+    font-size: 15px;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all .3s ease;
+    pointer-events: none;
+}
+
+.cart-toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .btn-1 {
     background-color: #4172DC;
     border-radius: 3px;
     color: white;
-    padding: 20px;
+    padding: 10px;
     cursor: pointer;
 }
 
@@ -85,7 +107,7 @@ header {
 
 .bg-blue {
     position: absolute;
-    bottom: -120px;
+    bottom: -160px;
     background-color: #7296AB;
     padding-top: 30px;
 }
@@ -240,25 +262,6 @@ header {
     position: relative;
 }
 
-.hero-promo {
-    position: absolute;
-    top: 200px;
-    left: 40%;
-    width: 200px;
-    background: white;
-    text-align: center;
-    z-index: 10;
-}
-
-.hero-promo .title-5 {
-    padding: 10px 5px;
-}
-
-.hero-promo .title-6 {
-    padding: 10px;
-    color: white;
-}
-
 input[type="email"] {
     padding: 12px 15px;
 }
@@ -279,10 +282,15 @@ input[type="email"] {
 #letter {
     position: relative;
     text-align: center;
-    width: 40%;
+    width: 50%;
+    max-width: 700px;
     margin: 0 auto;
     z-index: 778;
-    padding-top: 160px;
+    padding-top: 30px;
+}
+
+#letter .row {
+    width: 100%;
 }
 
 #banner-2 .wrapper-color {
@@ -293,7 +301,7 @@ input[type="email"] {
 .menu-button {
     width: 100%;
     min-height: 30px;
-    padding: 12px 20px;
+    padding: 10px 10px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -306,7 +314,7 @@ input[type="email"] {
 }
 
 .menu-button.active {
-    background-color: blue;
+    background-color: #4172DC;
     color: white;
 }
 
@@ -315,7 +323,7 @@ input[type="email"] {
 }
 
 .menu-button.active:hover {
-    background-color: blue;
+    background-color: #4172DC;
 }
 
 .line {
@@ -624,6 +632,7 @@ input[type="email"] {
 
 .about-bottom {
     padding: 70px 20px;
+    margin-bottom: 40px;
 }
 
 .about-bottom p {
@@ -792,10 +801,6 @@ input[type="email"] {
     color: red;
 }
 
-#favorites {
-    padding: 40px 0;
-}
-
 #favorites-products {
     margin-top: 30px;
 }
@@ -842,10 +847,6 @@ input[type="email"] {
     margin: 15px 0 25px;
 }
 
-
-#favorites {
-    padding: 40px 0 80px;
-}
 
 #favorites-products {
     margin-top: 30px;

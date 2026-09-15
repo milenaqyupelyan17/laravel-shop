@@ -27,18 +27,24 @@ class AuthController extends Controller
                     'regex:/[A-Z]/',
                 ],
             ],
-            ['password.regex' => 'Password must contain at least one lowercase and one uppercase letter.',]
+            [
+                'password.regex' => 'Password must contain at least one lowercase and one uppercase letter.',
+            ]
         );
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        Auth::login($user);
+        $request->session()->regenerate();
         return redirect()
             ->route('dashboard')
             ->with('success', 'Registration successful!');
     }
+
 
     public function login(Request $request)
     {
@@ -48,7 +54,8 @@ class AuthController extends Controller
         ]);
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
-            return redirect()->route('dashboard');
+
+            return redirect()->intended(route('dashboard'));
         }
         return back()
             ->withErrors([

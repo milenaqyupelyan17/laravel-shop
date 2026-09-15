@@ -16,10 +16,10 @@
             </div>
         </div>
     </section>
-    <div class="row align-items-start flex gap-40">
+    <div class="row align-items-start flex gap-20">
         <section id="account" class="w-20" style="min-height: 100vh;">
             <div class="wrapper bg-grey" style="min-height: 100vh;">
-                <div class="flex flex-column gap-40" style="padding: 30px;">
+                <div class="flex flex-column gap-20" style="padding: 30px;">
                     <div class="title-5 w-700">
                         My Account
                     </div>
@@ -61,7 +61,7 @@
                 </div>
             </div>
         </section>
-        <section id="cart-table">
+        <section id="cart-table" style="width: 80%;">
             <div class="wrapper">
                 <div class="title-3 w-700">Shopping Cart</div>
                 <div class="wrapper bg-grey br">
@@ -98,13 +98,12 @@
                     </div>
                 </div>
             </div>
+        </section>
     </div>
-    </section>
 </main>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const cartKey =
-            'cart_user_{{ auth()->id() }}';
+        const cartKey = 'cart_user_{{ auth()->id() }}';
         let cart = JSON.parse(
             localStorage.getItem(cartKey)
         ) || [];
@@ -113,8 +112,6 @@
         const totalElement = document.getElementById('cart-total');
         const cartCount = document.getElementById('cart-count');
         let total = 0;
-        let totalQuantity = 0;
-
         if (cart.length === 0) {
             emptyCart.style.display = 'block';
             totalElement.textContent = '$0';
@@ -123,180 +120,181 @@
             }
             return;
         }
-
         cart.forEach(function(product) {
             product.quantity = Number(product.quantity) || 1;
             product.price = Number(product.price) || 0;
             const productTotal = product.price * product.quantity;
             total += productTotal;
-            totalQuantity += product.quantity;
             const row = document.createElement('tr');
             row.innerHTML = `
-            <td style="padding:20px 10px;">
-                <div class="flex align-items-center gap-10">
-                    <img src="${product.image}" alt="${product.title}"
-                        style="
-                            width:70px;
-                            height:90px;
-                            object-fit:cover;">
-                    <div>
-                        <div class="title-6 w-700">
-                            ${product.title}
-                        </div>
-                        <div class="text-grey title-7">
-                            $${product.price.toFixed(2)}
+                <td style="padding:20px 10px;">
+                    <div class="flex align-items-center gap-10">
+                        <img
+                            src="${product.image}"
+                            alt="${product.title}"
+                            style=" width:70px;
+                                height:90px;
+                                object-fit:cover;">
+                        <div>
+                            <div class="title-6 w-700">
+                                ${product.title}
+                            </div>
+                            <div class="text-grey title-7">
+                                $${product.price.toFixed(2)}
+                            </div>
                         </div>
                     </div>
-                </div>
-            </td>
-            <td style="padding:20px 10px;">
-                <div class="quantity flex align-items-center">
-                    <button type="button" class="quantity-minus" data-id="${product.id}" data-color="${product.color}" data-size="${product.size}">
-                        −
-                    </button>
-                    <span class="quantity-number" style="padding:0 15px;">
+                </td>
+                <td style="padding:20px 10px;">
+                    <div class="quantity flex align-items-center">
+                        <button
+                            type="button"
+                            class="quantity-minus"
+                            data-id="${product.id}"
+                            data-color="${product.color || ''}"
+                            data-size="${product.size || ''}">
+                            −
+                        </button>
+                        <span class="quantity-number"
+                            style="padding:0 15px;">
+                            ${product.quantity}
+                        </span>
+                        <button
+                            type="button"
+                            class="quantity-plus"
+                            data-id="${product.id}"
+                            data-color="${product.color || ''}"
+                            data-size="${product.size || ''}">
+                            +
+                        </button>
+                    </div>
+                </td>
+                <td style="padding:20px 10px;">
+                    <div class="flex align-items-center gap-5">
+                        <span
+                            style="
+                                width:20px;
+                                height:20px;
+                                border-radius:50%;
+                                background:${getColor(product.color)};
+                                display:inline-block;">
+                        </span>
+                        <span>
+                            ${product.color || 'Default'}
+                        </span>
+                    </div>
+                </td>
+                <td style="padding:20px 10px;">
+                    <span class="title-6">
+                        ${product.size || 'M'}
+                    </span>
+                </td>
+                <td style="padding:20px 10px;">
+                    <span class="title-6 w-700">
+                        $${productTotal.toFixed(2)}
+                    </span>
+                </td>
+                <td style="padding:20px 10px;">
+                    <span class="title-6">
                         ${product.quantity}
                     </span>
-                    <button type="button" class="quantity-plus" data-id="${product.id}" data-color="${product.color}" data-size="${product.size}">
-                        +
+                </td>
+                <td style="padding:20px 10px;">
+                    <button
+                        type="button"
+                        class="remove-product"
+                        data-id="${product.id}"
+                        data-color="${product.color || ''}"
+                        data-size="${product.size || ''}"
+                        style="
+                            border:none;
+                            background:none;
+                            cursor:pointer;">
+                        <i class="fa-solid fa-trash"></i>
                     </button>
-                </div>
-            </td>
-            <td style="padding:20px 10px;">
-                <div class="flex align-items-center gap-5">
-                    <span style="
-                            width:20px;
-                            height:20px;
-                            border-radius:50%;
-                            background:${getColor(product.color)};
-                            display:inline-block; ">
-                    </span>
-                    <span>
-                        ${product.color || 'Default'}
-                    </span>
-                </div>
-            </td>
-            <td style="padding:20px 10px;">
-                <span class="title-6">
-                    ${product.size || 'M'}
-                </span>
-            </td>
-            <td style="padding:20px 10px;">
-                <span class="title-6 w-700">
-                    $${productTotal.toFixed(2)}
-                </span>
-            </td>
-            <td style="padding:20px 10px;">
-                <span class="title-6">
-                    ${product.quantity}
-                </span>
-            </td>
-            <td style="padding:20px 10px;">
-                <button
-                    type="button"
-                    class="remove-product"
-                    data-id="${product.id}"
-                    data-color="${product.color}"
-                    data-size="${product.size}"
-                    style="
-                        border:none;
-                        background:none;
-                        cursor:pointer;">
-                    <i class="fa-solid fa-trash"></i>
-                </button>
-            </td>
-        `;
+                </td>
+            `;
             tableBody.appendChild(row);
         });
-        totalElement.textContent =
-            '$' + total.toFixed(2);
+        totalElement.textContent = '$' + total.toFixed(2);
         if (cartCount) {
-            cartCount.textContent =
-                totalQuantity;
+            cartCount.textContent = cart.length;
         }
         document.querySelectorAll('.quantity-plus').forEach(function(button) {
-            button.addEventListener(
-                'click',
-                function() {
-                    const id = this.dataset.id;
-                    const color = this.dataset.color;
-                    const size = this.dataset.size;
-                    let cart = JSON.parse(
-                        localStorage.getItem(cartKey)
-                    ) || [];
-                    const product = cart.find(function(item) {
-                        return item.id == id &&
-                            item.color == color &&
-                            item.size == size;
-                    });
-
-
-                    if (product) {
-                        product.quantity = Number(product.quantity) + 1;
-                        localStorage.setItem(
-                            cartKey,
-                            JSON.stringify(cart)
-                        );
-                        location.reload();
-                    }
-                }
-            );
-        });
-        document.querySelectorAll('.quantity-minus').forEach(function(button) {
-            button.addEventListener(
-                'click',
-                function() {
-                    const id = this.dataset.id;
-                    const color = this.dataset.color;
-                    const size = this.dataset.size;
-                    let cart = JSON.parse(
-                        localStorage.getItem(cartKey)
-                    ) || [];
-                    const index =
-                        cart.findIndex(function(item) {
-                            return item.id == id &&
-                                item.color == color &&
-                                item.size == size;
-                        });
-                    if (index !== -1) {
-                        if (
-                            Number(cart[index].quantity) > 1
-                        ) {
-                            cart[index].quantity--;
-                        }
-                        localStorage.setItem(
-                            cartKey,
-                            JSON.stringify(cart)
-                        );
-                        location.reload();
-                    }
-                }
-            );
-        });
-        document.querySelectorAll('.remove-product').forEach(function(button) {
-            button.addEventListener(
-                'click',
-                function() {
-                    const id = this.dataset.id;
-                    const color = this.dataset.color;
-                    const size = this.dataset.size;
-                    let cart = JSON.parse(
-                        localStorage.getItem(cartKey)
-                    ) || [];
-                    cart = cart.filter(function(product) {
-                        return !(
-                            product.id == id &&
-                            product.color == color &&
-                            product.size == size
-                        );
-                    });
+            button.addEventListener('click', function() {
+                const id = this.dataset.id;
+                const color = this.dataset.color;
+                const size = this.dataset.size;
+                let cart = JSON.parse(
+                    localStorage.getItem(cartKey)
+                ) || [];
+                const product = cart.find(function(item) {
+                    return item.id == id &&
+                        item.color == color &&
+                        item.size == size;
+                });
+                if (product) {
+                    product.quantity = Number(product.quantity) + 1;
                     localStorage.setItem(
                         cartKey,
                         JSON.stringify(cart)
                     );
                     location.reload();
                 }
-            );
+            });
+        });
+        document.querySelectorAll('.quantity-minus').forEach(function(button) {
+            button.addEventListener('click', function() {
+                const id = this.dataset.id;
+                const color = this.dataset.color;
+                const size = this.dataset.size;
+                let cart =
+                    JSON.parse(
+                        localStorage.getItem(cartKey)
+                    ) || [];
+                const index = cart.findIndex(function(item) {
+                    return item.id == id &&
+                        item.color == color &&
+                        item.size == size;
+                });
+                if (index !== -1) {
+                    if (
+                        Number(cart[index].quantity) > 1
+                    ) {
+                        cart[index].quantity--;
+                    } else {
+                        cart.splice(index, 1);
+                    }
+                    localStorage.setItem(
+                        cartKey,
+                        JSON.stringify(cart)
+                    );
+                    location.reload();
+                }
+            });
+        });
+        document.querySelectorAll('.remove-product').forEach(function(button) {
+            button.addEventListener('click', function() {
+                const id = this.dataset.id;
+                const color = this.dataset.color;
+                const size = this.dataset.size;
+                let cart =
+                    JSON.parse(
+                        localStorage.getItem(cartKey)
+                    ) || [];
+                cart = cart.filter(function(item) {
+                    return !(
+                        item.id == id &&
+                        item.color == color &&
+                        item.size == size
+                    );
+                });
+                localStorage.setItem(
+                    cartKey,
+                    JSON.stringify(cart)
+                );
+                location.reload();
+            });
         });
 
         function getColor(color) {
@@ -312,7 +310,7 @@
                 Green: '#4BCB88',
                 Black: '#000000',
                 White: '#ffffff'
-            }
+            };
             return colors[color] || '#cccccc';
         }
     });

@@ -48,41 +48,46 @@
             </div>
         </div>
     </section>
-    <section class="bg-grey br w-50">
-        <div class="row">
+    <section class="bg-grey br w-80" style="margin: 50px auto;">
+        <div class="row justify-content-center flex flex-column gap-20">
             <div class="col">
                 <div class="wrapper">
-                    <div class="title-5 w-700"> Order Summary </div>
+
+                    <div class="title-5 w-700">
+                        Order Summary
+                    </div>
+
                     <div id="order-products"></div>
+
                     <div class="line"></div>
-                    <div class="flex justify-content-between">
-                        <div class="text-grey title-6">Price</div>
-                        <div id="order-price" class="title-6">$0</div>
+                    <div class="flex flex-column gap-20">
+                        <div class="flex justify-content-between">
+                            <div class="text-grey title-6">Price</div>
+                            <div id="order-price" class="title-6">$0</div>
+                        </div>
+                        <div class="flex justify-content-between">
+                            <div class="text-grey title-6">Quantity</div>
+                            <div id="order-quantity" class="title-6">0</div>
+                        </div>
+                        <div class="flex justify-content-between">
+                            <div class="title-6 w-700">Total Price</div>
+                            <div id="order-total"
+                                class="title-6 w-700 text-red">
+                                $0
+                            </div>
+                        </div>
+                        <a href="{{ route('dashboard') }}" class="btn-1 text-center">
+                            Go to Dashboard
+                        </a>
                     </div>
-                    <div class="flex justify-content-between">
-                        <div class="text-grey title-6">Quantity</div>
-                        <div id="order-quantity" class="title-6">0</div>
-                    </div>
-                    <div class="flex justify-content-between">
-                        <div class="title-6 w-700">Total Price</div>
-                        <div id="order-total"
-                            class="title-6 w-700 text-red">$0</div>
-                    </div>
-                    <a href="{{ route('dashboard') }}" class="btn-2">
-                        Go to Dashboard
-                    </a>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="wrapper">
-                    <div class="flex gap-10">
-                        <input type="text" placeholder="210548">
-                        <button type="button" class="btn-1">
-                            Apply code
-                        </button>
-                    </div>
+            <div class="wrapper">
+                <div class="flex gap-20 justify-content-center w-100">
+                    <input type="text" placeholder="210548">
+                    <button type="button" class="btn-1">
+                        Apply code
+                    </button>
                 </div>
             </div>
         </div>

@@ -74,10 +74,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/favorites', function () {
     return view('favorites');
-})->name('favorites');
-
-Route::post('/logout', [AuthController::class, 'logout'])
-    ->name('logout');
+})->middleware('auth')->name('favorites');
 
 Route::get('/settings', function () {
     return view('settings');

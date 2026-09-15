@@ -15,7 +15,7 @@
         </div>
     </section>
     <section class="about-content">
-        <div class="row align-items-center">
+        <div class="row align-items-center gap-40">
             <div class="col">
                 <div class="wrapper text-center">
                     <img src="{{ asset('images/logo.png') }}"
@@ -46,7 +46,7 @@
     <section class="about-values">
         <div class="wrapper w-100 text-center">
             <div class="title-3">Why Luminae?</div>
-            <div class="row gap-20">
+            <div class="row gap-20 justify-content-center">
                 <div class="col">
                     <div class="about-box">
                         <div class="title-5">Quality</div>
@@ -72,16 +72,14 @@
             </div>
         </div>
     </section>
-    <section class="about-bottom">
+    <section class="about-bottom text-center w-100 flex justify-content-center align-items-center">
         <div class="wrapper text-center flex flex-column align-items-center gap-20">
             <div class="title-4">Find Your Style With Luminae</div>
-            <p class="text-grey">
+            <p class="text-grey text-center ">
                 Explore our collection and discover pieces made to become
                 part of your everyday style.
             </p>
-            <a href="{{ route('products') }}" class="btn-1">
-                SHOP NOW
-            </a>
+            <a href="{{ route('products') }}" class="btn-1">SHOP NOW</a>
         </div>
     </section>
 </main>

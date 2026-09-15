@@ -35,11 +35,6 @@
                 </div>
             </div>
         </div>
-        <div class="hero-promo">
-            <div class="title-5 w-700">Summer Essentials</div>
-            <div class="title-5 w-700 text-red">20% off</div>
-            <div class="title-6 bg-black">19 Jul-30 Jul</div>
-        </div>
     </section>
     <section id="must_have">
         <div class="row">
@@ -154,7 +149,7 @@
             </div>
         </div>
     </section>
-    <section id="magsafe">
+    <section id="magsafe" style="padding-bottom: 60px;">
         <div class="row bg-beige">
             <div class="col">
                 <div class="wrapper">

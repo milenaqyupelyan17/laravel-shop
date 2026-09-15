@@ -3,21 +3,26 @@
 @section('content')
 
 <main>
-    <section id="favorites">
+    <section>
         <div class="row">
-            <div class="col w-100">
+            <div class="col">
                 <div class="wrapper">
-                    <div class="flex justify-content-between align-items-center">
-                        <div class="title-3 w-700">Favorites</div>
-                        <div id="favorites-count" class="title-6 text-grey">0 products</div>
+                    <div class="title-6">
+                        <a href="{{ route('home') }}">
+                            Homepage
+                        </a>
+                        <i class="fa-solid fa-chevron-right"></i>
+                        Favorites
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row align-items-start flex gap-40">
+    </section>
+    <section id="favorites">
+        <div class="row align-items-start flex gap-20">
             <section id="account" class="w-20" style="min-height: 100vh;">
                 <div class="wrapper bg-grey" style="min-height: 100vh;">
-                    <div class="flex flex-column gap-40" style="padding: 30px;">
+                    <div class="flex flex-column gap-20" style="padding: 30px;">
                         <div class="title-5 w-700">
                             My Account
                         </div>
@@ -59,7 +64,11 @@
                     </div>
                 </div>
             </section>
-            <div class="wrapper">
+            <div class="wrapper w-80 justify-content-center">
+                <div class="flex justify-content-between align-items-center">
+                    <div class="title-3 w-700">Favorites</div>
+                    <div id="favorites-count" class="title-6 text-grey">0 products</div>
+                </div>
                 <div id="favorites-products" class="products-grid"></div>
                 <div id="empty-favorites" class="empty-favorites">
                     <div class="title-4"> Your favorites are empty </div>
@@ -70,7 +79,6 @@
                     <a href="{{ route('products') }}" class="btn-2">Continue Shopping</a>
                 </div>
             </div>
-        </div>
         </div>
     </section>
 </main>
