@@ -61,18 +61,31 @@
         let cart = JSON.parse(
             localStorage.getItem(cartKey)
         ) || [];
-        const cartCountElement = document.getElementById('cart-count');
         const container = document.getElementById('cart-products');
         const priceElement = document.getElementById('cart-price');
         const totalElement = document.getElementById('cart-total');
         const itemsCountElement = document.getElementById('cart-items-count');
+        const paymentButton = document.getElementById('payment-button');
 
+        function updateHeaderCount() {
+            const count = cart.reduce(function(total, product) {
+                return total + (Number(product.quantity) || 1);
+            }, 0);
+            document.querySelectorAll('#cart-count, #card-header-count, .cart').forEach(function(element) {
+                if (element.id === 'card-header-count') {
+                    element.textContent = 'CARD(' + count + ')';
+                } else {
+                    element.textContent = count;
+                }
+            });
+        }
         function updateCart() {
             cart = JSON.parse(
                 localStorage.getItem(cartKey)
             ) || [];
             container.innerHTML = '';
             let total = 0;
+            updateHeaderCount();
             if (cart.length === 0) {
                 container.innerHTML = `
                     <div class="empty-cart">
@@ -90,9 +103,6 @@
                 `;
                 priceElement.textContent = '$0';
                 totalElement.textContent = '$0';
-                if (cartCountElement) {
-                    cartCountElement.textContent = cart.length;
-                }
                 itemsCountElement.textContent = '0 products';
                 return;
             }
@@ -105,7 +115,8 @@
                 card.className = 'cart-product';
                 card.innerHTML = `
                     <div class="cart-product-image">
-                        <img src="${product.image}" alt="${product.title}" >
+                        <img src="${product.image}"
+                            alt="${product.title}">
                     </div>
                     <div class="cart-product-info">
                         <div>
@@ -154,13 +165,12 @@
             });
             priceElement.textContent = '$' + total.toFixed(2);
             totalElement.textContent = '$' + total.toFixed(2);
-            if (cartCountElement) {
-                cartCountElement.textContent = cart.length;
-            }
-            itemsCountElement.textContent = cart.length +
+            itemsCountElement.textContent =
+                cart.length +
                 (cart.length === 1 ?
                     ' product' :
-                    ' products');
+                    ' products'
+                );
             addCartEvents();
         }
 
@@ -202,9 +212,7 @@
                             item.size == size;
                     });
                     if (product) {
-                        if (
-                            Number(product.quantity) > 1
-                        ) {
+                        if (Number(product.quantity) > 1) {
                             product.quantity--;
                         } else {
                             cart = cart.filter(function(item) {
@@ -215,7 +223,10 @@
                                 );
                             });
                         }
-                        localStorage.setItem(cartKey, JSON.stringify(cart));
+                        localStorage.setItem(
+                            cartKey,
+                            JSON.stringify(cart)
+                        );
                         updateCart();
                     }
                 });
@@ -225,7 +236,9 @@
                     const id = this.dataset.id;
                     const color = this.dataset.color;
                     const size = this.dataset.size;
-                    let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+                    let cart = JSON.parse(
+                        localStorage.getItem(cartKey)
+                    ) || [];
                     cart = cart.filter(function(item) {
                         return !(
                             item.id == id &&
@@ -241,17 +254,21 @@
                 });
             });
         }
+        if (paymentButton) {
+            paymentButton.addEventListener(
+                'click',
+                function(event) {
+                    const currentCart = JSON.parse(
+                        localStorage.getItem(cartKey)
+                    ) || [];
+                    if (currentCart.length === 0) {
+                        event.preventDefault();
+                        alert('Your cart is empty. Please add a product first.');
+                    }
+                }
+            );
+        }
         updateCart();
-        const paymentButton = document.getElementById('payment-button');
-        paymentButton.addEventListener('click', function(event) {
-            let cart = JSON.parse(
-                localStorage.getItem(cartKey)
-            ) || [];
-            if (cart.length === 0) {
-                event.preventDefault();
-                alert('Your cart is empty. Please add a product first.');
-            }
-        });
     });
 </script>
 

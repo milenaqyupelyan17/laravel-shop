@@ -40,6 +40,21 @@
             }
         }
         updateCartCount();
+        document.addEventListener('DOMContentLoaded', function() {
+            const cartKey = 'cart_user_{{ auth()->id() }}';
+            function updateCartCount() {
+                const cart = JSON.parse(
+                    localStorage.getItem(cartKey)
+                ) || [];
+                const count = cart.length;
+                document.querySelectorAll('#cart-count, #card-header-count, .cart').forEach(function(element) {
+                    element.textContent = element.id === 'card-header-count' ?
+                        'CARD(' + count + ')' :
+                        count;
+                });
+            }
+            updateCartCount();
+        });
     </script>
 </body>
 
