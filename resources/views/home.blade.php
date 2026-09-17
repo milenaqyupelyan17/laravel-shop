@@ -149,7 +149,7 @@
             </div>
         </div>
     </section>
-    <section id="magsafe" style="padding-bottom: 60px;">
+    <section id="magsafe" style="padding-bottom: 120px;">
         <div class="row bg-beige">
             <div class="col">
                 <div class="wrapper">

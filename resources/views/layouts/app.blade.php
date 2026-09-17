@@ -27,30 +27,27 @@
 
     @include('footer')
     <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+
     <script>
-        function updateCartCount() {
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            let totalQuantity = 0;
-            cart.forEach(function(product) {
-                totalQuantity += Number(product.quantity) || 1;
-            });
-            let cartCount = document.getElementById('cart-count');
-            if (cartCount) {
-                cartCount.textContent = totalQuantity;
-            }
-        }
-        updateCartCount();
         document.addEventListener('DOMContentLoaded', function() {
             const cartKey = 'cart_user_{{ auth()->id() }}';
             function updateCartCount() {
                 const cart = JSON.parse(
                     localStorage.getItem(cartKey)
                 ) || [];
-                const count = cart.length;
-                document.querySelectorAll('#cart-count, #card-header-count, .cart').forEach(function(element) {
-                    element.textContent = element.id === 'card-header-count' ?
-                        'CARD(' + count + ')' :
-                        count;
+                let totalQuantity = 0;
+                cart.forEach(function(product) {
+                    totalQuantity += Number(product.quantity) || 1;
+                });
+                document.querySelectorAll('#cart-count').forEach(function(element) {
+                    element.textContent = totalQuantity;
+                });
+                document.querySelectorAll('#card-header-count').forEach(function(element) {
+                    element.textContent = 'CARD(' + totalQuantity + ')';
+                });
+                document.querySelectorAll('.cart').forEach(function(element) {
+                    element.textContent = totalQuantity;
                 });
             }
             updateCartCount();

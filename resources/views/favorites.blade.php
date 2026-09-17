@@ -20,8 +20,8 @@
     </section>
     <section id="favorites">
         <div class="row align-items-start flex gap-20">
-            <section id="account" class="w-20" style="min-height: 100vh;">
-                <div class="wrapper bg-grey" style="min-height: 100vh;">
+            <section id="account" class="w-20" style="min-height: 50vh;">
+                <div class="wrapper bg-grey" style="min-height: 50vh;">
                     <div class="flex flex-column gap-20" style="padding: 30px;">
                         <div class="title-5 w-700">
                             My Account
@@ -85,158 +85,114 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const favoritesKey = 'favorites_user_{{ auth()->id() }}';
-        let favorites = JSON.parse(localStorage.getItem(favoritesKey)) || [];
+        let favorites = JSON.parse(
+            localStorage.getItem(favoritesKey)
+        ) || [];
         const container = document.getElementById('favorites-products');
         const emptyMessage = document.getElementById('empty-favorites');
         const count = document.getElementById('favorites-count');
 
-        count.textContent = favorites.length + (favorites.length === 1 ? ' product' : ' products');
-        if (favorites.length === 0) {
-            emptyMessage.style.display = 'block';
-            return;
+        function updateFavoritesCount() {
+            count.textContent =
+                favorites.length +
+                (favorites.length === 1 ?
+                    ' product' :
+                    ' products'
+                );
         }
-        emptyMessage.style.display = 'none';
-        favorites.forEach(function(product) {
-            product.quantity = product.quantity || 1;
-            const card = document.createElement('div');
-            card.className = 'favorite-card';
-            card.innerHTML = `
-            <div class="product-image">
-                <img src="${product.image}" alt="${product.title}">
-            </div>
-            <div class="product-info">
-                <div>
-                    <h2 class="title-7 w-700">
-                        ${product.title}
-                    </h2>
-                    <p class="text-grey title-8">
-                        Favorite product
-                    </p>
-                </div>
-                <div class="products-info">
-                    <div class="price text-red title-6 w-700">
-                        $${product.price}
+
+        function checkEmptyFavorites() {
+            if (favorites.length === 0) {
+                emptyMessage.style.display = 'block';
+            } else {
+                emptyMessage.style.display = 'none';
+            }
+        }
+
+        function renderFavorites() {
+            container.innerHTML = '';
+            favorites.forEach(function(product) {
+                product.quantity = Number(product.quantity) || 1;
+                const card = document.createElement('div');
+                card.className = 'favorite-card';
+                card.innerHTML = `
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.title}">
                     </div>
-                    <button type="button" class="remove-favorite" data-id="${product.id}">
-                        <i class="fa-solid fa-heart"></i>
-                    </button>
-                </div>
-            </div>`;
-            container.appendChild(card);
-        });
-        document.querySelectorAll('.favorite-plus').forEach(function(button) {
-            button.addEventListener('click', function() {
-                const id = this.dataset.id;
-                let favorites = JSON.parse(
-                    localStorage.getItem('favorites')
-                ) || [];
-                const product = favorites.find(function(item) {
-                    return item.id == id;
-                });
-                if (product) {
-                    product.quantity = (product.quantity || 1) + 1;
-                    localStorage.setItem(
-                        favoritesKey,
-                        JSON.stringify(favorites)
-                    );
-                    location.reload();
-                }
+                    <div class="product-info">
+                        <div>
+                            <h2 class="title-7 w-700">
+                                ${product.title}
+                            </h2>
+                            <p class="text-grey title-8">
+                                Favorite product
+                            </p>
+                        </div>
+                        <div class="products-info">
+                            <div class="price text-red title-6 w-700">
+                                $${Number(product.price).toFixed(2)}
+                            </div>
+                            <button
+                                type="button"
+                                class="remove-favorite"
+                                data-id="${product.id}">
+                                <i class="fa-solid fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
             });
-        });
-        document.querySelectorAll('.favorite-minus').forEach(function(button) {
-            button.addEventListener('click', function() {
-                const id = this.dataset.id;
-                let favorites = JSON.parse(
-                    localStorage.getItem('favorites')
-                ) || [];
-                const product = favorites.find(function(item) {
-                    return item.id == id;
-                });
-                if (product) {
-                    if (product.quantity > 1) {
-                        product.quantity--;
+            updateFavoritesCount();
+            checkEmptyFavorites();
+            addRemoveEvents();
+        }
+
+        function addRemoveEvents() {
+            document.querySelectorAll('.remove-favorite').forEach(function(button) {
+                button.addEventListener('click',
+                    function() {
+                        const id = this.dataset.id;
+                        favorites = favorites.filter(
+                            function(product) {
+                                return product.id != id;
+                            }
+                        );
+                        localStorage.setItem(
+                            favoritesKey,
+                            JSON.stringify(favorites)
+                        );
+                        renderFavorites();
                     }
-                    localStorage.setItem(
-                        'favorites',
-                        JSON.stringify(favorites)
-                    );
-                    location.reload();
-                }
+                );
             });
-        });
-        document.querySelectorAll('.add-to-cart').forEach(function(button) {
-            button.addEventListener('click', function(event) {
-                event.preventDefault();
-                event.stopPropagation();
-                const id = this.dataset.id;
-                let favorites = JSON.parse(
-                    localStorage.getItem('favorites')
-                ) || [];
-                const product = favorites.find(function(item) {
-                    return item.id == id;
-                });
-                if (!product) {
-                    return;
-                }
-                let cart = JSON.parse(
-                    localStorage.getItem('cart')
-                ) || [];
-                const existingProduct = cart.find(function(item) {
-                    return item.id == id;
-                });
-                if (existingProduct) {
-                    existingProduct.quantity = (existingProduct.quantity || 1) + (product.quantity || 1);
+        }
+        renderFavorites();
+
+        function updateCartCount() {
+            const cartKey = 'cart_user_{{ auth()->id() }}';
+            const cart = JSON.parse(
+                localStorage.getItem(cartKey)
+            ) || [];
+            const totalQuantity = cart.reduce(
+                function(total, product) {
+                    return total + (Number(product.quantity) || 1);
+                },
+                0
+            );
+            document.querySelectorAll(
+                '#cart-count, #card-header-count, .cart'
+            ).forEach(function(element) {
+                if (element.id === 'card-header-count') {
+                    element.textContent = 'CARD(' + totalQuantity + ')';
                 } else {
-                    cart.push({
-                        id: product.id,
-                        title: product.title,
-                        price: product.price,
-                        image: product.image,
-                        quantity: product.quantity || 1
-                    });
+                    element.textContent = totalQuantity;
                 }
-                localStorage.setItem(
-                    'cart',
-                    JSON.stringify(cart)
-                );
-                updateCartCount();
             });
-        });
-        document.querySelectorAll('.remove-favorite').forEach(function(button) {
-            button.addEventListener('click', function() {
-                const id = this.dataset.id;
-                let favorites = JSON.parse(
-                    localStorage.getItem('favorites')
-                ) || [];
-                favorites = favorites.filter(function(product) {
-                    return product.id != id;
-                });
-                localStorage.setItem(
-                    'favorites',
-                    JSON.stringify(favorites)
-                );
-                location.reload();
-            });
-        });
+        }
         updateCartCount();
     });
-
-    function updateCartCount() {
-        let cart = JSON.parse(
-            localStorage.getItem('cart')
-        ) || [];
-
-        let totalQuantity = cart.reduce(
-            function(total, product) {
-                return total + (product.quantity || 1);
-            },
-            0
-        );
-        const cartCount = document.getElementById('cart-count');
-        if (cartCount) {
-            cartCount.textContent = totalQuantity;
-        }
-    }
 </script>
+
 
 @endsection

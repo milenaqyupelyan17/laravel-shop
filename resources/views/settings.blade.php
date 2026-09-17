@@ -19,8 +19,8 @@
         </div>
     </section>
     <div class="row gap-20 align-items-start">
-        <section id="account" class="w-20" style="min-height: 100vh;">
-            <div class="wrapper bg-grey" style="min-height: 100vh;">
+        <section id="account" class="w-20" style="min-height: 50vh;">
+            <div class="wrapper bg-grey" style="min-height: 50vh;">
                 <div class="flex flex-column gap-20" style="padding: 30px;">
                     <div class="title-5 w-700">
                         My Account
@@ -64,11 +64,15 @@
             </div>
         </section>
         <section id="settings" class="w-80">
-            <div class="wrapper flex flex-column gap-40">
-                <div class="title-3 w-700">Settings</div>
+            <div class="wrapper">
+                 <div class="w-100 text-center flex flex-column gap-20">
+                     <div class="title-3 w-700">Settings</div>
                 <p class="text-grey title-6">
                     Manage your account information and password.
                 </p>
+                 </div>
+               <div class=" flex" style="padding-top:40px;">
+                 <div class="flex flex-column gap-20">
                 @if(session('success'))
                 <div class="title-6"
                     style="padding: 15px; margin-bottom: 20px;">
@@ -84,8 +88,10 @@
                     @endforeach
                 </div>
                 @endif
-                <div class="wrapper br">
-                    <div class="flex flex-column gap-20">
+                </div>
+                <div class="wrapper br w-50 flex">
+                   <div class="flex flex-column gap-20 ">
+                     <div class="flex flex-column gap-20">
                         <div class="title-5 w-700">Personal Information</div>
                         <div class="flex flex-column gap-5">
                             <div class="title-6">Full Name</div>
@@ -96,8 +102,9 @@
                             <input type="email" name="email" value="{{ auth()->user()->email }}" form="settings-form" placeholder="Email address" required>
                         </div>
                     </div>
+                   </div>
                 </div>
-                <div class="wrapper br">
+                <div class="wrapper br w-33">
                     <div class="flex flex-column gap-20">
                         <div class="title-5 w-700">Change Password</div>
                         <div class="flex flex-column gap-5">
@@ -114,15 +121,16 @@
                                 placeholder="Confirm new password" style="padding: 15px;">
                         </div>
                     </div>
-                </div>
-                <form id="settings-form" action="{{ route('settings.update') }}" method="POST">
+                    <form id="settings-form" style="padding-top: 20px;" action="{{ route('settings.update') }}" method="POST">
                     @csrf
                     @method('PUT')
                     <button type="submit"
-                        class="btn-1">
+                        class="btn-1 justify-content-end text-end">
                         Save Changes
                     </button>
                 </form>
+                </div>
+               </div>
             </div>
         </section>
     </div>

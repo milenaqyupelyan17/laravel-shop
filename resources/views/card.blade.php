@@ -79,6 +79,7 @@
                 }
             });
         }
+
         function updateCart() {
             cart = JSON.parse(
                 localStorage.getItem(cartKey)
@@ -114,7 +115,7 @@
                 const card = document.createElement('div');
                 card.className = 'cart-product';
                 card.innerHTML = `
-                    <div class="cart-product-image">
+                    <div class="cart-product-image" style="height: 200px;">
                         <img src="${product.image}"
                             alt="${product.title}">
                     </div>
@@ -214,14 +215,6 @@
                     if (product) {
                         if (Number(product.quantity) > 1) {
                             product.quantity--;
-                        } else {
-                            cart = cart.filter(function(item) {
-                                return !(
-                                    item.id == id &&
-                                    item.color == color &&
-                                    item.size == size
-                                );
-                            });
                         }
                         localStorage.setItem(
                             cartKey,

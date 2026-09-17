@@ -167,6 +167,9 @@ header {
 .gap-16 {
     gap: 16px;
 }
+.gap-10{
+    gap: 10px;
+}
 
 .gap-5 {
     gap: 5px;
@@ -537,10 +540,7 @@ input[type="email"] {
     padding: 70px 20px;
 }
 
-.dashboard-wrapper {
-    max-width: 850px;
-    margin: 0 auto;
-}
+
 
 .dashboard-subtitle {
     color: #999;
@@ -989,10 +989,6 @@ input[type="email"] {
     border-bottom: 1px solid #e5e5e5;
 }
 
-#cart-table td:first-child,
-#cart-table th:first-child {
-    text-align: left;
-}
 
 #cart-table tbody tr:hover {
     background: #fafafa;

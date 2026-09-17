@@ -15,7 +15,7 @@
         </div>
     </section>
     <section class="about-content">
-        <div class="row align-items-center gap-40">
+        <div class="row align-items-center gap-40 justify-content-center">
             <div class="col">
                 <div class="wrapper text-center">
                     <img src="{{ asset('images/logo.png') }}"

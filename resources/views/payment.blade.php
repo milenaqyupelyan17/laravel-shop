@@ -2,29 +2,6 @@
 
 @section('content')
 <main>
-    <section class="bg-black w-100">
-        <div class=" row justify-content-between align-items-center">
-            <div class="col w-30">
-                <div class="wrapper flex align-items-center gap-5">
-                    <i class="fa-solid fa-table-list"></i>
-                    <div class="title-5 w-700">Categories</div>
-                </div>
-            </div>
-            <div class="col flex">
-                <div class="wrapper flex align-items-center gap-20">
-                    <i class="fa-regular fa-user"></i>
-                    <div class="title-6">Sign in</div>
-                    <i class="fa-regular fa-heart"></i>
-                    <a href="{{ route('favorites') }}">
-                        <div class="title-6">Favorites</div>
-                    </a>
-                    <i class="fa-solid fa-bag-shopping"></i>
-                    <div class="title-6">Card</div>
-                    <span class="cart">3</span>
-                </div>
-            </div>
-        </div>
-    </section>
     <section id="">
         <div class="row">
             <div class="col">
@@ -40,9 +17,9 @@
         <div class="row justify-content-center">
             <div class="col">
                 <div class="wrapper flex gap-20 align-items-center">
-                    <a href="{{ route('card') }}" id="card-header-count" class="title-6 w-700 text-grey">CARD(0)</a>
+                    <div class id="card-header-count" class="title-6 w-700 text-grey">CARD(0)></div>
                     <div class="title-6 w-700">SHIPPING & PAYMENT</div>
-                    <a href="{{ route('confirmation') }}" class="title-6 text-grey w-700">PRODUCT CONFIRMATION</a>
+                    <div class="title-6 text-grey w-700">PRODUCT CONFIRMATION</div>
                 </div>
             </div>
         </div>
@@ -63,25 +40,25 @@
                             </div>
                             <div class="flex flex-column gap-5">
                                 <div class="title-6">Name</div>
-                                <input type="text" name="name" value="{{ auth()->user()->name }}" placeholder="Full name">
+                                <input type="text" name="name" value="{{ auth()->user()->name }}" placeholder="Full name" style="padding: 12px 15px;">
                             </div>
                             <div class="title-6 w-700"> Shipping Address
                             </div>
                             <div class="flex flex-column gap-5">
                                 <div class="title-6">Country</div>
-                                <input type="text" name="country" placeholder="Australia">
+                                <input type="text" name="country" placeholder="Australia" style="padding: 12px 15px;">
                             </div>
                             <div class="flex flex-column gap-5">
                                 <div class="title-6">State / Region</div>
-                                <input type="text" name="state" placeholder="Melbourne">
+                                <input type="text" name="state" placeholder="Melbourne" style="padding: 12px 15px;">
                             </div>
                             <div class="flex flex-column gap-5">
                                 <div class="title-6">Address</div>
-                                <input type="text" name="address" placeholder="10 Beach Street, Melbourne, 2281">
+                                <input type="text" name="address" placeholder="10 Beach Street, Melbourne, 2281" style="padding: 12px 15px;">
                             </div>
                             <div class="flex flex-column gap-5">
                                 <div class="title-6">Phone Number</div>
-                                <input type="text" name="phone" placeholder="(+374) 99 000 000">
+                                <input type="text" name="phone" placeholder="(+374) 99 000 000" style="padding: 12px 15px;">
                             </div>
                             <button type="submit" form="payment-form" class="btn-1">
                                 Continue to Payment

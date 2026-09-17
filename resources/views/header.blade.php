@@ -57,15 +57,3 @@
         </div>
     </section>
 </header>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const cartKey = 'cart_user_{{ auth()->id() }}';
-        const cartCount = document.getElementById('cart-count');
-        const cart = JSON.parse(
-            localStorage.getItem(cartKey)
-        ) || [];
-        if (cartCount) {
-            cartCount.textContent = cart.length;
-        }
-    });
-</script>

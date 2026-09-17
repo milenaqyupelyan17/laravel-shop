@@ -10,7 +10,7 @@
             </p>
         </div>
     </section>
-    <section class="contact-content flex justify-content-center">
+    <section class="contact-content flex justify-content-center" style="padding-bottom: 40px;">
         <div class="row gap-20">
             <div class="col w-60">
                 <div class="wrapper contact-info">
@@ -21,7 +21,7 @@
                     </p>
                     <div class="contact-item">
                         <div class="title-6 w-700">Email</div>
-                        <div class="text-grey">support@luminae.com</div>
+                        <div class="text-grey">support@luminae.com</div >
                     </div>
                     <div class="contact-item">
                         <div class="title-6 w-700">Phone</div>
