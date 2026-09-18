@@ -21,7 +21,7 @@
                     </p>
                     <div class="contact-item">
                         <div class="title-6 w-700">Email</div>
-                        <div class="text-grey">support@luminae.com</div >
+                        <div class="text-grey">support@luminae.com</div>
                     </div>
                     <div class="contact-item">
                         <div class="title-6 w-700">Phone</div>
@@ -38,10 +38,37 @@
                     <div class="title-3">Send Us A Message</div>
                     <form action="{{ route('contact.store') }}" method="POST">
                         @csrf
-                        <input type="text" name="name" placeholder="Your name">
-                        <input type="email" name="email" placeholder="Your email">
-                        <textarea name="message" rows="6" placeholder="Your message"></textarea>
-                        <button type="submit" class="btn-1">SEND MESSAGE</button>
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Your name"
+                            required>
+
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Your email"
+                            required>
+                        <textarea
+                            name="message"
+                            rows="6"
+                            placeholder="Your message"
+                            required></textarea>
+                        @if ($errors->any())
+                        <div class="text-red">
+                            @foreach ($errors->all() as $error)
+                            <div>{{ $error }}</div>
+                            @endforeach
+                        </div>
+                        @endif
+                        @if (session('success'))
+                        <div style="color: green;">
+                            {{ session('success') }}
+                        </div>
+                        @endif
+                        <button type="submit" class="btn-1">
+                            SEND MESSAGE
+                        </button>
                     </form>
                 </div>
             </div>

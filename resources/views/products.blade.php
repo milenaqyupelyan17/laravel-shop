@@ -24,24 +24,18 @@
                 <div class="wrapper bg-grey br">
                     <div class="flex flex-column gap-20"
                         style="padding: 24px; border: 1px solid #e5e5e5; background: #fff;">
-
                         <div class="title-5 w-700"
                             style="font-size: 20px; letter-spacing: 0.5px; padding-bottom: 15px; border-bottom: 1px solid #e5e5e5;">
                             Filter
                         </div>
-
                         <form action="{{ route('products') }}"
                             method="GET"
                             class="flex flex-column gap-20">
-
-                            <!-- Color -->
                             <div class="flex flex-column gap-10">
-
                                 <div class="title-6 w-700"
                                     style="font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #555; margin-bottom: 5px;">
                                     Color
                                 </div>
-
                                 <label class="title-6"
                                     style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: #444;">
                                     <input type="radio"
@@ -51,7 +45,6 @@
                                         style="width: 15px; height: 15px; accent-color: #222; cursor: pointer;">
                                     Red
                                 </label>
-
                                 <label class="title-6"
                                     style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: #444;">
                                     <input type="radio"
@@ -61,7 +54,6 @@
                                         style="width: 15px; height: 15px; accent-color: #222; cursor: pointer;">
                                     Blue
                                 </label>
-
                                 <label class="title-6"
                                     style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: #444;">
                                     <input type="radio"
@@ -71,7 +63,6 @@
                                         style="width: 15px; height: 15px; accent-color: #222; cursor: pointer;">
                                     Green
                                 </label>
-
                                 <label class="title-6"
                                     style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: #444;">
                                     <input type="radio"
@@ -81,7 +72,6 @@
                                         style="width: 15px; height: 15px; accent-color: #222; cursor: pointer;">
                                     Pink
                                 </label>
-
                                 <label class="title-6"
                                     style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: #444;">
                                     <input type="radio"
@@ -91,18 +81,13 @@
                                         style="width: 15px; height: 15px; accent-color: #222; cursor: pointer;">
                                     Black
                                 </label>
-
                             </div>
-
-                            <!-- Size -->
                             <div class="flex flex-column gap-10"
                                 style="padding-top: 5px;">
-
                                 <div class="title-6 w-700"
                                     style="font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #555; margin-bottom: 5px;">
                                     Size
                                 </div>
-
                                 <label class="title-6"
                                     style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: #444;">
                                     <input type="radio"
@@ -112,7 +97,6 @@
                                         style="width: 15px; height: 15px; accent-color: #222; cursor: pointer;">
                                     XS
                                 </label>
-
                                 <label class="title-6"
                                     style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: #444;">
                                     <input type="radio"
@@ -122,7 +106,6 @@
                                         style="width: 15px; height: 15px; accent-color: #222; cursor: pointer;">
                                     S
                                 </label>
-
                                 <label class="title-6"
                                     style="display: flex; align-items: center; gap: 10px; cursor: pointer; color: #444;">
                                     <input type="radio"
@@ -212,6 +195,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const cartKey = 'cart_user_{{ auth()->id() }}';
+
         function updateCartCount() {
             const cart = JSON.parse(
                 localStorage.getItem(cartKey)
@@ -231,6 +215,7 @@
                 }
             });
         }
+
         function showToast(message) {
             const toast = document.getElementById('cart-toast');
             if (!toast) {
@@ -243,47 +228,46 @@
             }, 2000);
         }
         updateCartCount();
-        document.querySelectorAll('.add-product-cart')
-            .forEach(function(button) {
-                button.addEventListener('click', function() {
-                    const product = {
-                        id: this.dataset.id,
-                        title: this.dataset.title,
-                        price: Number(
-                            this.dataset.price
-                        ),
-                        image: this.dataset.image,
-                        quantity: 1,
-                        color: this.dataset.color || '',
-                        size: this.dataset.size || ''
-                    };
-                    let cart = JSON.parse(
-                        localStorage.getItem(cartKey)
-                    ) || [];
-                    const existingProduct =
-                        cart.find(function(item) {
-                            return item.id == product.id &&
-                                item.color == product.color &&
-                                item.size == product.size;
-                        });
-                    if (existingProduct) {
-                        existingProduct.quantity =
-                            (Number(
-                                existingProduct.quantity
-                            ) || 1) + 1;
-                    } else {
-                        cart.push(product);
-                    }
-                    localStorage.setItem(
-                        cartKey,
-                        JSON.stringify(cart)
-                    );
-                    updateCartCount();
-                    showToast(
-                        '✓ Product added to cart!'
-                    );
-                });
+        document.querySelectorAll('.add-product-cart').forEach(function(button) {
+            button.addEventListener('click', function() {
+                const product = {
+                    id: this.dataset.id,
+                    title: this.dataset.title,
+                    price: Number(
+                        this.dataset.price
+                    ),
+                    image: this.dataset.image,
+                    quantity: 1,
+                    color: this.dataset.color || '',
+                    size: this.dataset.size || ''
+                };
+                let cart = JSON.parse(
+                    localStorage.getItem(cartKey)
+                ) || [];
+                const existingProduct =
+                    cart.find(function(item) {
+                        return item.id == product.id &&
+                            item.color == product.color &&
+                            item.size == product.size;
+                    });
+                if (existingProduct) {
+                    existingProduct.quantity =
+                        (Number(
+                            existingProduct.quantity
+                        ) || 1) + 1;
+                } else {
+                    cart.push(product);
+                }
+                localStorage.setItem(
+                    cartKey,
+                    JSON.stringify(cart)
+                );
+                updateCartCount();
+                showToast(
+                    '✓ Product added to cart!'
+                );
             });
+        });
         const favoriteKey =
             'favorites_user_{{ auth()->id() }}';
         let favorites =
@@ -291,57 +275,57 @@
                 localStorage.getItem(favoriteKey)
             ) || [];
         document.querySelectorAll('.favorite-btn').forEach(function(heart) {
-                const productId =heart.dataset.id;
-                const exists = favorites.some(function(product) {
-                        return product.id == productId;
-                    });
-                if (exists) {
-                    heart.classList.remove('fa-regular');
-                    heart.classList.add( 'fa-solid');
-                }
-                heart.addEventListener(
-                    'click',
-                    function(event) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                        let favorites = JSON.parse(
-                                localStorage.getItem(favoriteKey)) || [];
-                        const index = favorites.findIndex(
-                                function(product) {
-                                    return product.id == productId;
-                                }
-                            );
-                        if (index !== -1) {
-                            favorites.splice(
-                                index,
-                                1
-                            );
-                            heart.classList.remove('fa-solid');
-                            heart.classList.add('fa-regular');
-                        } else {
-                            const product = {
-                                id: this.dataset.id,
-                                title: this.dataset.title,
-                                price: Number(
-                                    this.dataset.price
-                                ),
-                                image: this.dataset.image
-                            };
-                            favorites.push(product);
-                            heart.classList.remove(
-                                'fa-regular'
-                            );
-                            heart.classList.add(
-                                'fa-solid'
-                            );
+            const productId = heart.dataset.id;
+            const exists = favorites.some(function(product) {
+                return product.id == productId;
+            });
+            if (exists) {
+                heart.classList.remove('fa-regular');
+                heart.classList.add('fa-solid');
+            }
+            heart.addEventListener(
+                'click',
+                function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    let favorites = JSON.parse(
+                        localStorage.getItem(favoriteKey)) || [];
+                    const index = favorites.findIndex(
+                        function(product) {
+                            return product.id == productId;
                         }
-                        localStorage.setItem(
-                            favoriteKey,
-                            JSON.stringify(favorites)
+                    );
+                    if (index !== -1) {
+                        favorites.splice(
+                            index,
+                            1
+                        );
+                        heart.classList.remove('fa-solid');
+                        heart.classList.add('fa-regular');
+                    } else {
+                        const product = {
+                            id: this.dataset.id,
+                            title: this.dataset.title,
+                            price: Number(
+                                this.dataset.price
+                            ),
+                            image: this.dataset.image
+                        };
+                        favorites.push(product);
+                        heart.classList.remove(
+                            'fa-regular'
+                        );
+                        heart.classList.add(
+                            'fa-solid'
                         );
                     }
-                );
-            });
+                    localStorage.setItem(
+                        favoriteKey,
+                        JSON.stringify(favorites)
+                    );
+                }
+            );
+        });
     });
 </script>
 

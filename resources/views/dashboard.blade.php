@@ -55,33 +55,33 @@
             <div class="wrapper bg-grey" style="min-height: 50vh;">
                 <div class="flex flex-column gap-20" style="padding: 30px;">
                     <div class="title-5 w-700">
-                        My Account
+                        Dashboard
                     </div>
-                    <a href="{{ route('dashboard') }}"
-                        class="title-6 menu-button {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-                        <i class="fa-regular fa-user"></i>
-                        Account
-                    </a>
-                    <a href="{{ url('settings') }}"
-                        class="title-6 menu-button {{ request()->is('settings') ? 'active' : '' }}">
-                        <i class="fa-solid fa-gear"></i>
-                        Settings
-                    </a>
                     <a href="{{ route('carts') }}"
                         class="title-6 menu-button {{ request()->routeIs('carts') ? 'active' : '' }}">
                         <i class="fa-regular fa-credit-card"></i>
                         My Cards
+                    </a>
+                    <a href="{{ route('dashboard') }}"
+                        class="title-6 menu-button {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                        <i class="fa-regular fa-user"></i>
+                        My Orders
                     </a>
                     <a href="{{ route('favorites') }}"
                         class="title-6 menu-button {{ request()->routeIs('favorites') ? 'active' : '' }}">
                         <i class="fa-regular fa-heart"></i>
                         Favorites
                     </a>
+                    <a href="{{ url('settings') }}"
+                        class="title-6 menu-button {{ request()->is('settings') ? 'active' : '' }}">
+                        <i class="fa-solid fa-gear"></i>
+                        Settings
+                    </a>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button type="submit" class="title-6 menu-button">
                             <i class="fa-solid fa-right-from-bracket"></i>
-                            Logout
+                            Log Out
                         </button>
                     </form>
                 </div>
@@ -124,7 +124,6 @@
     const sidebarOpen = document.getElementById('sidebarOpen');
     const sidebarClose = document.getElementById('sidebarClose');
     const sidebarOverlay = document.getElementById('sidebarOverlay');
-
     sidebarOpen.addEventListener('click', function() {
         sidebar.classList.add('active');
         sidebarOverlay.classList.add('active');

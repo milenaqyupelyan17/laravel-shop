@@ -14,12 +14,12 @@
     </section>
     <section id="not_found">
         <div class="row">
-            <div class="col">
-                <div class="wrapper w-50">
-                    <img src="assets/notfound.png">
+            <div class="col w-50">
+                <div class="wrapper w-40">
+                    <img src="images/notfound.png">
                 </div>
             </div>
-            <div class="col">
+            <div class="col w-50">
                 <div class="wrapper not_found_border">
                     <div class="w-700">No results were found for searching " Blue Sony Camera ".</div>
                     <div class="title-6"><i class="fa-solid fa-notdef"></i> We recommend you to search different
@@ -30,6 +30,12 @@
                 </div>
             </div>
         </div>
+        <a href="{{ route('home') }}" class="btn-1">
+            Home
+        </a>
+        <a href="{{ route('products') }}" class="btn-1">
+            Products
+        </a>
     </section>
 </main>
 @endsection

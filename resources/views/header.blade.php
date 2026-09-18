@@ -47,13 +47,30 @@
                     </div>
                     <div class="flex gap-5 align-items-center">
                         <i class="fa-solid fa-bag-shopping"></i>
-                        <a href="{{ route('card') }}">
-                            <div class="title-6">Card</div>
+                        <a href="{{ route('carts') }}">
+                            Cart
+                            <span id="cart-count">0</span>
                         </a>
-                        <span id="cart-count" class="cart title-7">0</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 </header>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        const cartKey = 'cart_user_{{ auth()->id() }}';
+        let cart = JSON.parse(
+            localStorage.getItem(cartKey)
+        ) || [];
+        let totalQuantity = 0;
+        cart.forEach(function(item) {
+            totalQuantity += Number(item.quantity) || 0;
+        })
+        const cartCount = document.getElementById('cart-count');
+        if (cartCount) {
+            cartCount.textContent = totalQuantity;
+        }
+    });
+</script>

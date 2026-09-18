@@ -115,7 +115,7 @@
                 const card = document.createElement('div');
                 card.className = 'cart-product';
                 card.innerHTML = `
-                    <div class="cart-product-image" style="height: 200px;">
+                    <div class="cart-product-image">
                         <img src="${product.image}"
                             alt="${product.title}">
                     </div>

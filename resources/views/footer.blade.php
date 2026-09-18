@@ -7,7 +7,16 @@
                 </a> <a href="{{ route('contact') }}" class="title-6 text-grey"> Our Store </a>
             </div>
             <div class="col flex flex-column gap-20 w-33">
-                <div class="title-6 w-700">Career Opportunities</div> <a href="{{ route('home') }}" class="title-6 text-grey"> Selling Programs </a> <a href="{{ route('home') }}" class="title-6 text-grey"> Advertise </a> <a href="{{ route('home') }}" class="title-6 text-grey"> Cooperation </a>
+                <div class="title-6 w-700">Career Opportunities</div>
+                <a href="/selling-programs" class="title-6 text-grey">
+                    Selling Programs
+                </a>
+                <a href="/advertise" class="title-6 text-grey">
+                    Advertise
+                </a>
+                <a href="/cooperation" class="title-6 text-grey">
+                    Cooperation
+                </a>
             </div>
             <div class="col flex flex-column gap-20 w-33">
                 <div class="title-6 w-700">Help</div> <a href="{{ route('contact') }}" class="title-6 text-grey"> Contact Us </a>

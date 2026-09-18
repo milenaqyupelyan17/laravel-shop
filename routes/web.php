@@ -6,7 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\OrderController;
-
+use App\Http\Controllers\SettingsController;
 
 Route::get('/', [ProductController::class, 'home'])
     ->name('home');
@@ -98,3 +98,10 @@ Route::get('/carts', function () {
         ->get();
     return view('carts', compact('orders'));
 })->middleware('auth')->name('carts');
+
+Route::get('/404', function () {
+    return view('404');
+})->name('404');
+
+Route::put('/settings', [SettingsController::class, 'update'])
+    ->name('settings.update');

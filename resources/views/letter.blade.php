@@ -1,4 +1,4 @@
-  <section id="letter">
+  <section id="letter" style="padding-top: 150px;">
       <div class="row bg-blue justify-content-center">
           <div class="col" style="padding: 30px 50px;">
               <div class="wrapper flex flex-column gap-20">
