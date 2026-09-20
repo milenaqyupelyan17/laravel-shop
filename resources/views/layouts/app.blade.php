@@ -26,12 +26,15 @@
     @endif
 
     @include('footer')
-    <script src="{{ asset('js/main.js') }}"></script>
+    <script>
+        const userId = "{{ auth()->id() }}";
+    </script>
     <script src="{{ asset('js/main.js') }}"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const cartKey = 'cart_user_{{ auth()->id() }}';
+
             function updateCartCount() {
                 const cart = JSON.parse(
                     localStorage.getItem(cartKey)

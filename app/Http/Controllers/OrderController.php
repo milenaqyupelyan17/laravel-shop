@@ -50,13 +50,11 @@ class OrderController extends Controller
             ]);
         }
         session(['order_id' => $order->id]);
-
         return redirect()->route('confirmation');
     }
     public function confirmation()
     {
         $orderId = session('order_id');
-
         if (!$orderId) {
             return redirect()->route('card');
         }

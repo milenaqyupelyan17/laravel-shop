@@ -45,7 +45,6 @@ class AuthController extends Controller
             ->with('success', 'Registration successful!');
     }
 
-
     public function login(Request $request)
     {
         $credentials = $request->validate([

@@ -59,7 +59,6 @@
 </header>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-
         const cartKey = 'cart_user_{{ auth()->id() }}';
         let cart = JSON.parse(
             localStorage.getItem(cartKey)

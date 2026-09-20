@@ -57,26 +57,42 @@
                     <div class="title-5 w-700">
                         Dashboard
                     </div>
-                    <a href="{{ route('carts') }}"
-                        class="title-6 menu-button {{ request()->routeIs('carts') ? 'active' : '' }}">
-                        <i class="fa-regular fa-credit-card"></i>
-                        My Cards
-                    </a>
-                    <a href="{{ route('dashboard') }}"
-                        class="title-6 menu-button {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-                        <i class="fa-regular fa-user"></i>
-                        My Orders
-                    </a>
-                    <a href="{{ route('favorites') }}"
-                        class="title-6 menu-button {{ request()->routeIs('favorites') ? 'active' : '' }}">
-                        <i class="fa-regular fa-heart"></i>
-                        Favorites
-                    </a>
-                    <a href="{{ url('settings') }}"
-                        class="title-6 menu-button {{ request()->is('settings') ? 'active' : '' }}">
-                        <i class="fa-solid fa-gear"></i>
-                        Settings
-                    </a>
+                    <form action="{{ route('dashboard') }}" method="GET">
+                        <button
+                            type="submit"
+                            class="title-6 menu-button
+                            {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                            <i class="fa-regular fa-user"></i>
+                            Account
+                        </button>
+                    </form>
+                    <form action="{{ route('settings') }}" method="GET">
+                        <button
+                            type="submit"
+                            class="title-6 menu-button
+                            {{ request()->routeIs('settings') ? 'active' : '' }}">
+                            <i class="fa-solid fa-gear"></i>
+                            Settings
+                        </button>
+                    </form>
+                    <form action="{{ route('carts') }}" method="GET">
+                        <button
+                            type="submit"
+                            class="title-6 menu-button
+                            {{ request()->routeIs('carts') ? 'active' : '' }}">
+                            <i class="fa-regular fa-credit-card"></i>
+                            My Cards
+                        </button>
+                    </form>
+                    <form action="{{ route('favorites') }}" method="GET">
+                        <button
+                            type="submit"
+                            class="title-6 menu-button
+                            {{ request()->routeIs('favorites') ? 'active' : '' }}">
+                            <i class="fa-regular fa-heart"></i>
+                            Favorites
+                        </button>
+                    </form>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button type="submit" class="title-6 menu-button">

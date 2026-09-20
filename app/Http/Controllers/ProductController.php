@@ -40,13 +40,17 @@ class ProductController extends Controller
         return view('categories', compact('products'));
     }
     public function show($id)
-{
-    $product = Product::findOrFail($id);
+    {
+        $product = Product::findOrFail($id);
+        $recommendedProducts = Product::where('id', '!=', $product->id)
+            ->whereNotIn('id', Product::orderBy('id', 'desc')->take(3)->pluck('id'))
+            ->inRandomOrder()
+            ->take(4)
+            ->get();
 
-    $relatedProducts = Product::where('id', '!=', $product->id)
-        ->take(4)
-        ->get();
-
-    return view('productdetails', compact('product', 'relatedProducts'));
-}
+        return view('productdetails', [
+            'product' => $product,
+            'recommendedProducts' => $recommendedProducts
+        ]);
+    }
 }

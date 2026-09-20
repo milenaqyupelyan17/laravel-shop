@@ -125,32 +125,36 @@
                     <div class="text-grey title-6">
                         Price
                     </div>
-                    <div class="title-6">
-                        $0
+                    <div id="order-price" class="title-6">
+                        $0.00
                     </div>
                 </div>
                 <div class="flex justify-content-between">
                     <div class="text-grey title-6">
                         Discount price
                     </div>
-                    <div class="title-6">
-                        $0
+                    <div id="order-discount" class="title-6">
+                        $0.00
                     </div>
                 </div>
                 <div class="flex justify-content-between">
                     <div class="w-700 title-6">
                         Total Price
                     </div>
-                    <div class="w-700 title-6 text-red">
-                        $0
+                    <div
+                        id="order-total"
+                        class="w-700 title-6 text-red">
+                        $0.00
                     </div>
                 </div>
-                <a href="{{ route('products') }}"
+                <a
+                    href="{{ route('products') }}"
                     class="btn-1 text-center">
                     Shop now
                 </a>
                 <div class="flex gap-5">
-                    <input type="text"
+                    <input
+                        type="text"
                         placeholder="210548">
                     <div class="btn-1">
                         Apply code
@@ -164,20 +168,48 @@
     document.addEventListener('DOMContentLoaded', function() {
         const cartKey = 'cart_user_{{ auth()->id() }}';
         const form = document.getElementById('payment-form');
+        const priceElement = document.getElementById('order-price');
+        const discountElement = document.getElementById('order-discount');
+        const totalElement = document.getElementById('order-total');
+        const cartHeaderCount = document.getElementById('card-header-count');
+        let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+
+        function updateOrderSummary() {
+            let total = 0;
+            let totalQuantity = 0;
+            cart.forEach(function(product) {
+                const price = Number(product.price) || 0;
+                const quantity = Number(product.quantity) || 1;
+                total += price * quantity;
+                totalQuantity += quantity;
+            });
+            const discount = 0;
+            const finalTotal = total - discount;
+            priceElement.textContent = '$' + total.toFixed(2);
+            discountElement.textContent = '$' + discount.toFixed(2);
+            totalElement.textContent = '$' + finalTotal.toFixed(2);
+            if (cartHeaderCount) {
+                cartHeaderCount.textContent =
+                    'CARD(' + totalQuantity + ')';
+            }
+        }
+        updateOrderSummary();
         form.addEventListener('submit', function(event) {
-            const cart = JSON.parse(
-                localStorage.getItem(cartKey)
-            ) || [];
-            if (cart.length === 0) {
+            const currentCart = JSON.parse(
+                localStorage.getItem(cartKey)) || [];
+            if (currentCart.length === 0) {
                 event.preventDefault();
-                alert('Your cart is empty. Please add a product first.');
-                window.location.href = "{{ route('card') }}";
+                alert(
+                    'Your cart is empty. Please add a product first.'
+                );
+                window.location.href =
+                    "{{ route('card') }}";
                 return;
             }
             const cartInput = document.createElement('input');
             cartInput.type = 'hidden';
             cartInput.name = 'cart';
-            cartInput.value = JSON.stringify(cart);
+            cartInput.value = JSON.stringify(currentCart);
             form.appendChild(cartInput);
         });
     });

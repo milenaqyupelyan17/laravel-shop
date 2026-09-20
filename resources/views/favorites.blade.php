@@ -93,8 +93,7 @@
         const count = document.getElementById('favorites-count');
 
         function updateFavoritesCount() {
-            count.textContent =
-                favorites.length +
+            count.textContent = favorites.length +
                 (favorites.length === 1 ?
                     ' product' :
                     ' products'
@@ -116,31 +115,44 @@
                 const card = document.createElement('div');
                 card.className = 'favorite-card';
                 card.innerHTML = `
-                    <div class="product-image">
-                        <img src="${product.image}" alt="${product.title}">
-                    </div>
-                    <div class="product-info">
-                        <div>
-                            <h2 class="title-7 w-700">
-                                ${product.title}
-                            </h2>
-                            <p class="text-grey title-8">
-                                Favorite product
-                            </p>
-                        </div>
-                        <div class="products-info">
-                            <div class="price text-red title-6 w-700">
-                                $${Number(product.price).toFixed(2)}
-                            </div>
-                            <button
-                                type="button"
-                                class="remove-favorite"
-                                data-id="${product.id}">
-                                <i class="fa-solid fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
+    <div class="product-image">
+        <img
+            src="${product.image}"
+            alt="${product.title}">
+    </div>
+    <div class="product-info">
+        <div>
+            <h2 class="title-7 w-700">
+                ${product.title}
+            </h2>
+            <p class="text-grey title-8">
+                Favorite product
+            </p>
+        </div>
+        <div class="products-info">
+            <div class="price text-red title-6 w-700">
+                $${Number(product.price).toFixed(2)}
+            </div>
+            <button
+                type="button"
+                class="remove-favorite"
+                data-id="${product.id}">
+                <i class="fa-solid fa-heart"></i>
+            </button>
+        </div>
+        <a
+            href="/product-details/${product.id}"
+            class="btn-1"
+            style="
+                padding: 7px 12px;
+                font-size: 11px;
+                text-align: center;
+                margin-top: 10px;
+            ">
+            See Details
+        </a>
+    </div>
+`;
                 container.appendChild(card);
             });
             updateFavoritesCount();

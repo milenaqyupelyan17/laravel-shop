@@ -53,13 +53,29 @@
     <section id="products">
         <div class="row justify-content-between">
             @foreach($mustHaveProducts as $product)
-            <div class="col">
+            <div class="col" style="width: 31%;">
                 <div class="wrapper product-card">
-                    <img
-                        src="{{ asset($product->image) }}"
-                        alt="{{ $product->title }}"
-                        style="width: 100%; height: 500px; object-fit: cover;">
-                    <div class="product-info bg-black">
+                    <a href="{{ route('productdetails', ['id' => $product->id]) }}">
+                        <div style="
+                        width: 100%;
+                        height: 410px;
+                        overflow: hidden;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    ">
+                            <img
+                                src="{{ asset($product->image) }}"
+                                alt="{{ $product->title }}"
+                                style="
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                                display: block;
+                            ">
+                        </div>
+                    </a>
+                    <div class="product-info bg-black flex flex-column gap-10">
                         <div>
                             <div class="w-700">
                                 {{ $product->title }}

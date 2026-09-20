@@ -12,7 +12,6 @@
                             Homepage
                         </a>
                         <i class="fa-solid fa-chevron-right"></i>
-                        {{ $product->title }}
                     </div>
                 </div>
             </div>
@@ -62,8 +61,7 @@
                                     {{ $product->description }}
                                 </p>
                             </div>
-                            <div
-                                class="flex align-items-center gap-20"
+                            <div class="flex align-items-center gap-20"
                                 style="padding-top:20px;">
                                 <div class="title-5">
                                     Size
@@ -105,38 +103,33 @@
                                     type="button"
                                     class="color color-option"
                                     data-color="Red"
-                                    style="background-color:#FF2E00;">
-                                </button>
+                                    style="background-color:#FF2E00;"></button>
                                 <button
                                     type="button"
                                     class="color color-option"
                                     data-color="Pink"
-                                    style="background-color:#F7DDD0;">
-                                </button>
+                                    style="background-color:#F7DDD0;"></button>
                                 <button
                                     type="button"
                                     class="color color-option"
                                     data-color="Blue"
-                                    style="background-color:#66A5FF;">
-                                </button>
+                                    style="background-color:#66A5FF;"></button>
                                 <button
                                     type="button"
                                     class="color color-option"
                                     data-color="Orange"
-                                    style="background-color:#FF9D41;">
-                                </button>
+                                    style="background-color:#FF9D41;"></button>
                                 <button
                                     type="button"
                                     class="color color-option"
                                     data-color="Yellow"
-                                    style="background-color:#FFD36C;">
-                                </button>
+                                    style="background-color:#FFD36C;"></button>
                                 <button
                                     type="button"
                                     class="color color-option"
                                     data-color="Green"
-                                    style="background-color:#4BCB88;">
-                                </button>
+                                    style="background-color:#4BCB88;"></button>
+
                             </div>
                             <div
                                 class="quantity-wrapper flex align-items-center gap-20"
@@ -187,14 +180,11 @@
                                     type="button"
                                     id="favorite-button"
                                     style="
-                                        border:none;
-                                        background:none;
-                                        cursor:pointer;
-                                    ">
-                                    <i
-                                        class="fa-regular fa-heart"
-                                        id="favorite-heart">
-                                    </i>
+                                    border:none;
+                                    background:none;
+                                    cursor:pointer;">
+                                    <i class="fa-regular fa-heart"
+                                        id="favorite-heart"></i>
                                 </button>
                             </div>
                         </div>
@@ -203,8 +193,43 @@
             </div>
         </div>
     </section>
+    <section id="recommended-products">
+        <div class="row">
+            <div class="col">
+                <div class="wrapper">
+                    <div
+                        class="title-3 w-700 text-center"
+                        style="padding:40px 0 30px;">
+                        You May Also Like
+                    </div>
+                    <div class="products-grid">
+                        @foreach($recommendedProducts as $recommendedProduct)
+                        <div class="product-card">
+                            <a href="{{ route('productdetails', $recommendedProduct->id) }}">
+                                <img
+                                    src="{{ asset($recommendedProduct->image) }}"
+                                    alt="{{ $recommendedProduct->title }}">
+                                <div style="padding:15px;">
+                                    <div class="title-5 w-700">
+                                        {{ $recommendedProduct->title }}
+                                    </div>
+                                    <p class="text-grey title-6">
+                                        {{ $recommendedProduct->description }}
+                                    </p>
+                                    <div class="title-5 w-700 text-red"
+                                        style="padding-top:10px;">
+                                        ${{ $recommendedProduct->price }}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </main>
-
 <div id="message-modal"
     class="message-modal">
     <div class="message-modal-content">
@@ -214,9 +239,11 @@
             class="close-modal">
             &times;
         </button>
-        <div id="modal-message" class="title-5 text-center">
-        </div>
-        <button type="button"
+        <div
+            id="modal-message"
+            class="title-5 text-center"></div>
+        <button
+            type="button"
             id="modal-ok"
             class="btn-1">
             OK
@@ -233,6 +260,7 @@
         justify-content: center;
         z-index: 9999;
     }
+
     .message-modal-content {
         position: relative;
         width: 350px;
@@ -242,6 +270,7 @@
         text-align: center;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     }
+
     .message-modal-content .btn-1 {
         margin-top: 20px;
     }
@@ -257,129 +286,74 @@
     }
 </style>
 <script>
-function changeImage(image) {
-    document.getElementById('main-product-image').src = image;
-}
+    function changeImage(image) {
+        document.getElementById(
+            'main-product-image'
+        ).src = image;
 
-
-function increaseQuantity() {
-    let quantity = document.getElementById('quantity');
-    quantity.value = parseInt(quantity.value) + 1;
-}
-
-function decreaseQuantity() {
-    let quantity =document.getElementById('quantity');
-    if (parseInt(quantity.value) > 1) {
-        quantity.value = parseInt(quantity.value) - 1;
     }
-}
 
-function showModal(message) {
-    const modal = document.getElementById('message-modal');
-    const modalMessage = document.getElementById('modal-message');
-    modalMessage.textContent = message;
-    modal.style.display = 'flex';
-}
+    function increaseQuantity() {
+        let quantity = document.getElementById('quantity');
+        quantity.value = parseInt(quantity.value) + 1;
+    }
 
-function closeModal() {
-    document.getElementById(
-        'message-modal'
-    ).style.display = 'none';
 
-}
+    function decreaseQuantity() {
+        let quantity = document.getElementById('quantity');
+        if (parseInt(quantity.value) > 1) {
+            quantity.value = parseInt(quantity.value) - 1;
+        }
+    }
 
-document.getElementById('close-modal').addEventListener('click', closeModal);
+    function showModal(message) {
+        const modal = document.getElementById('message-modal');
+        const modalMessage = document.getElementById('modal-message');
+        modalMessage.textContent = message;
+        modal.style.display = 'flex';
+    }
 
-document.getElementById('modal-ok').addEventListener('click', closeModal);
-let selectedColor = null;
-document.querySelectorAll('.color-option').forEach(function(button) {
-        button.addEventListener('click', function() {
-            document.querySelectorAll('.color-option').forEach(function(item) {
-                    item.classList.remove('selected');
-                });
-            this.classList.add('selected');
-            selectedColor = this.dataset.color;
-        });
-    });
-let selectedSize = null;
-document.querySelectorAll('.size-option').forEach(function(button) {
+
+    function closeModal() {
+        document.getElementById(
+            'message-modal'
+        ).style.display = 'none';
+    }
+    document.getElementById('close-modal').addEventListener(
+        'click',
+        closeModal
+    );
+    document.getElementById('modal-ok').addEventListener(
+        'click',
+        closeModal
+    );
+    let selectedSize = null;
+
+    document.querySelectorAll('.size-option').forEach(function(button) {
         button.addEventListener('click', function() {
             document.querySelectorAll('.size-option').forEach(function(item) {
-                    item.classList.remove('selected');
-                });
+                item.classList.remove(
+                    'selected'
+                );
+            });
             this.classList.add('selected');
             selectedSize = this.dataset.size;
         });
     });
-function updateCartCount() {
-    const cartKey =
-        'cart_user_{{ auth()->id() }}';
-    let cart = JSON.parse(
-            localStorage.getItem(cartKey)
-        ) || [];
+    let selectedColor = null;
 
-    let totalQuantity = 0;
-    cart.forEach(function(item) {
-        totalQuantity += Number(item.quantity) || 0;
-
-    });
-    const cartCount = document.getElementById('cart-count');
-    if (cartCount) {
-        cartCount.textContent = totalQuantity;
-    }
-}
-document.getElementById('add-to-cart').addEventListener('click', function() {
-        if (!selectedColor) {
-            showModal(
-                'Please select a color.'
-            );
-            return;
-        }
-        if (!selectedSize) {
-            showModal('Please select a size.');
-            return;
-        }
-        const quantity =Number(document.getElementById('quantity').value) || 1;
-
-        const product = {
-            id:"{{ $product->id }}",
-            title:"{{ $product->title }}",
-            price:Number("{{ $product->price }}"),
-            image: "{{ asset($product->image) }}",
-            quantity: quantity,
-            color: selectedColor,
-            size: selectedSize
-        };
-        const cartKey = 'cart_user_{{ auth()->id() }}';
-        let cart = JSON.parse(
-                localStorage.getItem(cartKey)
-            ) || [];
-        const existingProduct = cart.find(function(item) {
-                return item.id == product.id &&
-                    item.color == product.color &&
-                    item.size == product.size;
-
+    document.querySelectorAll('.color-option').forEach(function(button) {
+        button.addEventListener('click', function() {
+            document.querySelectorAll('.color-option').forEach(function(item) {
+                item.classList.remove(
+                    'selected'
+                );
             });
-
-        if (existingProduct) {
-            existingProduct.quantity =(Number(existingProduct.quantity) || 1)
-                + product.quantity;
-
-        } else {
-            cart.push(product);
-        }
-        localStorage.setItem(
-            cartKey,
-            JSON.stringify(cart)
-        );
-
-        updateCartCount();
-        showModal(
-            'Product added to cart!'
-        );
-
+            this.classList.add('selected');
+            selectedColor = this.dataset.color;
+        });
     });
-document.getElementById('shop-now').addEventListener('click', function() {
+    document.getElementById('add-to-cart').addEventListener('click', function() {
         if (!selectedColor) {
             showModal(
                 'Please select a color.'
@@ -393,126 +367,134 @@ document.getElementById('shop-now').addEventListener('click', function() {
             return;
         }
         const quantity = Number(
-                document.getElementById('quantity').value
-            ) || 1;
+            document.getElementById('quantity').value) || 1;
         const product = {
             id: "{{ $product->id }}",
             title: "{{ $product->title }}",
-            price:
-                Number(
-                    "{{ $product->price }}"
-                ),
+            price: Number(
+                "{{ $product->price }}"
+            ),
             image: "{{ asset($product->image) }}",
             quantity: quantity,
             color: selectedColor,
             size: selectedSize
-
         };
-        const cartKey = 'cart_user_{{ auth()->id() }}';
+        const cartKey = 'cart_user_' + userId;
         let cart = JSON.parse(
-                localStorage.getItem(cartKey)
-            ) || [];
-        const existingProduct = cart.find(function(item) {
-                return item.id == product.id &&
+            localStorage.getItem(cartKey)
+        ) || [];
+        const existingProduct =
+            cart.find(function(item) {
+                return (
+                    item.id == product.id &&
                     item.color == product.color &&
-                    item.size == product.size;
+                    item.size == product.size
+                );
             });
         if (existingProduct) {
             existingProduct.quantity =
-                (Number(existingProduct.quantity) || 1) + product.quantity;
-
+                (Number(existingProduct.quantity) || 1) +
+                product.quantity;
         } else {
             cart.push(product);
         }
+
         localStorage.setItem(
             cartKey,
             JSON.stringify(cart)
         );
         updateCartCount();
-        window.location.href =
-            "{{ route('carts') }}";
+        showModal(
+            'Product added to cart!'
+        );
     });
 
-const favoritesKey = 'favorites_user_{{ auth()->id() }}';
-const favoriteButton = document.getElementById(
-        'favorite-button'
-    );
-const favoriteHeart = document.getElementById(
-        'favorite-heart'
-    );
-let favorites =
-    JSON.parse(
-        localStorage.getItem(favoritesKey)
-    ) || [];
+    document.getElementById('shop-now').addEventListener('click',function() {
+                window.location.href ="{{ route('products') }}";
+            }
+        );
+    const favoritesKey = 'favorites_user_' + userId;
+    const favoriteButton = document.getElementById('favorite-button');
 
-const productId =
-    "{{ $product->id }}";
+    const favoriteHeart =
+        document.getElementById(
+            'favorite-heart'
+        );
 
-function isFavorite() {
-    return favorites.some(
-        function(product) {
-            return product.id == productId;
-        }
-    );
-}
-function updateFavoriteHeart() {
-    if (isFavorite()) {
-        favoriteHeart.classList.remove(
-            'fa-regular'
-        );
-        favoriteHeart.classList.add(
-            'fa-solid'
-        );
-        favoriteHeart.style.color ='red';
+    let favorites =JSON.parse(
+            localStorage.getItem(
+                favoritesKey
+            )
+        ) || [];
 
-    } else {
-        favoriteHeart.classList.remove(
-            'fa-solid'
+    const productId = "{{ $product->id }}";
+    function isFavorite() {
+        return favorites.some(
+            function(product) {
+                return product.id == productId;
+            }
         );
-        favoriteHeart.classList.add(
-            'fa-regular'
-        );
-        favoriteHeart.style.color =
-            '';
     }
-}
 
-updateFavoriteHeart();
-favoriteButton.addEventListener(
-    'click',
-    function() {
-        favorites = JSON.parse(
-                localStorage.getItem(favoritesKey)
-            ) || [];
-        const index = favorites.findIndex(
-                function(product) {
-                    return product.id ==
-                        productId;
-                }
+    function updateFavoriteHeart() {
+        if (isFavorite()) {
+            favoriteHeart.classList.remove(
+                'fa-regular'
             );
-
-        if (index !== -1) {
-            favorites.splice(
-                index,
-                1
+            favoriteHeart.classList.add(
+                'fa-solid'
             );
+            favoriteHeart.style.color =
+                'red';
         } else {
-            favorites.push({
-                id:"{{ $product->id }}",
-                title:"{{ $product->title }}",
-                price:Number(
+            favoriteHeart.classList.remove(
+                'fa-solid'
+            );
+
+            favoriteHeart.classList.add(
+                'fa-regular'
+            );
+
+            favoriteHeart.style.color =
+                '';
+        }
+    }
+    updateFavoriteHeart();
+    favoriteButton.addEventListener('click',function() {
+
+            favorites = JSON.parse(
+                    localStorage.getItem(
+                        favoritesKey
+                    )
+                ) || [];
+            const index = favorites.findIndex(
+                    function(product) {
+                        return product.id ==
+                            productId;
+                    }
+                );
+            if (index !== -1) {
+                favorites.splice(
+                    index,
+                    1
+                );
+            } else {
+                favorites.push({
+                    id: "{{ $product->id }}",
+                    title: "{{ $product->title }}",
+                    price: Number(
                         "{{ $product->price }}"
                     ),
-                image:"{{ asset($product->image) }}"
-            });
+                    image: "{{ asset($product->image) }}"
+                });
+            }
+            localStorage.setItem(
+                favoritesKey,
+                JSON.stringify(favorites)
+            );
+            updateFavoriteHeart();
         }
-        localStorage.setItem(
-            favoritesKey,
-            JSON.stringify(favorites)
-        );
-        updateFavoriteHeart();
-    });
-updateCartCount();
+    );
 </script>
 
 @endsection
