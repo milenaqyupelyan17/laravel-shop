@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Http\Request;
 use App\Models\Product;
 
 class ProductController extends Controller
@@ -12,27 +12,25 @@ class ProductController extends Controller
         $mustHaveProducts = Product::whereIn('id', [11, 12, 13])->get();
         return view('home', compact('products', 'mustHaveProducts'));
     }
-    public function index()
+    public function index(Request $request)
     {
-        $search = request('search');
-        $color = request('color');
-        $size = request('size');
-        $products = Product::query()
-            ->when($search, function ($query) use ($search) {
-                $query->where(function ($query) use ($search) {
-                    $query->where('title', 'like', '%' . $search . '%')
-                        ->orWhere('description', 'like', '%' . $search . '%');
-                });
-            })
-            ->when($color, function ($query) use ($color) {
-                $query->where('color', $color);
-            })
-            ->when($size, function ($query) use ($size) {
-                $query->where('size', $size);
-            })
+        $search = $request->search;
+        $products = Product::query();
+        if ($search) {
+            $products->where(function ($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%');
+            });
+        }
+        $products = $products->orderBy('id', 'asc')->get();
+        $recommendedProducts = Product::inRandomOrder()
+            ->take(4)
             ->get();
 
-        return view('products', compact('products'));
+        return view('products', compact(
+            'products',
+            'recommendedProducts'
+        ));
     }
     public function categories()
     {
