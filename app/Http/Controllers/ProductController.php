@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\Product;
 
@@ -12,26 +13,38 @@ class ProductController extends Controller
         $mustHaveProducts = Product::whereIn('id', [11, 12, 13])->get();
         return view('home', compact('products', 'mustHaveProducts'));
     }
+
     public function index(Request $request)
     {
-        $search = $request->search;
-        $products = Product::query();
-        if ($search) {
-            $products->where(function ($query) use ($search) {
-                $query->where('title', 'like', '%' . $search . '%')
+        $query = Product::query();
+        if ($request->filled('search')) {
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
                     ->orWhere('description', 'like', '%' . $search . '%');
             });
         }
-        $products = $products->orderBy('id', 'asc')->get();
-        $recommendedProducts = Product::inRandomOrder()
-            ->take(4)
-            ->get();
+
+        if ($request->filled('color')) {
+            $query->where('color', $request->color);
+        }
+
+        if ($request->filled('size')) {
+            $query->where('size', $request->size);
+        }
+
+        $products = $query->orderBy('id', 'asc')->get();
+
+        $recommendedProducts = Product::take(4)->get();
 
         return view('products', compact(
             'products',
             'recommendedProducts'
         ));
     }
+
+
     public function categories()
     {
         $products = Product::all();

@@ -23,24 +23,24 @@
                 <div class="wrapper">
                     <div class="product-details">
                         <div class="product-details-image flex gap-10">
-                            <div class="product-thumbnails flex flex-column gap-10">
+                            <div class="product-thumbnails flex flex-column">
                                 <img
                                     src="{{ asset($product->image) }}"
                                     alt="{{ $product->title }}"
                                     class="thumbnail active"
                                     onclick="changeImage(this.src)">
                                 <img
-                                    src="{{ asset('images/top-1.jpg') }}"
+                                    src="{{ asset($product->image) }}"
                                     alt="{{ $product->title }}"
                                     class="thumbnail"
                                     onclick="changeImage(this.src)">
                                 <img
-                                    src="{{ asset('images/top-2.jpg') }}"
+                                    src="{{ asset($product->image) }}"
                                     alt="{{ $product->title }}"
                                     class="thumbnail"
                                     onclick="changeImage(this.src)">
                                 <img
-                                    src="{{ asset('images/top-3.jpg') }}"
+                                    src="{{ asset($product->image) }}"
                                     alt="{{ $product->title }}"
                                     class="thumbnail"
                                     onclick="changeImage(this.src)">
@@ -129,7 +129,6 @@
                                     class="color color-option"
                                     data-color="Green"
                                     style="background-color:#4BCB88;"></button>
-
                             </div>
                             <div
                                 class="quantity-wrapper flex align-items-center gap-20"
@@ -194,14 +193,23 @@
         </div>
     </section>
     <section id="recommended-products">
-        <div class="row">
+        <div class="row w-100">
+            <div class="col w-100 justify-content-between">
+                <div class="wrapper">
+                    <div class="flex justify-content-between align-items-center">
+                        <a href="{{ route('products') }}" class="w-500 title-3">
+                            You may also like
+                        </a>
+                        <a href="{{ route('products') }}" class="btn-1">
+                            See More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="justify-content: space-around;">
             <div class="col">
                 <div class="wrapper">
-                    <div
-                        class="title-3 w-700 text-center"
-                        style="padding:40px 0 30px;">
-                        You May Also Like
-                    </div>
                     <div class="products-grid">
                         @foreach($recommendedProducts as $recommendedProduct)
                         <div class="product-card">
@@ -315,9 +323,7 @@
 
 
     function closeModal() {
-        document.getElementById(
-            'message-modal'
-        ).style.display = 'none';
+        document.getElementById('message-modal').style.display = 'none';
     }
     document.getElementById('close-modal').addEventListener(
         'click',
@@ -353,21 +359,31 @@
             selectedColor = this.dataset.color;
         });
     });
+    const userId = "{{ auth()->id() }}";
     document.getElementById('add-to-cart').addEventListener('click', function() {
+        if (!userId) {
+            window.location.href = "{{ route('login') }}";
+            return;
+        }
+
         if (!selectedColor) {
             showModal(
                 'Please select a color.'
             );
             return;
         }
+
         if (!selectedSize) {
             showModal(
                 'Please select a size.'
             );
             return;
         }
+
         const quantity = Number(
-            document.getElementById('quantity').value) || 1;
+            document.getElementById('quantity').value
+        ) || 1;
+
         const product = {
             id: "{{ $product->id }}",
             title: "{{ $product->title }}",
@@ -379,10 +395,13 @@
             color: selectedColor,
             size: selectedSize
         };
+
         const cartKey = 'cart_user_' + userId;
+
         let cart = JSON.parse(
             localStorage.getItem(cartKey)
         ) || [];
+
         const existingProduct =
             cart.find(function(item) {
                 return (
@@ -391,6 +410,7 @@
                     item.size == product.size
                 );
             });
+
         if (existingProduct) {
             existingProduct.quantity =
                 (Number(existingProduct.quantity) || 1) +
@@ -403,31 +423,25 @@
             cartKey,
             JSON.stringify(cart)
         );
+
         updateCartCount();
         showModal(
             'Product added to cart!'
         );
     });
-
-    document.getElementById('shop-now').addEventListener('click',function() {
-                window.location.href ="{{ route('products') }}";
-            }
-        );
+    document.getElementById('shop-now').addEventListener('click', function() {
+        window.location.href = "{{ route('products') }}";
+    });
     const favoritesKey = 'favorites_user_' + userId;
     const favoriteButton = document.getElementById('favorite-button');
 
-    const favoriteHeart =
-        document.getElementById(
+    const favoriteHeart =document.getElementById(
             'favorite-heart'
         );
-
-    let favorites =JSON.parse(
-            localStorage.getItem(
-                favoritesKey
-            )
-        ) || [];
+    let favorites = JSON.parse(localStorage.getItem(favoritesKey)) || [];
 
     const productId = "{{ $product->id }}";
+
     function isFavorite() {
         return favorites.some(
             function(product) {
@@ -455,46 +469,39 @@
                 'fa-regular'
             );
 
-            favoriteHeart.style.color =
-                '';
+            favoriteHeart.style.color ='';
         }
     }
     updateFavoriteHeart();
-    favoriteButton.addEventListener('click',function() {
-
-            favorites = JSON.parse(
-                    localStorage.getItem(
-                        favoritesKey
-                    )
-                ) || [];
-            const index = favorites.findIndex(
-                    function(product) {
-                        return product.id ==
-                            productId;
-                    }
-                );
-            if (index !== -1) {
-                favorites.splice(
-                    index,
-                    1
-                );
-            } else {
-                favorites.push({
-                    id: "{{ $product->id }}",
-                    title: "{{ $product->title }}",
-                    price: Number(
-                        "{{ $product->price }}"
-                    ),
-                    image: "{{ asset($product->image) }}"
-                });
+    favoriteButton.addEventListener('click', function() {
+        favorites = JSON.parse(
+            localStorage.getItem(
+                favoritesKey
+            )
+        ) || [];
+        const index = favorites.findIndex(
+            function(product) {
+                return product.id == productId;
             }
-            localStorage.setItem(
-                favoritesKey,
-                JSON.stringify(favorites)
-            );
-            updateFavoriteHeart();
+        );
+        if (index !== -1) {
+            favorites.splice(index,1);
+        } else {
+            favorites.push({
+                id: "{{ $product->id }}",
+                title: "{{ $product->title }}",
+                price: Number(
+                    "{{ $product->price }}"
+                ),
+                image: "{{ asset($product->image) }}"
+            });
         }
-    );
+        localStorage.setItem(
+            favoritesKey,
+            JSON.stringify(favorites)
+        );
+        updateFavoriteHeart();
+    });
 </script>
 
 @endsection

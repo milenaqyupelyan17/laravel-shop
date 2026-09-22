@@ -33,7 +33,7 @@
             </div>
         </div>
     </section>
-    <section class="bg-grey br w-80" style="margin: 50px auto;">
+    <section class="bg-grey br w-50" style="margin: 50px auto;">
         <div class="row justify-content-center flex flex-column gap-20">
             <div class="col">
                 <div class="wrapper">
@@ -75,9 +75,7 @@
                             <div class="text-grey title-6"> Price </div>
                             <div class="title-6">
                                 ${{ number_format(
-                                $order->total_price,
-                                2
-                            ) }}
+                                $order->total_price, 2) }}
                             </div>
                         </div>
                         <div class="flex justify-content-between">
@@ -88,14 +86,14 @@
                             <div class="title-6 w-700"> Total Price </div>
                             <div class="title-6 w-700 text-red">
                                 ${{ number_format(
-                                $order->total_price,
-                                2
-                            ) }}
+                                $order->total_price,2) }}
                             </div>
                         </div>
-                        <a href="{{ route('dashboard') }}" class="btn-1 text-center">
-                            Go to Dashboard
-                        </a>
+                        <div class="w-100 text-center justify-content-center">
+                            <a href="{{ route('dashboard') }}" class="btn-1 text-center">
+                                Go to Dashboard
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -110,5 +108,24 @@
         </div>
     </section>
 </main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        const cartKey = 'cart_user_{{ auth()->id() }}';
+        localStorage.removeItem(cartKey);
+        const cartCount = document.getElementById('cart-count');
+
+        if (cartCount) {
+            cartCount.textContent = '0';
+        }
+        const cardHeaderCount = document.getElementById('card-header-count');
+        if (cardHeaderCount) {
+            cardHeaderCount.textContent = 'CARD(0)';
+        }
+
+    });
+</script>
+
 
 @endsection

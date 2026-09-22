@@ -18,6 +18,9 @@ Route::get('/categories', function () {
     return view('categories');
 })->name('categories');
 
+Route::get('/product-details/{id}', [ProductController::class, 'show'])
+    ->name('productdetails');
+
 Route::get('/about', function () {
     return view('about');
 })->name('about');
@@ -26,19 +29,20 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
-Route::post('/contact', [ContactController::class, 'store'])
-    ->name('contact.store');
-
-Route::get('/product-details/{id}', [ProductController::class, 'show'])
-    ->name('productdetails');
-
-Route::get('/card', function () {
-    return view('card');
-})->name('card');
-
 Route::get('/help', function () {
     return view('help');
 })->name('help');
+
+Route::get('/404', function () {
+    return view('404');
+})->name('404');
+
+Route::post('/contact', [ContactController::class, 'store'])
+    ->name('contact.store');
+
+Route::get('/card', function () {
+    return view('card');
+})->middleware('auth')->name('card');
 
 Route::get('/sign-in', function () {
     return view('sign_in');
@@ -63,12 +67,14 @@ Route::get('/forgot-password', function () {
 
 Route::get('/payment', function () {
     return view('payment');
-})->name('payment');
+})->middleware('auth')->name('payment');
 
 Route::post('/payment', [OrderController::class, 'store'])
+    ->middleware('auth')
     ->name('payment.store');
 
 Route::get('/confirmation', [OrderController::class, 'confirmation'])
+    ->middleware('auth')
     ->name('confirmation');
 
 Route::get('/dashboard', function () {
@@ -83,25 +89,26 @@ Route::get('/settings', function () {
     return view('settings');
 })->middleware('auth')->name('settings');
 
-Route::put('/settings', [AuthController::class, 'updateSettings'])
+Route::put('/settings', [SettingsController::class, 'update'])
     ->middleware('auth')
     ->name('settings.update');
 
-Route::post('/newsletter', [NewsletterController::class, 'store'])
-    ->name('newsletter.store');
 
 Route::get('/carts', function () {
+    return view('carts');
+})->middleware('auth')->name('carts');
+
+
+Route::get('/orders', function () {
+
     $orders = auth()->user()
         ->orders()
         ->with('items.product')
         ->latest()
         ->get();
-    return view('carts', compact('orders'));
-})->middleware('auth')->name('carts');
 
-Route::get('/404', function () {
-    return view('404');
-})->name('404');
+    return view('orders', compact('orders'));
+})->middleware('auth')->name('orders');
 
-Route::put('/settings', [SettingsController::class, 'update'])
-    ->name('settings.update');
+Route::post('/newsletter', [NewsletterController::class, 'store'])
+    ->name('newsletter.store');

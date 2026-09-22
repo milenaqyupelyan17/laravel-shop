@@ -13,8 +13,8 @@ class NewsletterController extends Controller
             'email' => 'required|email',
         ]);
         return back()->with(
-            'success',
-            'Thank you! Your email has been successfully registered.'
+            'newsletter_success',
+            'Thank you for subscribing!'
         );
     }
 }

@@ -62,8 +62,7 @@
                         overflow: hidden;
                         display: flex;
                         align-items: center;
-                        justify-content: center;
-                    ">
+                        justify-content: center;">
                             <img
                                 src="{{ asset($product->image) }}"
                                 alt="{{ $product->title }}"
@@ -71,8 +70,7 @@
                                 width: 100%;
                                 height: 100%;
                                 object-fit: cover;
-                                display: block;
-                            ">
+                                display: block;">
                         </div>
                     </a>
                     <div class="product-info bg-black flex flex-column gap-10">
@@ -108,7 +106,7 @@
                 </div>
             </div>
         </div>
-        <div class="products-grid">
+        <div class="products-grid-home">
             @foreach($products as $product)
             <div class="top-products">
                 <div class="products-image">

@@ -107,7 +107,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex justify-content-end" style="padding-top: 30px;">
+                        <div class="flex justify-content-between" style="padding-top: 30px;">
+                            <button type="button" class="btn-1 text-center" onclick="window.location.href='{{ route('card') }}'"> Back to Cart </button>
                             <button
                                 type="submit"
                                 class="btn-1 text-center">
