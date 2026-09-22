@@ -54,7 +54,7 @@
         <div class="row justify-content-between">
             @foreach($mustHaveProducts as $product)
             <div class="col" style="width: 31%;">
-                <div class="wrapper product-card">
+                <div class="wrapper product-card" style="width:400px;">
                     <a href="{{ route('productdetails', ['id' => $product->id]) }}">
                         <div style="
                         width: 100%;

@@ -40,11 +40,12 @@
             </a>
         </div>
         <div class="sidebar-bottom">
-            <form action="{{ route('logout') }}" method="POST">
+            <form action="{{ route('logout') }}" method="POST" id="logoutForm">
                 @csrf
-                <button type="submit" class="sidebar-logout">
+
+                <button type="submit" class="title-6 menu-button">
                     <i class="fa-solid fa-right-from-bracket"></i>
-                    <span>Logout</span>
+                    Log Out
                 </button>
             </form>
         </div>

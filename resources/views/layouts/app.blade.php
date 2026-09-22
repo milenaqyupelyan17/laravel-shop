@@ -15,7 +15,6 @@
     @include('header')
 
     @yield('content')
-
     @if(
     request()->routeIs('home') ||
     request()->routeIs('products') ||
@@ -26,6 +25,16 @@
     @endif
 
     @include('footer')
+    <script>
+        const logoutForm = document.getElementById('logoutForm');
+        if (logoutForm) {
+            logoutForm.addEventListener('submit', function() {
+                const cartKey = 'cart_user_{{ auth()->id() }}';
+                localStorage.removeItem(cartKey);
+
+            });
+        }
+    </script>
     <script>
         const userId = "{{ auth()->id() }}";
     </script>

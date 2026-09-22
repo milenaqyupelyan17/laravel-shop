@@ -3,31 +3,6 @@
 @section('content')
 
 <main>
-    <section class="bg-black w-100">
-        <div class="row justify-content-between align-items-center">
-            <div class="col w-30">
-                <div class="wrapper flex align-items-center gap-5">
-                    <i class="fa-solid fa-table-list"></i>
-                    <div class="title-5 w-700">Categories</div>
-                </div>
-            </div>
-            <div class="col flex">
-                <div class="wrapper flex align-items-center gap-20">
-                    <i class="fa-regular fa-user"></i>
-                    <div class="title-6">Sign in</div>
-                    <i class="fa-regular fa-heart"></i>
-                    <a href="{{ route('favorites') }}">
-                        <div class="title-6">Favorites</div>
-                    </a>
-                    <i class="fa-solid fa-bag-shopping"></i>
-                    <a href="{{ route('card') }}"
-                        class="title-6 w-700 text-grey">
-                        CARD(0)
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
     <section>
         <div class="row">
             <div class="col">
@@ -46,7 +21,7 @@
             <div class="col">
                 <div class="wrapper flex gap-20 align-items-center">
                     <div class="title-6 w-700 text-grey">
-                        CARD(0)
+                        CARD({{ $order->total_quantity }})
                     </div>
                     <div class="text-grey w-700">
                         SHIPPING & PAYMENT
@@ -135,11 +110,5 @@
         </div>
     </section>
 </main>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const cartKey = 'cart_user_{{ auth()->id() }}';
-        localStorage.removeItem(cartKey);
-    });
-</script>
 
 @endsection

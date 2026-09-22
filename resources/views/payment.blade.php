@@ -17,7 +17,9 @@
         <div class="row justify-content-center">
             <div class="col">
                 <div class="wrapper flex gap-20 align-items-center">
-                    <div class id="card-header-count" class="title-6 w-700 text-grey">CARD(0)></div>
+                    <div id="card-header-count" class="title-6 w-700 text-grey">
+                        CARD(0)
+                    </div>
                     <div class="title-6 w-700">SHIPPING & PAYMENT</div>
                     <div class="title-6 text-grey w-700">PRODUCT CONFIRMATION</div>
                 </div>

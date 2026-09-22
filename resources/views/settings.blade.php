@@ -63,13 +63,11 @@
                             Favorites
                         </button>
                     </form>
-                    <form action="{{ route('logout') }}" method="POST">
+                    <form action="{{ route('logout') }}" method="POST" id="logoutForm">
                         @csrf
-                        <button
-                            type="submit"
-                            class="title-6 menu-button">
+                        <button type="submit" class="title-6 menu-button">
                             <i class="fa-solid fa-right-from-bracket"></i>
-                            Logout
+                            Log Out
                         </button>
                     </form>
                 </div>
@@ -87,23 +85,23 @@
                 </div>
                 <div style="padding-top: 30px;">
                     @if(session('success'))
-                        <div class="title-6" style="color: green; padding: 15px;text-align: center;">
-                            {{ session('success') }}
-                        </div>
+                    <div class="title-6" style="color: green; padding: 15px;text-align: center;">
+                        {{ session('success') }}
+                    </div>
                     @endif
                     @if($errors->any())
-                        <div
-                            class="title-6"
-                            style="
+                    <div
+                        class="title-6"
+                        style="
                                 color: red;
                                 padding: 15px;
                             ">
-                            @foreach($errors->all() as $error)
-                                <div>
-                                    {{ $error }}
-                                </div>
-                            @endforeach
+                        @foreach($errors->all() as $error)
+                        <div>
+                            {{ $error }}
                         </div>
+                        @endforeach
+                    </div>
                     @endif
                 </div>
                 <form
@@ -197,5 +195,18 @@
         </section>
     </div>
 </main>
+<script>
+    const logoutForm = document.getElementById('logoutForm');
 
+    if (logoutForm) {
+        logoutForm.addEventListener('submit', function() {
+            localStorage.removeItem('cart');
+            const cartCount = document.getElementById('cart-count');
+            if (cartCount) {
+                cartCount.textContent = '0';
+            }
+        });
+    }
+    
+</script>
 @endsection
