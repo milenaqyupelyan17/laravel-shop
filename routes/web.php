@@ -93,11 +93,16 @@ Route::put('/settings', [SettingsController::class, 'update'])
     ->middleware('auth')
     ->name('settings.update');
 
-
 Route::get('/carts', function () {
-    return view('carts');
-})->middleware('auth')->name('carts');
 
+    $orders = auth()->user()
+        ->orders()
+        ->with('items.product')
+        ->latest()
+        ->get();
+
+    return view('carts', compact('orders'));
+})->middleware('auth')->name('carts');
 
 Route::get('/orders', function () {
 
