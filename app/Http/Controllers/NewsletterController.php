@@ -12,9 +12,10 @@ class NewsletterController extends Controller
         $request->validate([
             'email' => 'required|email',
         ]);
-        return back()->with(
-            'newsletter_success',
-            'Thank you for subscribing!'
-        );
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Your email has been successfully registered!'
+        ]);
     }
 }

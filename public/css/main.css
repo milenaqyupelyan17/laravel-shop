@@ -707,7 +707,7 @@ input[type="email"] {
 
 #products-blade .product-image {
     width: 100%;
-    height: 430px;
+    height: 440px;
     background: #f3f3f3;
     display: flex;
     align-items: center;
@@ -801,7 +801,7 @@ input[type="email"] {
 
 .favorite-card .product-image {
     width: 100%;
-    height: 380px;
+    height: 450px;
     overflow: hidden;
 }
 
@@ -1441,6 +1441,24 @@ input[type="email"] {
     display: block;
 }
 
+.newsletter-notify {
+    position: fixed;
+    top: 90px;
+    right: 30px;
+    z-index: 9999;
+
+    background: white;
+    color: green;
+
+    padding: 15px 25px;
+    border-radius: 5px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
 @media (max-width: 992px) {
     #top .row {
         flex-wrap: wrap;
@@ -1463,4 +1481,100 @@ input[type="email"] {
         width: 260px;
     }
 
+}
+
+.contact-notify {
+    position: fixed;
+    top: 90px;
+    right: 30px;
+    z-index: 9999;
+
+    background: #fff;
+    color: green;
+
+    padding: 15px 25px;
+    border-radius: 5px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+
+    font-size: 14px;
+    font-weight: 500;
+
+    animation: notifyShow 0.3s ease;
+}
+
+@keyframes notifyShow {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.newsletter-notify {
+    position: fixed;
+    top: 90px;
+    right: 30px;
+    z-index: 9999;
+
+    background: #fff;
+    color: green;
+
+    padding: 15px 25px;
+    border-radius: 5px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+
+    font-size: 14px;
+    font-weight: 500;
+
+    animation: newsletterNotifyShow 0.3s ease;
+}
+
+@keyframes newsletterNotifyShow {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.settings-notify {
+    position: fixed;
+    top: 90px;
+    right: 30px;
+    z-index: 9999;
+
+    background: #fff;
+    color: green;
+
+    padding: 15px 25px;
+    border-radius: 5px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+
+    font-size: 14px;
+    font-weight: 500;
+
+    animation: settingsNotifyShow 0.3s ease;
+}
+
+@keyframes settingsNotifyShow {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }

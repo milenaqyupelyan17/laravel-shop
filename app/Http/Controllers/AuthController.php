@@ -6,9 +6,51 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class AuthController extends Controller
 {
+    public function updateSettings(Request $request)
+    {
+        $user = Auth::user();
+        $validated = $request->validate([
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                Rule::unique('users', 'email')->ignore($user->id),
+            ],
+
+            'current_password' => [
+                'nullable',
+                'required_with:password,password_confirmation',
+                'current_password',
+            ],
+
+            'password' => [
+                'nullable',
+                'min:8',
+                'confirmed',
+            ],
+        ]);
+
+        $user->name = $validated['name'];
+        $user->email = $validated['email'];
+        if (!empty($validated['password'])) {
+            $user->password = Hash::make($validated['password']);
+        }
+        $user->save();
+        return back()->with(
+            'success',
+            'Settings updated successfully.'
+        );
+    }
     public function showSignIn()
     {
         return view('sign_in');
@@ -51,11 +93,13 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
+
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
 
-            return redirect()->intended(route('dashboard'));
+            return redirect()->route('dashboard');
         }
+
         return back()
             ->withErrors([
                 'email' => 'The email or password is incorrect.',
@@ -69,39 +113,5 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('home');
-    }
-    public function updateSettings(Request $request)
-    {
-        $user = $request->user();
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'current_password' => 'nullable|required_with:password',
-            'password' => 'nullable|min:6|confirmed',
-        ]);
-
-        $user->name = $request->name;
-        $user->email = $request->email;
-
-        if ($request->filled('password')) {
-            if (
-                !$request->filled('current_password') ||
-                !Hash::check(
-                    $request->current_password,
-                    $user->password
-                )
-            ) {
-                return back()->withErrors([
-                    'current_password' => 'Current password is incorrect.'
-                ]);
-            }
-            $user->password = Hash::make($request->password);
-        }
-
-        $user->save();
-        return back()->with(
-            'success',
-            'Your settings have been updated successfully.'
-        );
     }
 }

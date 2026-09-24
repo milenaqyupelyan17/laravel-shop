@@ -9,62 +9,46 @@ if (searchInput) {
     });
 }
 
-
 document.addEventListener('DOMContentLoaded', function () {
-    const favoritesKey = 'favorites_user_' + userId;
-    let favorites = JSON.parse(localStorage.getItem(favoritesKey)) || [];
-    document.querySelectorAll('.favorite-btn').forEach(function (heart) {
-            const productId = heart.dataset.id;
-            if (favorites.some(function (product) {
-                return product.id == productId;
-                })
-            ) {
-                heart.classList.remove('fa-regular');
-                heart.classList.add('fa-solid');
-                heart.style.color = 'red';
-            }
-            heart.addEventListener('click', function (event) {
-                event.preventDefault();
-                event.stopPropagation();
-                const product = {
-                    id: this.dataset.id,
-                    title: this.dataset.title,
-                    price: this.dataset.price,
-                    image: this.dataset.image
-                };
-                const existingIndex = favorites.findIndex(function (item) {
-                        return item.id == product.id;
-                    });
-                if (existingIndex === -1) {
-                    product.quantity = 1;
-                    favorites.push(product);
-                    this.classList.remove('fa-regular');
-                    this.classList.add('fa-solid');
-                    this.style.color = 'red';
-
-                } else {
-                    favorites.splice(existingIndex, 1);
-                    this.classList.remove('fa-solid');
-                    this.classList.add('fa-regular');
-                    this.style.color = '';
+    const newsletterForm = document.getElementById('newsletter-form');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(newsletterForm);
+            fetch(newsletterForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
                 }
-                localStorage.setItem(
-                    favoritesKey,
-                    JSON.stringify(favorites)
-                );
-            });
+            })
+                .then(response => response.json()).then(data => {
+                    if (data.success) {
+                        newsletterForm.reset();
+                        const notify = document.createElement('div');
+                        notify.className = 'newsletter-notify';
+                        notify.innerHTML = '✓ ' + data.message;
+                        document.body.appendChild(notify);
+
+                        setTimeout(function () {
+                            notify.remove();
+                        }, 5000);
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         });
-
-    updateCartCount();
-
+    }
 });
 
 function updateCartCount() {
     const cartKey = 'cart_user_' + userId;
     let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
     let totalQuantity = cart.reduce(function (total, product) {
-            return total + (Number(product.quantity) || 0);
-        }, 0);
+        return total + (Number(product.quantity) || 0);
+    }, 0);
     const cartCount = document.getElementById('cart-count');
 
     if (cartCount) {
@@ -74,3 +58,15 @@ function updateCartCount() {
         element.textContent = 'CARD(' + totalQuantity + ')';
     });
 }
+window.addEventListener('beforeunload', function () {
+    sessionStorage.setItem('scrollPosition', window.scrollY);
+});
+
+window.addEventListener('load', function () {
+    const scrollPosition = sessionStorage.getItem('scrollPosition');
+
+    if (scrollPosition !== null) {
+        window.scrollTo(0, parseInt(scrollPosition));
+        sessionStorage.removeItem('scrollPosition');
+    }
+});

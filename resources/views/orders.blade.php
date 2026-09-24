@@ -19,18 +19,22 @@
         </div>
     </section>
     <div class="row align-items-start flex gap-20">
-        <section id="account"
+        <section
+            id="account"
             class="w-20"
             style="min-height:50vh;">
-            <div class="wrapper bg-grey"
+            <div
+                class="wrapper bg-grey"
                 style="min-height:50vh;">
-                <div class="flex flex-column gap-20"
+                <div
+                    class="flex flex-column gap-20"
                     style="padding:30px;">
                     <div class="title-5 w-700">
                         My Account
                     </div>
                     <div class="flex flex-column gap-20">
-                        <a href="{{ route('dashboard') }}"
+                        <a
+                            href="{{ route('dashboard') }}"
                             class="title-6 menu-button {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                             <i class="fa-regular fa-user"></i>
                             Account
@@ -47,7 +51,8 @@
                             <i class="fa-solid fa-cart-shopping"></i>
                             My Cards
                         </a>
-                        <a href="{{ route('favorites') }}"
+                        <a
+                            href="{{ route('favorites') }}"
                             class="title-6 menu-button{{ request()->routeIs('favorites') ? 'active' : '' }}">
                             <i class="fa-regular fa-heart"></i>
                             Favorites
@@ -97,56 +102,65 @@
                                 {{ $order->created_at->format('d.m.Y H:i') }}
                             </div>
                         </div>
-                        <div
-                            class="title-6 w-700 text-red">
+                        <div class="title-6 w-700 text-red">
                             ${{ number_format(
-                                $order->total_price,
-                                2) }}
+                                $order->total_price,2) }}
                         </div>
                     </div>
-                    @foreach($order->items as $item)
                     <div
-                        class="flex align-items-center justify-content-between"
-                        style="padding:15px 0;
-                                border-top:1px solid #ddd;">
+                        style="
+                            display:flex;
+                            flex-wrap:wrap;
+                            gap:20px;
+                            padding:15px 0;
+                            border-top:1px solid #ddd;">
+                        @foreach($order->items as $item)
                         <div
-                            class="flex align-items-center gap-20">
-                            @if($item->product)
-                            <img
-                                src="{{ asset($item->product->image) }}"
-                                alt="{{ $item->product->title }}"
-                                style="
-                                            width:70px;
-                                            height:90px;
-                                            object-fit:cover;
-                                            flex-shrink:0;">
-                            @endif
-                            <div>
+                            style="
+                                    width:calc(50% - 10px);
+                                    display:flex;
+                                    align-items:center;
+                                    justify-content:space-between;
+                                    gap:15px;">
+                            <div class="flex align-items-center gap-20">
                                 @if($item->product)
-                                <div class="title-6 w-700">
-                                    {{ $item->product->title }}
-                                </div>
+                                <img
+                                    src="{{ asset($item->product->image) }}"
+                                    alt="{{ $item->product->title }}"
+                                    style="
+                                                width:70px;
+                                                height:90px;
+                                                object-fit:cover;
+                                                flex-shrink:0;">
                                 @endif
-                                <div class="text-grey title-7">
-                                    Quantity:
-                                    {{ $item->quantity }}
-                                </div>
-                                <div class="text-grey title-7">
-                                    Color:
-                                    {{ $item->color ?? 'Not selected' }}
-                                </div>
-                                <div class="text-grey title-7">
-                                    Size:
-                                    {{ $item->size ?? 'Not selected' }}
+                                <div>
+                                    @if($item->product)
+                                    <div class="title-6 w-700">
+                                        {{ $item->product->title }}
+                                    </div>
+                                    @endif
+                                    <div class="text-grey title-7">
+                                        Quantity:
+                                        {{ $item->quantity }}
+                                    </div>
+                                    <div class="text-grey title-7">
+                                        Color:
+                                        {{ $item->color ?? 'Not selected' }}
+                                    </div>
+                                    <div class="text-grey title-7">
+                                        Size:
+                                        {{ $item->size ?? 'Not selected' }}
+                                    </div>
                                 </div>
                             </div>
+                            <div class="title-6 w-700">
+                                ${{ number_format(
+                                        $item->price * $item->quantity,
+                                        2) }}
+                            </div>
                         </div>
-                        <div class="title-6 w-700">
-                            ${{ number_format(
-                                    $item->price * $item->quantity,2) }}
-                        </div>
+                        @endforeach
                     </div>
-                    @endforeach
                     <div
                         class="flex justify-content-between"
                         style="
@@ -162,20 +176,17 @@
                     </div>
                     <div
                         class="flex justify-content-between"
-                        style="
-                            padding-top:10px;">
+                        style="padding-top:10px;">
                         <div class="title-6 w-700">
                             Total Price:
                         </div>
-                        <div
-                            class="title-6 w-700 text-red">
+                        <div class="title-6 w-700 text-red">
                             ${{ number_format(
-                                $order->total_price,2) }}
+                                $order->total_price,
+                                2) }}
                         </div>
                     </div>
-                    <div
-                        style="
-                            padding-top:15px;">
+                    <div style="padding-top:15px;">
                         <span class="title-7 w-700">
                             Status:
                         </span>

@@ -1,4 +1,9 @@
 <section id="letter" style="padding-top: 150px;">
+    @if(session('newsletter_success'))
+    <div class="newsletter-notify">
+        ✓ {{ session('newsletter_success') }}
+    </div>
+    @endif
     <div class="row bg-blue justify-content-center">
         <div class="col" style="padding: 30px 50px;">
             <div class="wrapper flex flex-column gap-20">
@@ -8,50 +13,47 @@
                 <div class="text-white">
                     Register your email not to miss the latest offers + Free delivery
                 </div>
-                <form action="{{ route('newsletter.store') }}"
+                <form
+                    id="newsletter-form"
+                    action="{{ route('newsletter.store') }}"
                     method="POST"
                     class="flex gap-20 text-center justify-content-center">
                     @csrf
                     <input
                         type="email"
                         name="email"
-                        value="{{ old('email') }}"
                         placeholder="Enter your email"
                         required
                         style="
-                            height: 48px;
-                            padding: 0 14px;
-                            border: 1px solid #ffffff;
-                            border-radius: 4px;
-                            outline: none;
-                            font-size: 14px;
-                            background: white;
-                            color: #333;">
+            height: 48px;
+            padding: 0 14px;
+            border: 1px solid #ffffff;
+            border-radius: 4px;
+            outline: none;
+            font-size: 14px;
+            background: white;
+            color: #333;">
+
                     <button
                         type="submit"
                         class="btn-2 text-white"
                         style="
-                            height: 48px;
-                            padding: 0 20px;
-                            border: 1px solid white;
-                            border-radius: 4px;
-                            background: transparent;
-                            color: white;
-                            font-size: 14px;
-                            font-weight: 500;
-                            cursor: pointer;">
+            height: 48px;
+            padding: 0 20px;
+            border: 1px solid white;
+            border-radius: 4px;
+            background: transparent;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;">
                         Send Email
                     </button>
                 </form>
-                @if(session('newsletter_success'))
-                <div class="text-white text-center">
-                    ✓ {{ session('newsletter_success') }}
-                </div>
-                @endif
                 @error('email')
                 <div
                     class="text-white text-center"
-                    style="font-size: 14px;margin-top: 5px;">
+                    style="font-size: 14px; margin-top: 5px;">
                     {{ $message }}
                 </div>
                 @enderror
@@ -59,3 +61,12 @@
         </div>
     </div>
 </section>
+<script>
+    setTimeout(function() {
+        const notify = document.querySelector('.newsletter-notify');
+
+        if (notify) {
+            notify.style.display = 'none';
+        }
+    }, 5000);
+</script>

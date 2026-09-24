@@ -16,12 +16,16 @@
             </p>
         </div>
     </section>
-    <section
-        class="contact-content flex justify-content-center"
+    @if(session('contact_success'))
+    <div class="contact-notify">
+        ✓ {{ session('contact_success') }}
+    </div>
+    @endif
+    <section class="contact-content flex justify-content-center"
         style="padding-bottom: 40px;">
         <div class="row gap-20">
             <div class="col w-60">
-                <div class="wrapper contact-info">
+                <div class="wrapper contact-info flex flex-column gap-20">
                     <div class="title-3">
                         Get In Touch
                     </div>
@@ -60,12 +64,6 @@
                     <div class="title-3">
                         Send Us A Message
                     </div>
-                    @if(session('contact_success'))
-                    <div style="
-                    color: green; font-size: 14px; text-align: center;">
-                        ✓ {{ session('contact_success') }}
-                    </div>
-                    @endif
                     <form
                         action="{{ route('contact.store') }}"
                         method="POST">

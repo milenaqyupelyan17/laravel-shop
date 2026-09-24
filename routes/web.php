@@ -45,15 +45,24 @@ Route::get('/card', function () {
 })->middleware('auth')->name('card');
 
 Route::get('/sign-in', function () {
+    if (auth()->check()) {
+        return redirect()->route('dashboard');
+    }
+
     return view('sign_in');
 })->name('login');
+
 
 Route::post('/sign_in', [AuthController::class, 'login'])
     ->name('login.post');
 
 Route::get('/sign_up', function () {
+    if (auth()->check()) {
+        return redirect()->route('dashboard');
+    }
     return view('sign_up');
 })->name('register.form');
+
 
 Route::post('/sign_up', [AuthController::class, 'register'])
     ->name('register');
@@ -89,7 +98,8 @@ Route::get('/settings', function () {
     return view('settings');
 })->middleware('auth')->name('settings');
 
-Route::put('/settings', [SettingsController::class, 'update'])
+
+Route::put('/settings', [AuthController::class, 'updateSettings'])
     ->middleware('auth')
     ->name('settings.update');
 

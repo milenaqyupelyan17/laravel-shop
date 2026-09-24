@@ -17,9 +17,12 @@
         <div class="row justify-content-center">
             <div class="col">
                 <div class="wrapper flex gap-20 align-items-center">
-                    <div id="card-header-count" class="title-6 w-700 text-grey">
-                        CARD(0)
-                    </div>
+                    <a
+                        href="{{ route('carts') }}"
+                        id="card-header-count"
+                        class="title-6 w-700 text-grey" style="letter-spacing: 1px;">
+                        CARD (0)
+                    </a>
                     <div class="title-6 w-700">SHIPPING & PAYMENT</div>
                     <div class="title-6 text-grey w-700">PRODUCT CONFIRMATION</div>
                 </div>
@@ -155,14 +158,6 @@
                     class="btn-1 text-center">
                     Shop now
                 </a>
-                <div class="flex gap-5">
-                    <input
-                        type="text"
-                        placeholder="210548">
-                    <div class="btn-1">
-                        Apply code
-                    </div>
-                </div>
             </div>
         </section>
     </div>
@@ -192,8 +187,7 @@
             discountElement.textContent = '$' + discount.toFixed(2);
             totalElement.textContent = '$' + finalTotal.toFixed(2);
             if (cartHeaderCount) {
-                cartHeaderCount.textContent =
-                    'CARD(' + totalQuantity + ')';
+                cartHeaderCount.textContent = 'CARD  (' + totalQuantity + ')';
             }
         }
         updateOrderSummary();
@@ -205,16 +199,21 @@
                 alert(
                     'Your cart is empty. Please add a product first.'
                 );
+
                 window.location.href =
                     "{{ route('card') }}";
+
                 return;
             }
+
             const cartInput = document.createElement('input');
             cartInput.type = 'hidden';
             cartInput.name = 'cart';
-            cartInput.value = JSON.stringify(currentCart);
+            cartInput.value =
+                JSON.stringify(currentCart);
             form.appendChild(cartInput);
         });
     });
 </script>
+
 @endsection

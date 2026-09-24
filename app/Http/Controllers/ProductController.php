@@ -17,9 +17,9 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $query = Product::query();
+
         if ($request->filled('search')) {
             $search = $request->search;
-
             $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', '%' . $search . '%')
                     ->orWhere('description', 'like', '%' . $search . '%');
@@ -34,7 +34,9 @@ class ProductController extends Controller
             $query->where('size', $request->size);
         }
 
-        $products = $query->orderBy('id', 'asc')->get();
+        $products = $query
+            ->orderBy('id', 'asc')
+            ->get();
 
         $recommendedProducts = Product::take(4)->get();
 
@@ -43,7 +45,6 @@ class ProductController extends Controller
             'recommendedProducts'
         ));
     }
-
 
     public function categories()
     {

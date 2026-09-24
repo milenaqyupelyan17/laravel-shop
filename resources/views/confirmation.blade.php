@@ -37,7 +37,7 @@
         <div class="row justify-content-center flex flex-column gap-20">
             <div class="col">
                 <div class="wrapper">
-                    <div class="title-5 w-700">
+                    <div class="title-5 w-700" style="padding-bottom: 30px;">
                         Order Summary
                     </div>
                     <div id="order-products">
@@ -47,9 +47,6 @@
                             <div>
                                 <div class="title-6 w-700">
                                     {{ $item->product->title }}
-                                </div>
-                                <div class="text-grey title-7">
-                                    Quantity: {{ $item->quantity }}
                                 </div>
                                 <div class="text-grey title-7">
                                     Color:
@@ -97,14 +94,7 @@
                     </div>
                 </div>
             </div>
-            <div class="wrapper">
-                <div class="flex gap-20 justify-content-center w-100">
-                    <input type="text" placeholder="210548">
-                    <button type="button" class="btn-1">
-                        Apply code
-                    </button>
-                </div>
-            </div>
+
         </div>
     </section>
 </main>

@@ -3,6 +3,7 @@
 @section('content')
 
 <main>
+
     <section>
         <div class="row">
             <div class="col w-100">
@@ -12,7 +13,9 @@
                             Homepage
                         </a>
                         <i class="fa-solid fa-chevron-right"></i>
-                        <span>Products</span>
+                        <span>
+                            Products
+                        </span>
                     </div>
                 </div>
             </div>
@@ -25,314 +28,396 @@
                     <div
                         class="flex flex-column gap-20"
                         style="
-                            padding: 24px;
-                            border: 1px solid #e5e5e5;
-                            background: #fff;">
+                        padding: 24px;
+                        border: 1px solid #e5e5e5;
+                        background: #fff;">
                         <div
                             class="title-5 w-700"
                             style="
-                                font-size: 20px;
-                                letter-spacing: 0.5px;
-                                padding-bottom: 15px;
-                                border-bottom: 1px solid #e5e5e5;">
+                            font-size: 20px;
+                            letter-spacing: 0.5px;
+                            padding-bottom: 15px;
+                            border-bottom: 1px solid #e5e5e5;">
                             Filter
                         </div>
                         <form
                             action="{{ route('products') }}"
                             method="GET"
                             class="flex flex-column gap-20">
-                            <div class="flex flex-column gap-10">
+                            <div class="flex flex-column gap-10">]
                                 <div
                                     class="title-6 w-700"
                                     style="
-                                        font-size: 13px;
-                                        text-transform: uppercase;
-                                        letter-spacing: 1px;
-                                        color: #555;
-                                        margin-bottom: 5px;">
+                                    font-size: 13px;
+                                    text-transform: uppercase;
+                                    letter-spacing: 1px;
+                                    color: #555;
+                                    margin-bottom: 5px;">
                                     Color
                                 </div>
                                 <label
                                     class="title-6"
                                     style="
-                                        display: flex;
-                                        align-items: center;
-                                        gap: 10px;
-                                        cursor: pointer;
-                                        color: #444;">
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 10px;
+                                    cursor: pointer;
+                                    color: #444;">
+
                                     <input
                                         type="radio"
                                         name="color"
                                         value="Red"
                                         {{ request('color') == 'Red' ? 'checked' : '' }}
                                         style="
-                                            width: 15px;
-                                            height: 15px;
-                                            accent-color: #222;
-                                            cursor: pointer;">
+                                        width: 15px;
+                                        height: 15px;
+                                        accent-color: #222;
+                                        cursor: pointer;">
                                     Red
+
                                 </label>
                                 <label
                                     class="title-6"
                                     style="
-                                        display: flex;
-                                        align-items: center;
-                                        gap: 10px;
-                                        cursor: pointer;
-                                        color: #444;">
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 10px;
+                                    cursor: pointer;
+                                    color: #444;">
                                     <input
                                         type="radio"
                                         name="color"
                                         value="Blue"
                                         {{ request('color') == 'Blue' ? 'checked' : '' }}
                                         style="
-                                            width: 15px;
-                                            height: 15px;
-                                            accent-color: #222;
-                                            cursor: pointer;">
+                                        width: 15px;
+                                        height: 15px;
+                                        accent-color: #222;
+                                        cursor: pointer;">
+
                                     Blue
+
                                 </label>
                                 <label
                                     class="title-6"
                                     style="
-                                        display: flex;
-                                        align-items: center;
-                                        gap: 10px;
-                                        cursor: pointer;
-                                        color: #444;">
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 10px;
+                                    cursor: pointer;
+                                    color: #444;">
+
                                     <input
                                         type="radio"
                                         name="color"
                                         value="Green"
                                         {{ request('color') == 'Green' ? 'checked' : '' }}
                                         style="
-                                            width: 15px;
-                                            height: 15px;
-                                            accent-color: #222;
-                                            cursor: pointer;">
+                                        width: 15px;
+                                        height: 15px;
+                                        accent-color: #222;
+                                        cursor: pointer;">
                                     Green
                                 </label>
                                 <label
                                     class="title-6"
                                     style="
-                                        display: flex;
-                                        align-items: center;
-                                        gap: 10px;
-                                        cursor: pointer;
-                                        color: #444;">
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 10px;
+                                    cursor: pointer;
+                                    color: #444;">
                                     <input
                                         type="radio"
                                         name="color"
                                         value="Pink"
                                         {{ request('color') == 'Pink' ? 'checked' : '' }}
                                         style="
-                                            width: 15px;
-                                            height: 15px;
-                                            accent-color: #222;
-                                            cursor: pointer;">
+                                        width: 15px;
+                                        height: 15px;
+                                        accent-color: #222;
+                                        cursor: pointer;">
+
                                     Pink
                                 </label>
                                 <label
                                     class="title-6"
                                     style="
-                                        display: flex;
-                                        align-items: center;
-                                        gap: 10px;
-                                        cursor: pointer;
-                                        color: #444;">
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 10px;
+                                    cursor: pointer;
+                                    color: #444;">
+
                                     <input
                                         type="radio"
                                         name="color"
                                         value="Black"
                                         {{ request('color') == 'Black' ? 'checked' : '' }}
                                         style="
-                                            width: 15px;
-                                            height: 15px;
-                                            accent-color: #222;
-                                            cursor: pointer;">
+                                        width: 15px;
+                                        height: 15px;
+                                        accent-color: #222;
+                                        cursor: pointer;">
                                     Black
                                 </label>
                             </div>
-                            <div class="flex flex-column gap-10"
+                            <div
+                                class="flex flex-column gap-10"
                                 style="padding-top: 5px;">
+
                                 <div
                                     class="title-6 w-700"
                                     style="
-                                        font-size: 13px;
-                                        text-transform: uppercase;
-                                        letter-spacing: 1px;
-                                        color: #555;
-                                        margin-bottom: 5px;">
+                                    font-size: 13px;
+                                    text-transform: uppercase;
+                                    letter-spacing: 1px;
+                                    color: #555;
+                                    margin-bottom: 5px;
+                                ">
+
                                     Size
+
                                 </div>
+
+
                                 <label
                                     class="title-6"
                                     style="
-                                        display: flex;
-                                        align-items: center;
-                                        gap: 10px;
-                                        cursor: pointer;
-                                        color: #444;">
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 10px;
+                                    cursor: pointer;
+                                    color: #444;">
+
                                     <input
                                         type="radio"
                                         name="size"
                                         value="XS"
                                         {{ request('size') == 'XS' ? 'checked' : '' }}
                                         style="
-                                            width: 15px;
-                                            height: 15px;
-                                            accent-color: #222;
-                                            cursor: pointer;">
+                                        width: 15px;
+                                        height: 15px;
+                                        accent-color: #222;
+                                        cursor: pointer;">
                                     XS
                                 </label>
                                 <label
                                     class="title-6"
                                     style="
-                                        display: flex;
-                                        align-items: center;
-                                        gap: 10px;
-                                        cursor: pointer;
-                                        color: #444;">
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 10px;
+                                    cursor: pointer;
+                                    color: #444;">
+
                                     <input
                                         type="radio"
                                         name="size"
                                         value="S"
                                         {{ request('size') == 'S' ? 'checked' : '' }}
                                         style="
-                                            width: 15px;
-                                            height: 15px;
-                                            accent-color: #222;
-                                            cursor: pointer;">
+                                        width: 15px;
+                                        height: 15px;
+                                        accent-color: #222;
+                                        cursor: pointer;">
                                     S
+
                                 </label>
+
+
                                 <label
                                     class="title-6"
                                     style="
-                                        display: flex;
-                                        align-items: center;
-                                        gap: 10px;
-                                        cursor: pointer;
-                                        color: #444;">
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 10px;
+                                    cursor: pointer;
+                                    color: #444;">
+
                                     <input
                                         type="radio"
                                         name="size"
                                         value="M"
                                         {{ request('size') == 'M' ? 'checked' : '' }}
                                         style="
-                                            width: 15px;
-                                            height: 15px;
-                                            accent-color: #222;
-                                            cursor: pointer;">
+                                        width: 15px;
+                                        height: 15px;
+                                        accent-color: #222;
+                                        cursor: pointer;
+                                    ">
+
                                     M
+
                                 </label>
+
+
                                 <label
                                     class="title-6"
                                     style="
-                                        display: flex;
-                                        align-items: center;
-                                        gap: 10px;
-                                        cursor: pointer;
-                                        color: #444;">
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 10px;
+                                    cursor: pointer;
+                                    color: #444;
+                                ">
+
                                     <input
                                         type="radio"
                                         name="size"
                                         value="L"
                                         {{ request('size') == 'L' ? 'checked' : '' }}
                                         style="
-                                            width: 15px;
-                                            height: 15px;
-                                            accent-color: #222;
-                                            cursor: pointer;">
+                                        width: 15px;
+                                        height: 15px;
+                                        accent-color: #222;
+                                        cursor: pointer;
+                                    ">
+
                                     L
+
                                 </label>
+
                             </div>
                             <div
                                 class="flex flex-column"
                                 style="
-                                    padding-top: 5px;
-                                    gap: 10px;">
+                                padding-top: 5px;
+                                gap: 10px;
+                            ">
+
                                 <button
                                     type="submit"
                                     class="btn-1"
                                     style="
-                                        width: 100%;
-                                        height: 44px;
-                                        border: 1px solid #4172DC;
-                                        background: #4172DC;
-                                        color: #fff;
-                                        font-size: 13px;
-                                        letter-spacing: 1px;
-                                        cursor: pointer;">
+                                    width: 100%;
+                                    height: 44px;
+                                    border: 1px solid #4172DC;
+                                    background: #4172DC;
+                                    color: #fff;
+                                    font-size: 13px;
+                                    letter-spacing: 1px;
+                                    cursor: pointer;
+                                ">
+
                                     APPLY FILTER
+
                                 </button>
+
+
                                 <a
                                     href="{{ route('products') }}"
                                     class="btn-1 text-center"
                                     style="
-                                        width: 100%;
-                                        height: 44px;
-                                        display: flex;
-                                        align-items: center;
-                                        justify-content: center;
-                                        border: 1px solid #ccc;
-                                        background: transparent;
-                                        color: #333;
-                                        font-size: 13px;
-                                        letter-spacing: 1px;
-                                        text-decoration: none;">
+                                    width: 100%;
+                                    height: 44px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    border: 1px solid #ccc;
+                                    background: transparent;
+                                    color: #333;
+                                    font-size: 13px;
+                                    letter-spacing: 1px;
+                                    text-decoration: none;">
                                     CLEAR FILTER
+
                                 </a>
+
                             </div>
+
                         </form>
+
                     </div>
+
                 </div>
+
             </aside>
             <div class="col w-80">
+                @if($products->isEmpty())
+
+                @include('errors.404-content')
+
+                @else
+
                 <div class="products-grid gap-20">
-                    @forelse($products as $product)
+
+                    @foreach($products as $product)
+
                     <div class="product-card-blade">
-                        <a href="{{ route('productdetails', ['id' => $product->id]) }}">
+                        <a
+                            href="{{ route('productdetails', ['id' => $product->id]) }}">
+
                             <div class="product-image">
+
                                 <img
                                     src="{{ asset($product->image) }}"
                                     alt="{{ $product->title }}">
+
                             </div>
+
                         </a>
+
+
+                        {{-- PRODUCT INFO --}}
                         <div class="product-info">
+
                             <div>
+
                                 <h2 class="title-7 w-700">
                                     {{ $product->title }}
                                 </h2>
+
+
                                 <p class="text-grey title-8">
                                     {{ $product->description }}
                                 </p>
+
+
                                 <div
                                     class="title-8 text-grey"
                                     style="margin-top: 8px;">
+
                                     Color:
+
                                     <span class="w-700">
                                         {{ $product->color }}
                                     </span>
+
                                 </div>
+
+
                                 <div
                                     class="title-8 text-grey"
                                     style="margin-top: 4px;">
+
                                     Size:
+
                                     <span class="w-700">
                                         {{ $product->size }}
                                     </span>
+
                                 </div>
+
                             </div>
                             <div class="products-info">
+
                                 <div class="price text-red">
+
                                     ${{ $product->price }}
+
                                 </div>
+
+
                                 <i
                                     class="fa-regular fa-heart favorite-btn"
                                     data-id="{{ $product->id }}"
                                     data-title="{{ $product->title }}"
                                     data-price="{{ $product->price }}"
-                                    data-image="{{ asset($product->image) }}"></i>
+                                    data-image="{{ asset($product->image) }}">
+                                </i>
+
                             </div>
                             <button
                                 type="button"
@@ -343,139 +428,281 @@
                                 data-image="{{ asset($product->image) }}"
                                 data-color="{{ $product->color }}"
                                 data-size="{{ $product->size }}">
-                                Add to Cart
-                            </button>
-                        </div>
-                    </div>
-                    @empty
-                    <div class="title-5">
-                        No products found.
-                    </div>
-                    @endforelse
-                </div>
-            </div>
-        </div>
-    </section>
 
+                                Add to Cart
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    @endforeach
+
+                </div>
+
+                @endif
+
+            </div>
+
+        </div>
+
+    </section>
     <div id="cart-toast" class="cart-toast"></div>
     <section id="recommended-products">
+
         <div class="row">
+
             <div class="col">
+
                 <div class="wrapper">
-                    <div class="title-3 w-700 text-center"
-                        style="padding-bottom:30px;">
+
+
+                    <div
+                        class="title-3 w-700 text-center"
+                        style="padding-bottom: 30px;">
+
                         You May Also Like
+
                     </div>
+
+
                     <div class="products-grid">
+
                         @foreach($recommendedProducts as $recommendedProduct)
+
                         <div class="product-card">
-                            <a href="{{ route('productdetails', $recommendedProduct->id) }}">
+
+                            <a
+                                href="{{ route(
+                                    'productdetails',
+                                    $recommendedProduct->id
+                                ) }}">
+
                                 <img
                                     src="{{ asset($recommendedProduct->image) }}"
                                     alt="{{ $recommendedProduct->title }}">
-                                <div style="padding:15px;">
+
+
+                                <div style="padding: 15px;">
+
                                     <div class="title-5 w-700">
+
                                         {{ $recommendedProduct->title }}
+
                                     </div>
+
+
                                     <p class="text-grey title-6">
+
                                         {{ $recommendedProduct->description }}
+
                                     </p>
+
+
                                     <div
                                         class="title-5 w-700 text-red"
-                                        style="padding-top:10px;">
+                                        style="padding-top: 10px;">
+
                                         ${{ $recommendedProduct->price }}
+
                                     </div>
+
                                 </div>
+
                             </a>
+
                         </div>
+
                         @endforeach
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </section>
+
 </main>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+
         const userId = "{{ auth()->id() }}";
+
         const cartKey = 'cart_user_' + userId;
+
         const favoriteKey = 'favorites_user_' + userId;
 
+
         function updateCartCount() {
+
             const cart = JSON.parse(
                 localStorage.getItem(cartKey)
             ) || [];
+
+
             let totalQuantity = 0;
+
+
             cart.forEach(function(item) {
-                totalQuantity += Number(item.quantity) || 1;
+
+                totalQuantity +=
+                    Number(item.quantity) || 1;
+
             });
-            document.querySelectorAll('#cart-count, #card-header-count, .cart').forEach(function(element) {
-                if (element.id === 'card-header-count') {
-                    element.textContent = 'CARD(' + totalQuantity + ')';
-                } else {
-                    element.textContent = totalQuantity;
-                }
-            });
+
+
+            document
+                .querySelectorAll(
+                    '#cart-count, #card-header-count, .cart'
+                )
+                .forEach(function(element) {
+
+                    if (
+                        element.id ===
+                        'card-header-count'
+                    ) {
+
+                        element.textContent =
+                            'CARD(' +
+                            totalQuantity +
+                            ')';
+
+                    } else {
+
+                        element.textContent =
+                            totalQuantity;
+
+                    }
+
+                });
+
         }
 
+
         function showToast(message) {
+
             const toast =
-                document.getElementById('cart-toast');
+                document.getElementById(
+                    'cart-toast'
+                );
+
+
             if (!toast) {
                 return;
             }
+
+
             toast.textContent = message;
+
             toast.classList.add('show');
+
+
             setTimeout(function() {
+
                 toast.classList.remove('show');
+
             }, 2000);
+
         }
+
+
         updateCartCount();
-        document.querySelectorAll('.add-product-cart').forEach(function(button) {
+
+        document
+            .querySelectorAll('.add-product-cart')
+            .forEach(function(button) {
+
                 button.addEventListener(
                     'click',
                     function() {
+
                         if (!userId) {
+
                             window.location.href =
                                 "{{ route('login') }}";
+
                             return;
+
                         }
 
+
                         const product = {
+
                             id: this.dataset.id,
+
                             title: this.dataset.title,
+
                             price: Number(
                                 this.dataset.price
                             ),
+
                             image: this.dataset.image,
+
                             quantity: 1,
+
                             color: this.dataset.color || '',
+
                             size: this.dataset.size || ''
+
                         };
+
+
                         let cart = JSON.parse(
                             localStorage.getItem(
                                 cartKey
                             )
                         ) || [];
-                        const existingProduct = cart.find(function(item) {
-                                return (
-                                    item.id == product.id &&
-                                    item.color == product.color &&
-                                    item.size == product.size
-                                );
-                            });
+
+
+                        const existingProduct =
+                            cart.find(
+                                function(item) {
+
+                                    return (
+                                        item.id ==
+                                        product.id &&
+
+                                        item.color ==
+                                        product.color &&
+
+                                        item.size ==
+                                        product.size
+                                    );
+
+                                }
+                            );
+
+
                         if (existingProduct) {
 
-                            existingProduct.quantity =(Number(existingProduct.quantity) || 1) + 1;
+                            existingProduct.quantity =
+                                (
+                                    Number(
+                                        existingProduct.quantity
+                                    ) || 1
+                                ) + 1;
 
                         } else {
+
                             cart.push(product);
+
                         }
+
+
                         localStorage.setItem(
                             cartKey,
                             JSON.stringify(cart)
                         );
+
+
                         updateCartCount();
+
+
                         showToast(
                             '✓ Product added to cart!'
                         );
@@ -484,63 +711,35 @@
                 );
 
             });
+
         let favorites = JSON.parse(
             localStorage.getItem(
-                favoriteKey)) || [];
+                favoriteKey
+            )
+        ) || [];
 
-        document.querySelectorAll('.favorite-btn').forEach(function(heart) {
-            const productId = heart.dataset.id;
-            const exists = favorites.some(function(product) {
-                return product.id ==
-                    productId;
-            });
-            if (exists) {
 
-                heart.classList.remove(
-                    'fa-regular'
-                );
+        document
+            .querySelectorAll('.favorite-btn')
+            .forEach(function(heart) {
 
-                heart.classList.add(
-                    'fa-solid'
-                );
+                const productId =
+                    heart.dataset.id;
 
-                heart.style.color = 'red';
-            }
 
-            heart.addEventListener('click', function(event) {
-                event.preventDefault();
-                event.stopPropagation();
-                let favorites = JSON.parse(
-                        localStorage.getItem(
-                            favoriteKey)) || [];
-                const index = favorites.findIndex(
+                const exists =
+                    favorites.some(
                         function(product) {
-                            return product.id == productId;
+
+                            return product.id ==
+                                productId;
+
                         }
                     );
 
-                if (index !== -1) {
-                    favorites.splice(
-                        index,
-                        1
-                    );
-                    heart.classList.remove(
-                        'fa-solid'
-                    );
-                    heart.classList.add(
-                        'fa-regular'
-                    );
-                    heart.style.color = '';
-                } else {
-                    const product = {
-                        id: this.dataset.id,
-                        title: this.dataset.title,
-                        price: Number(
-                            this.dataset.price
-                        ),
-                        image: this.dataset.image
-                    };
-                    favorites.push(product);
+
+                if (exists) {
+
                     heart.classList.remove(
                         'fa-regular'
                     );
@@ -548,16 +747,109 @@
                     heart.classList.add(
                         'fa-solid'
                     );
-                    heart.style.color = 'red';
+
+                    heart.style.color =
+                        'red';
+
                 }
-                localStorage.setItem(
-                    favoriteKey,
-                    JSON.stringify(favorites)
+
+
+                heart.addEventListener(
+                    'click',
+                    function(event) {
+
+                        event.preventDefault();
+
+                        event.stopPropagation();
+
+
+                        let favorites =
+                            JSON.parse(
+                                localStorage.getItem(
+                                    favoriteKey
+                                )
+                            ) || [];
+
+
+                        const index =
+                            favorites.findIndex(
+                                function(product) {
+
+                                    return product.id ==
+                                        productId;
+
+                                }
+                            );
+
+
+                        if (index !== -1) {
+
+                            favorites.splice(
+                                index,
+                                1
+                            );
+
+
+                            heart.classList.remove(
+                                'fa-solid'
+                            );
+
+                            heart.classList.add(
+                                'fa-regular'
+                            );
+
+                            heart.style.color =
+                                '';
+
+                        } else {
+
+                            const product = {
+
+                                id: this.dataset.id,
+
+                                title: this.dataset.title,
+
+                                price: Number(
+                                    this.dataset.price
+                                ),
+
+                                image: this.dataset.image
+
+                            };
+
+
+                            favorites.push(
+                                product
+                            );
+
+
+                            heart.classList.remove(
+                                'fa-regular'
+                            );
+
+                            heart.classList.add(
+                                'fa-solid'
+                            );
+
+                            heart.style.color =
+                                'red';
+
+                        }
+
+
+                        localStorage.setItem(
+                            favoriteKey,
+                            JSON.stringify(
+                                favorites
+                            )
+                        );
+
+                    }
                 );
+
             });
-        });
+
     });
 </script>
-
 
 @endsection
