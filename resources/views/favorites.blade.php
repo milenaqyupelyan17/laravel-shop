@@ -3,6 +3,7 @@
 @section('content')
 
 <main>
+
     <section>
         <div class="row">
             <div class="col">
@@ -20,18 +21,22 @@
     </section>
     <section id="favorites">
         <div class="row align-items-start flex gap-20">
-            <section id="account"
+            <section
+                id="account"
                 class="w-20"
                 style="min-height:50vh;">
-                <div class="wrapper bg-grey"
+                <div
+                    class="wrapper bg-grey"
                     style="min-height:50vh;">
-                    <div class="flex flex-column gap-20"
+                    <div
+                        class="flex flex-column gap-20"
                         style="padding:30px;">
                         <div class="title-5 w-700">
                             My Account
                         </div>
                         <div class="flex flex-column gap-20">
-                            <a href="{{ route('dashboard') }}"
+                            <a
+                                href="{{ route('dashboard') }}"
                                 class="title-6 menu-button {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                                 <i class="fa-regular fa-user"></i>
                                 Account
@@ -48,7 +53,8 @@
                                 <i class="fa-solid fa-cart-shopping"></i>
                                 My Cards
                             </a>
-                            <a href="{{ route('favorites') }}"
+                            <a
+                                href="{{ route('favorites') }}"
                                 class="title-6 menu-button {{ request()->routeIs('favorites') ? 'active' : '' }}">
                                 <i class="fa-regular fa-heart"></i>
                                 Favorites
@@ -76,38 +82,58 @@
             </section>
             <div class="wrapper w-80 justify-content-center">
                 <div class="flex justify-content-between align-items-center">
-                    <div class="title-3 w-700">Favorites</div>
-                    <div id="favorites-count" class="title-6 text-grey">0 products</div>
+                    <div class="title-3 w-700">
+                        Favorites
+                    </div>
+                    <div
+                        id="favorites-count"
+                        class="title-6 text-grey">
+                        0 products
+                    </div>
                 </div>
-                <div id="favorites-products" class="products-grid"></div>
-                <div id="empty-favorites" class="empty-favorites">
-                    <div class="title-4"> Your favorites are empty </div>
+                <div
+                    id="favorites-products"
+                    class="products-grid">
+                </div>
+                <div
+                    id="empty-favorites"
+                    class="empty-favorites">
+                    <div class="title-4">
+                        Your favorites are empty
+                    </div>
                     <p class="text-grey title-6">
                         Add products to your favorites
                         and they will appear here.
                     </p>
-                    <a href="{{ route('products') }}" class="btn-2">Continue Shopping</a>
+                    <a
+                        href="{{ route('products') }}"
+                        class="btn-2">
+                        Continue Shopping
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 </main>
+
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+
         const favoritesKey = 'favorites_user_{{ auth()->id() }}';
         let favorites = JSON.parse(
-            localStorage.getItem(favoritesKey)
-        ) || [];
+                localStorage.getItem(favoritesKey)
+            ) || [];
         const container = document.getElementById('favorites-products');
         const emptyMessage = document.getElementById('empty-favorites');
         const count = document.getElementById('favorites-count');
-
         function updateFavoritesCount() {
-            count.textContent = favorites.length +
-                (favorites.length === 1 ?
+
+            count.textContent =favorites.length +(
+                    favorites.length === 1 ?
                     ' product' :
-                    ' products'
-                );
+                    ' products');
+
         }
 
         function checkEmptyFavorites() {
@@ -125,44 +151,44 @@
                 const card = document.createElement('div');
                 card.className = 'favorite-card';
                 card.innerHTML = `
-    <div class="product-image">
-        <img
-            src="${product.image}"
-            alt="${product.title}">
-    </div>
-    <div class="product-info">
-        <div>
-            <h2 class="title-7 w-700">
-                ${product.title}
-            </h2>
-            <p class="text-grey title-8">
-                Favorite product
-            </p>
-        </div>
-        <div class="products-info">
-            <div class="price text-red title-6 w-700">
-                $${Number(product.price).toFixed(2)}
-            </div>
-            <button
-                type="button"
-                class="remove-favorite"
-                data-id="${product.id}">
-                <i class="fa-solid fa-heart"></i>
-            </button>
-        </div>
-        <a
-            href="/product-details/${product.id}"
-            class="btn-1"
-            style="
-                padding: 7px 12px;
-                font-size: 11px;
-                text-align: center;
-                margin-top: 10px;
-            ">
-            See Details
-        </a>
-    </div>
-`;
+                <div class="product-image">
+                    <img
+                        src="${product.image}"
+                        alt="${product.title}">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <h2 class="title-7 w-700">
+                            ${product.title}
+                        </h2>
+                        <p class="text-grey title-8">
+                            Favorite product
+                        </p>
+                    </div>
+                    <div class="products-info">
+                        <div class="price text-red title-6 w-700">
+                            $${Number(product.price).toFixed(2)}
+                        </div>
+                        <button
+                            type="button"
+                            class="remove-favorite"
+                            data-id="${product.id}">
+                            Remove
+                        </button>
+                    </div>
+                    <a
+                        href="/product-details/${product.id}"
+                        class="btn-1"
+                        style="
+                            padding:7px 12px;
+                            font-size:11px;
+                            text-align:center;
+                            margin-top:10px;
+                        ">
+                        See Details
+                    </a>
+                </div>
+            `;
                 container.appendChild(card);
             });
             updateFavoritesCount();
@@ -172,45 +198,45 @@
 
         function addRemoveEvents() {
             document.querySelectorAll('.remove-favorite').forEach(function(button) {
-                button.addEventListener('click',
-                    function() {
-                        const id = this.dataset.id;
-                        favorites = favorites.filter(
-                            function(product) {
-                                return product.id != id;
-                            }
-                        );
-                        localStorage.setItem(
-                            favoritesKey,
-                            JSON.stringify(favorites)
-                        );
-                        renderFavorites();
-                    }
-                );
-            });
+                    button.addEventListener('click',function() {
+                            const id = this.dataset.id;
+                            favorites =favorites.filter(
+                                    function(product) {
+                                    return product.id != id;
+                                    }
+                                );
+                            localStorage.setItem(
+                                favoritesKey,
+                                JSON.stringify(favorites)
+                            );
+                            renderFavorites();
+                        }
+                    );
+                });
         }
         renderFavorites();
 
         function updateCartCount() {
             const cartKey = 'cart_user_{{ auth()->id() }}';
             const cart = JSON.parse(
-                localStorage.getItem(cartKey)
-            ) || [];
+                    localStorage.getItem(cartKey)
+                ) || [];
             const totalQuantity = cart.reduce(
-                function(total, product) {
-                    return total + (Number(product.quantity) || 1);
-                },
-                0
-            );
-            document.querySelectorAll(
-                '#cart-count, #card-header-count, .cart'
-            ).forEach(function(element) {
-                if (element.id === 'card-header-count') {
-                    element.textContent = 'CARD(' + totalQuantity + ')';
-                } else {
-                    element.textContent = totalQuantity;
-                }
-            });
+                    function(total, product) {
+                        return total +
+                            (Number(product.quantity) || 1);
+                    },
+                    0
+                );
+            document.querySelectorAll('#cart-count, #card-header-count, .cart').forEach(function(element) {
+                    if (
+                        element.id ==='card-header-count'
+                    ) {
+                        element.textContent ='CARD(' +totalQuantity +')';
+                    } else {
+                        element.textContent = totalQuantity;
+                    }
+                });
         }
         updateCartCount();
     });

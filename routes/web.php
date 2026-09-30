@@ -124,6 +124,8 @@ Route::get('/orders', function () {
 
     return view('orders', compact('orders'));
 })->middleware('auth')->name('orders');
+Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel'])
+    ->name('orders.cancel');
 
 Route::post('/newsletter', [NewsletterController::class, 'store'])
     ->name('newsletter.store');

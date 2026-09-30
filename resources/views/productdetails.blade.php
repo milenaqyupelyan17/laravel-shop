@@ -136,11 +136,13 @@
                                 <div class="title-5 font-2">
                                     Quantity
                                 </div>
-                                <div class="quantity flex align-items-center">
+                                <div class="quantity flex align-items-center"
+                                    style="display: flex; align-items: center; justify-content: center;">
                                     <button
                                         type="button"
                                         class="quantity-btn"
-                                        onclick="decreaseQuantity()">
+                                        onclick="decreaseQuantity()"
+                                        style="width: 35px; height: 35px; border: none; background: transparent; font-size: 22px; cursor: pointer;">
                                         −
                                     </button>
                                     <input
@@ -148,11 +150,13 @@
                                         id="quantity"
                                         value="1"
                                         min="1"
-                                        readonly>
+                                        readonly
+                                        style="width: 40px; height: 35px; border: none; background: transparent; text-align: center; font-size: 16px; padding: 0; outline: none;">
                                     <button
                                         type="button"
                                         class="quantity-btn"
-                                        onclick="increaseQuantity()">
+                                        onclick="increaseQuantity()"
+                                        style="width: 35px; height: 35px; border: none; background: transparent; font-size: 22px; cursor: pointer;">
                                         +
                                     </button>
                                 </div>
@@ -435,9 +439,9 @@
     const favoritesKey = 'favorites_user_' + userId;
     const favoriteButton = document.getElementById('favorite-button');
 
-    const favoriteHeart =document.getElementById(
-            'favorite-heart'
-        );
+    const favoriteHeart = document.getElementById(
+        'favorite-heart'
+    );
     let favorites = JSON.parse(localStorage.getItem(favoritesKey)) || [];
 
     const productId = "{{ $product->id }}";
@@ -469,7 +473,7 @@
                 'fa-regular'
             );
 
-            favoriteHeart.style.color ='';
+            favoriteHeart.style.color = '';
         }
     }
     updateFavoriteHeart();
@@ -485,7 +489,7 @@
             }
         );
         if (index !== -1) {
-            favorites.splice(index,1);
+            favorites.splice(index, 1);
         } else {
             favorites.push({
                 id: "{{ $product->id }}",

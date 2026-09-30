@@ -792,7 +792,7 @@ input[type="email"] {
     transition: 0.3s;
     display: flex;
     flex-direction: column;
-    min-height: 500px;
+    min-height: 200px;
 }
 
 .favorite-card:hover {
@@ -800,15 +800,16 @@ input[type="email"] {
 }
 
 .favorite-card .product-image {
-    width: 100%;
-    height: 450px;
+    height: 225px;
     overflow: hidden;
+    width: 100%;
+    text-align: center;
 }
 
 .favorite-card .product-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
 }
 
@@ -1387,7 +1388,7 @@ input[type="email"] {
 
 .contact-info,
 .contact-form {
-    padding: 30px;
+    padding: 60px;
     border: 1px solid #eee;
     border-radius: 10px;
     box-sizing: border-box;

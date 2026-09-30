@@ -1,3 +1,4 @@
+
 <?php
 
 namespace App\Http\Controllers;
@@ -10,8 +11,10 @@ class SettingsController extends Controller
     public function update(Request $request)
     {
         $user = auth()->user();
+
         $nameChanged = $request->name !== $user->name;
         $emailChanged = $request->email !== $user->email;
+
         $passwordFieldsFilled =
             $request->filled('current_password') ||
             $request->filled('password') ||
@@ -20,37 +23,45 @@ class SettingsController extends Controller
         if (!$nameChanged && !$emailChanged && !$passwordFieldsFilled) {
             return back()->withErrors([
                 'settings' => 'Please change at least one field.'
-            ]);
+            ])->withInput();
         }
+
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email',
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email:rfc,dns', 'max:255'],
         ]);
+
         if ($nameChanged) {
             $user->name = $request->name;
         }
+
         if ($emailChanged) {
             $user->email = $request->email;
         }
+
         if ($passwordFieldsFilled) {
+
             if (!$request->filled('current_password')) {
                 return back()->withErrors([
                     'current_password' =>
                     'Please enter your current password.'
-                ]);
+                ])->withInput();
             }
+
             if (!$request->filled('password')) {
                 return back()->withErrors([
                     'password' =>
                     'Please enter a new password.'
-                ]);
+                ])->withInput();
             }
+
             if (!$request->filled('password_confirmation')) {
                 return back()->withErrors([
                     'password_confirmation' =>
                     'Please confirm your new password.'
-                ]);
+                ])->withInput();
             }
+
             if (!Hash::check(
                 $request->current_password,
                 $user->password
@@ -58,31 +69,37 @@ class SettingsController extends Controller
                 return back()->withErrors([
                     'current_password' =>
                     'Current password is incorrect.'
-                ]);
+                ])->withInput();
             }
+
             if ($request->password !== $request->password_confirmation) {
                 return back()->withErrors([
                     'password_confirmation' =>
                     'Passwords do not match.'
-                ]);
+                ])->withInput();
             }
+
             if (strlen($request->password) < 6) {
                 return back()->withErrors([
                     'password' =>
                     'Password must be at least 6 characters.'
-                ]);
+                ])->withInput();
             }
+
             $user->password = Hash::make(
                 $request->password
             );
         }
+
         $user->save();
+
         if ($passwordFieldsFilled) {
             return back()->with(
                 'success',
                 'Password changed successfully!'
             );
         }
+
         return back()->with(
             'success',
             'Account information updated successfully!'

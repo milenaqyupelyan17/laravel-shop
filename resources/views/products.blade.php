@@ -43,7 +43,7 @@
                             action="{{ route('products') }}"
                             method="GET"
                             class="flex flex-column gap-20">
-                            <div class="flex flex-column gap-10">]
+                            <div class="flex flex-column gap-10">
                                 <div
                                     class="title-6 w-700"
                                     style="
@@ -363,34 +363,39 @@
     </section>
     <div id="cart-toast" class="cart-toast"></div>
     <section id="recommended-products">
-        <div class="row">
+        <div class="row w-100">
+            <div class="col w-100 justify-content-between">
+                <div class="wrapper">
+                    <div class="flex justify-content-between align-items-center">
+                        <a href="{{ route('products') }}" class="w-500 title-3">
+                            You may also like
+                        </a>
+                        <a href="{{ route('products') }}" class="btn-1">
+                            See More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="justify-content: space-around;">
             <div class="col">
                 <div class="wrapper">
-                    <div
-                        class="title-3 w-700 text-center"
-                        style="padding-bottom: 30px;">
-                        You May Also Like
-                    </div>
                     <div class="products-grid">
                         @foreach($recommendedProducts as $recommendedProduct)
                         <div class="product-card">
-                            <a
-                                href="{{ route(
-                                    'productdetails',
-                                    $recommendedProduct->id) }}">
+                            <a href="{{ route('productdetails', $recommendedProduct->id) }}">
                                 <img
                                     src="{{ asset($recommendedProduct->image) }}"
                                     alt="{{ $recommendedProduct->title }}">
-                                <div style="padding: 15px;">
+                                <div style="padding:15px;">
                                     <div class="title-5 w-700">
                                         {{ $recommendedProduct->title }}
                                     </div>
                                     <p class="text-grey title-6">
                                         {{ $recommendedProduct->description }}
                                     </p>
-                                    <div
-                                        class="title-5 w-700 text-red"
-                                        style="padding-top: 10px;">
+                                    <div class="title-5 w-700 text-red"
+                                        style="padding-top:10px;">
                                         ${{ $recommendedProduct->price }}
                                     </div>
                                 </div>
@@ -512,11 +517,9 @@
                 }
             );
             if (exists) {
-
                 heart.classList.remove(
                     'fa-regular'
                 );
-
                 heart.classList.add(
                     'fa-solid'
                 );
@@ -555,7 +558,6 @@
                         '';
 
                 } else {
-
                     const product = {
                         id: this.dataset.id,
                         title: this.dataset.title,

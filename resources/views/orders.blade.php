@@ -21,14 +21,11 @@
     <div class="row align-items-start flex gap-20">
         <section
             id="account"
-            class="w-20"
-            style="min-height:50vh;">
-            <div
-                class="wrapper bg-grey"
-                style="min-height:50vh;">
+            class="w-20">
+            <div class="wrapper bg-grey">
                 <div
                     class="flex flex-column gap-20"
-                    style="padding:30px;">
+                    style="padding:25px;">
                     <div class="title-5 w-700">
                         My Account
                     </div>
@@ -47,13 +44,13 @@
                         </a>
                         <a
                             href="{{ route('carts') }}"
-                            class="title-6 menu-button{{ request()->routeIs('carts') ? 'active' : '' }}">
+                            class="title-6 menu-button {{ request()->routeIs('carts') ? 'active' : '' }}">
                             <i class="fa-solid fa-cart-shopping"></i>
                             My Cards
                         </a>
                         <a
                             href="{{ route('favorites') }}"
-                            class="title-6 menu-button{{ request()->routeIs('favorites') ? 'active' : '' }}">
+                            class="title-6 menu-button {{ request()->routeIs('favorites') ? 'active' : '' }}">
                             <i class="fa-regular fa-heart"></i>
                             Favorites
                         </a>
@@ -85,17 +82,29 @@
                 <div class="title-3 w-700">
                     My Orders
                 </div>
+                @if(session('success'))
+                <div
+                    class="title-7"
+                    style="
+                            margin-top:15px;
+                            padding:12px 15px;
+                            background:#e8f5e9;
+                            border-radius:5px;
+                        ">
+                    {{ session('success') }}
+                </div>
+                @endif
                 @forelse($orders as $order)
                 <div
                     class="wrapper bg-grey br"
                     style="
-                        margin-top:20px;
-                        padding:25px;">
+                            margin-top:15px;
+                            padding:18px;">
                     <div
                         class="flex justify-content-between align-items-center"
-                        style="padding-bottom:20px;">
+                        style="padding-bottom:12px;">
                         <div>
-                            <div class="title-5 w-700">
+                            <div class="title-6 w-700">
                                 Order #{{ $order->id }}
                             </div>
                             <div class="text-grey title-7">
@@ -104,44 +113,46 @@
                         </div>
                         <div class="title-6 w-700 text-red">
                             ${{ number_format(
-                                $order->total_price,2) }}
+                                    $order->total_price,
+                                    2
+                                ) }}
                         </div>
                     </div>
                     <div
                         style="
-                            display:flex;
-                            flex-wrap:wrap;
-                            gap:20px;
-                            padding:15px 0;
-                            border-top:1px solid #ddd;">
+                                display:flex;
+                                flex-wrap:wrap;
+                                gap:12px;
+                                padding:12px 0;
+                                border-top:1px solid #ddd;">
                         @foreach($order->items as $item)
                         <div
                             style="
-                                    width:calc(50% - 10px);
-                                    display:flex;
-                                    align-items:center;
-                                    justify-content:space-between;
-                                    gap:15px;">
-                            <div class="flex align-items-center gap-20">
+                                        width:calc(50% - 6px);
+                                        display:flex;
+                                        align-items:center;
+                                        justify-content:space-between;
+                                        gap:10px;">
+                            <div
+                                class="flex align-items-center gap-10">
                                 @if($item->product)
                                 <img
                                     src="{{ asset($item->product->image) }}"
                                     alt="{{ $item->product->title }}"
                                     style="
-                                                width:70px;
-                                                height:90px;
-                                                object-fit:cover;
-                                                flex-shrink:0;">
+                                                    width:55px;
+                                                    height:70px;
+                                                    object-fit:contain;
+                                                    flex-shrink:0;">
                                 @endif
                                 <div>
                                     @if($item->product)
-                                    <div class="title-6 w-700">
+                                    <div class="title-7 w-700">
                                         {{ $item->product->title }}
                                     </div>
                                     @endif
                                     <div class="text-grey title-7">
-                                        Quantity:
-                                        {{ $item->quantity }}
+                                        Qty: {{ $item->quantity }}
                                     </div>
                                     <div class="text-grey title-7">
                                         Color:
@@ -153,10 +164,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="title-6 w-700">
+                            <div class="title-7 w-700">
                                 ${{ number_format(
-                                        $item->price * $item->quantity,
-                                        2) }}
+                                            $item->price * $item->quantity,
+                                            2) }}
                             </div>
                         </div>
                         @endforeach
@@ -164,54 +175,82 @@
                     <div
                         class="flex justify-content-between"
                         style="
-                            padding-top:20px;
-                            margin-top:10px;
-                            border-top:1px solid #ddd;">
-                        <div class="title-6 w-700">
+                                padding-top:12px;
+                                margin-top:5px;
+                                border-top:1px solid #ddd;">
+                        <div class="title-7 w-700">
                             Total Quantity:
                         </div>
-                        <div class="title-6">
+                        <div class="title-7">
                             {{ $order->total_quantity }}
                         </div>
                     </div>
                     <div
                         class="flex justify-content-between"
-                        style="padding-top:10px;">
-                        <div class="title-6 w-700">
+                        style="
+                                padding-top:6px;">
+                        <div class="title-7 w-700">
                             Total Price:
                         </div>
-                        <div class="title-6 w-700 text-red">
+                        <div class="title-7 w-700 text-red">
                             ${{ number_format(
-                                $order->total_price,
-                                2) }}
+                                    $order->total_price,
+                                    2
+                                ) }}
                         </div>
                     </div>
-                    <div style="padding-top:15px;">
-                        <span class="title-7 w-700">
-                            Status:
-                        </span>
-                        <span class="title-7">
-                            {{ ucfirst($order->status) }}
-                        </span>
+                    <div
+                        class="flex justify-content-between align-items-center"
+                        style="
+                                padding-top:12px;
+                                margin-top:10px;
+                                border-top:1px solid #ddd;">
+                        <div>
+                            <span class="title-7 w-700">
+                                Status:
+                            </span>
+                            <span class="title-7">
+                                {{ ucfirst($order->status) }}
+                            </span>
+                        </div>
+                        @if($order->status !== 'cancelled')
+                        <form
+                            action="{{ route('orders.cancel', $order->id) }}"
+                            method="POST"
+                            onsubmit="return confirm('Are you sure you want to cancel this order?');">
+                            @csrf
+                            <button
+                                type="submit"
+                                class="btn-1"
+                                style="
+                                            padding:8px 16px;
+                                            font-size:13px;
+                                            cursor:pointer;">
+                                Cancel Order
+                            </button>
+                        </form>
+                        @endif
                     </div>
                 </div>
                 @empty
                 <div
-                    class="wrapper bg-grey br text-center"
+                    class="wrapper bg-grey br text-center flex flex-column gap-20"
                     style="
-                        margin-top:20px;
-                        padding:40px;">
+                            margin-top:20px;
+                            padding:30px;">
                     <div class="title-4">
                         No orders yet
                     </div>
                     <p class="text-grey title-6">
                         You haven't purchased any products yet.
                     </p>
-                    <a
-                        href="{{ route('products') }}"
-                        class="btn-1">
-                        Continue Shopping
-                    </a>
+                    <div class="text-center w-100">
+                        <a
+                            href="{{ route('products') }}"
+                            class="btn-1">
+                            Continue Shopping
+                        </a>
+                    </div>
                 </div>
                 @endforelse
             </div>

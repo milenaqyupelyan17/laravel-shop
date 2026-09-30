@@ -65,4 +65,20 @@ class OrderController extends Controller
 
         return view('confirmation', compact('order'));
     }
+    public function cancel(Order $order)
+    {
+        if ($order->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        if ($order->status === 'cancelled') {
+            return back();
+        }
+
+        $order->update([
+            'status' => 'cancelled',
+        ]);
+
+        return back()->with('success', 'Order has been cancelled successfully.');
+    }
 }

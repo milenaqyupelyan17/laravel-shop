@@ -23,7 +23,7 @@
     @endif
     <section class="contact-content flex justify-content-center"
         style="padding-bottom: 40px;">
-        <div class="row gap-20">
+        <div class="row gap-20 justify-content-center">
             <div class="col w-60">
                 <div class="wrapper contact-info flex flex-column gap-20">
                     <div class="title-3">
