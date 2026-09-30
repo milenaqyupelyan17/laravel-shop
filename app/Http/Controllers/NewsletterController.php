@@ -13,9 +13,19 @@ class NewsletterController extends Controller
             'email' => 'required|email',
         ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Your email has been successfully registered!'
+        if (Newsletter::where('email', $request->email)->exists()) {
+            return back()
+                ->withInput()
+                ->with('newsletter_error', 'This email is already registered.');
+        }
+
+        Newsletter::create([
+            'email' => $request->email,
         ]);
+
+        return back()->with(
+            'newsletter_success',
+            'Your email has been successfully registered!'
+        );
     }
 }
