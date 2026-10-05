@@ -103,38 +103,9 @@
                     Shopping Cart
                 </div>
                 <div
-                    id="cart-table-wrapper"
-                    class="wrapper bg-grey br"
+                    id="cart-products-wrapper"
+                    class="cart-products-grid"
                     style="display:none;">
-                    <div style="overflow-x:auto;"
-                        <table
-                            style="
-                                width:100%;
-                                border-collapse:collapse;
-                            ">
-                            <thead>
-                                <tr>
-                                    <th
-                                        class="title-6 text-left"
-                                        style="
-                                            padding:18px;
-                                            width:70%;">
-                                        Product
-                                    </th>
-                                    <th
-                                        class="title-6"
-                                        style="
-                                            padding:18px;
-                                            width:30%;
-                                            text-align:center;
-                                        ">
-                                        Quantity
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody id="cart-table-body"></tbody>
-                        </table>
-                    </div>
                 </div>
                 <div
                     id="empty-cart"
@@ -185,180 +156,220 @@
         </section>
     </div>
 </main>
+<style>
+    .cart-products-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+        margin-top: 30px;
+    }
+
+
+    .cart-product-card {
+        border: 1px solid grey;
+        border-radius: 6px;
+        overflow: hidden;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        transition: 0.3s ease;
+    }
+
+
+    .cart-product-card:hover {
+        transform: translateY(-3px);
+    }
+
+
+    .cart-product-image {
+        width: 100%;
+        height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        margin-bottom: 18px;
+    }
+
+
+    .cart-product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+
+    .cart-product-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+
+    .cart-product-price {
+        font-size: 17px;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+
+
+    .cart-product-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto;
+        padding-top: 15px;
+    }
+
+
+    .quantity-box {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+
+    .quantity-button {
+        width: 32px;
+        height: 32px;
+
+        border: 1px solid #ddd;
+        background: #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 17px;
+    }
+
+
+    .quantity-number {
+        min-width: 30px;
+        text-align: center;
+        font-weight: 700;
+    }
+
+
+    .cart-product-total {
+        font-weight: 700;
+        font-size: 16px;
+    }
+
+
+    @media (max-width: 1000px) {
+
+        .cart-products-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+
+    @media (max-width: 600px) {
+
+        .cart-products-grid {
+            grid-template-columns: 1fr;
+        }
+
+    }
+</style>
 
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+
         const cartKey = 'cart_user_{{ auth()->id() }}';
-        let cart =
-            JSON.parse(
-                localStorage.getItem(cartKey)
-            ) || [];
-
-        const cartBody = document.getElementById(
-                'cart-table-body'
-            );
-
-        const cartTableWrapper = document.getElementById(
-                'cart-table-wrapper'
-            );
-
-        const emptyCart = document.getElementById(
-                'empty-cart'
-            );
-
-        const cartTotal = document.getElementById(
-                'cart-total'
-            );
-
-        const cartTotalWrapper = document.getElementById(
-                'cart-total-wrapper'
-            );
-
-        const paymentWrapper = document.getElementById(
-                'payment-wrapper');
-
-        const cardHeaderCount = document.getElementById(
-                'card-header-count'
-            );
+        let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+        const productsWrapper = document.getElementById('cart-products-wrapper');
+        const emptyCart = document.getElementById('empty-cart');
+        const cartTotal = document.getElementById('cart-total');
+        const cartTotalWrapper = document.getElementById('cart-total-wrapper');
+        const paymentWrapper = document.getElementById('payment-wrapper');
+        const cardHeaderCount = document.getElementById('card-header-count');
 
         function renderCart() {
-            cartBody.innerHTML = '';
+            productsWrapper.innerHTML = '';
             let total = 0;
+            let totalQuantity = 0;
             if (cart.length === 0) {
-
-                cartTableWrapper.style.display ='none';
-                emptyCart.style.display ='flex';
-                cartTotalWrapper.style.display ='none';
+                productsWrapper.style.display = 'none';
+                emptyCart.style.display = 'flex';
+                cartTotalWrapper.style.display = 'none';
                 paymentWrapper.style.display = 'none';
-                cardHeaderCount.textContent = 'CARD(0)';
+                cardHeaderCount.textContent = 'CARD (0)';
                 return;
             }
 
-            cartTableWrapper.style.display ='block';
-            emptyCart.style.display ='none';
-            cartTotalWrapper.style.display ='flex';
-            paymentWrapper.style.display =
-                'flex';
-            cart.forEach(function(
-                product,
-                index
-            ) {
-
+            productsWrapper.style.display = 'grid';
+            emptyCart.style.display = 'none';
+            cartTotalWrapper.style.display = 'flex';
+            paymentWrapper.style.display = 'flex';
+            cart.forEach(function(product, index) {
                 const quantity = Number(product.quantity) || 1;
                 const price = Number(product.price) || 0;
                 const productTotal = price * quantity;
                 total += productTotal;
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                <td
-                    style="
-                        padding:20px 18px;
-                        vertical-align:middle;
-                        border-top:1px solid #e5e5e5;">
-                    <div
-                        style="
-                            display:flex;
-                            align-items:center;
-                            gap:15px;">
-                        <img
-                            src="${product.image}"
-                            alt="${product.title}"
-                            style="
-                                width:60px;
-                                height:80px;
-                                object-fit:contain;
-                                flex-shrink:0;">
-                        <span
-                            class="title-6 w-700">
-                            ${product.title}
-                        </span>
-                    </div>
-                </td>
-                <td
-                    style="
-                        padding:20px 18px;
-                        text-align:center;
-                        vertical-align:middle;
-                        border-top:1px solid #e5e5e5;">
-                    <div
-                        style="
-                            display:flex;
-                            align-items:center;
-                            justify-content:center;
-                            gap:10px;">
+                totalQuantity += quantity;
+                const card = document.createElement('div');
+                card.className = 'cart-product-card';
+                card.innerHTML = `
+                <div class="cart-product-image">
+                    <img
+                        src="${product.image}"
+                        alt="${product.title}">
+                </div>
+                <div class="cart-product-title">
+                    ${product.title}
+                </div>
+                <div class="cart-product-price">
+                    $${price.toFixed(2)}
+                </div>
+                <div class="cart-product-info">
+                    <div class="quantity-box">
                         <button
                             type="button"
-                            onclick="decreaseCartQuantity(${index})"
-                            style="
-                                width:30px;
-                                height:30px;
-                                border:1px solid #ddd;
-                                background:#fff;
-                                cursor:pointer;
-                                font-size:16px;">
+                            class="quantity-button"
+                            onclick="decreaseCartQuantity(${index})">
                             −
                         </button>
-                        <span
-                            class="title-6"
-                            style="
-                                min-width:30px;
-                                text-align:center;">
+                        <span class="quantity-number">
                             ${quantity}
                         </span>
                         <button
                             type="button"
-                            onclick="increaseCartQuantity(${index})"
-                            style="
-                                width:30px;
-                                height:30px;
-                                border:1px solid #ddd;
-                                background:#fff;
-                                cursor:pointer;
-                                font-size:16px;">
+                            class="quantity-button"
+                            onclick="increaseCartQuantity(${index})">
                             +
                         </button>
                     </div>
-                </td>
+                    <div class="cart-product-total">
+                        $${productTotal.toFixed(2)}
+                    </div>
+                </div>
             `;
-                cartBody.appendChild(row);
+
+                productsWrapper.appendChild(card);
             });
-
-            cartTotal.textContent ='$' + total.toFixed(2);
-            let totalQuantity = 0;
-
-            cart.forEach(function(product) {
-                totalQuantity +=Number(product.quantity) || 0;
-            });
-
-            cardHeaderCount.textContent = 'CARD(' + totalQuantity + ')';
-
+            cartTotal.textContent = '$' + total.toFixed(2);
+            cardHeaderCount.textContent = 'CARD (' + totalQuantity + ')';
         }
 
+
         window.increaseCartQuantity = function(index) {
-                cart[index].quantity =
-                    (
-                        Number(
-                            cart[index].quantity
-                        ) || 1
-                    ) + 1;
-                saveCart();
-            };
+            cart[index].quantity =
+                (Number(cart[index].quantity) || 1) + 1;
+            saveCart();
+        };
+
 
         window.decreaseCartQuantity = function(index) {
+            const quantity = Number(cart[index].quantity) || 1;
 
-                const quantity =Number(
-                        cart[index].quantity
-                    ) || 1;
-                if (quantity > 1) {
-                    cart[index].quantity =
-                        quantity - 1;
+            if (quantity > 1) {
+                cart[index].quantity = quantity - 1;
+                saveCart();
+            }
+        };
 
-                    saveCart();
-
-                }
-
-            };
 
         function saveCart() {
             localStorage.setItem(

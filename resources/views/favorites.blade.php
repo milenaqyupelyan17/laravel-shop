@@ -122,17 +122,18 @@
 
         const favoritesKey = 'favorites_user_{{ auth()->id() }}';
         let favorites = JSON.parse(
-                localStorage.getItem(favoritesKey)
-            ) || [];
+            localStorage.getItem(favoritesKey)
+        ) || [];
         const container = document.getElementById('favorites-products');
         const emptyMessage = document.getElementById('empty-favorites');
         const count = document.getElementById('favorites-count');
+
         function updateFavoritesCount() {
 
-            count.textContent =favorites.length +(
-                    favorites.length === 1 ?
-                    ' product' :
-                    ' products');
+            count.textContent = favorites.length + (
+                favorites.length === 1 ?
+                ' product' :
+                ' products');
 
         }
 
@@ -173,7 +174,7 @@
                             type="button"
                             class="remove-favorite"
                             data-id="${product.id}">
-                            Remove
+                            <i class="fa-solid fa-trash"></i>
                         </button>
                     </div>
                     <a
@@ -198,45 +199,44 @@
 
         function addRemoveEvents() {
             document.querySelectorAll('.remove-favorite').forEach(function(button) {
-                    button.addEventListener('click',function() {
-                            const id = this.dataset.id;
-                            favorites =favorites.filter(
-                                    function(product) {
-                                    return product.id != id;
-                                    }
-                                );
-                            localStorage.setItem(
-                                favoritesKey,
-                                JSON.stringify(favorites)
-                            );
-                            renderFavorites();
+                button.addEventListener('click', function() {
+                    const id = this.dataset.id;
+                    favorites = favorites.filter(
+                        function(product) {
+                            return product.id != id;
                         }
                     );
+                    localStorage.setItem(
+                        favoritesKey,
+                        JSON.stringify(favorites)
+                    );
+                    renderFavorites();
                 });
+            });
         }
         renderFavorites();
 
         function updateCartCount() {
             const cartKey = 'cart_user_{{ auth()->id() }}';
             const cart = JSON.parse(
-                    localStorage.getItem(cartKey)
-                ) || [];
+                localStorage.getItem(cartKey)
+            ) || [];
             const totalQuantity = cart.reduce(
-                    function(total, product) {
-                        return total +
-                            (Number(product.quantity) || 1);
-                    },
-                    0
-                );
+                function(total, product) {
+                    return total +
+                        (Number(product.quantity) || 1);
+                },
+                0
+            );
             document.querySelectorAll('#cart-count, #card-header-count, .cart').forEach(function(element) {
-                    if (
-                        element.id ==='card-header-count'
-                    ) {
-                        element.textContent ='CARD(' +totalQuantity +')';
-                    } else {
-                        element.textContent = totalQuantity;
-                    }
-                });
+                if (
+                    element.id === 'card-header-count'
+                ) {
+                    element.textContent = 'CARD(' + totalQuantity + ')';
+                } else {
+                    element.textContent = totalQuantity;
+                }
+            });
         }
         updateCartCount();
     });

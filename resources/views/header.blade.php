@@ -62,7 +62,7 @@
                     </div>
                     <div class="flex gap-5 align-items-center">
                         <i class="fa-solid fa-bag-shopping"></i>
-                        <a href="{{ route('carts') }}"
+                        <a href="{{ route('card') }}"
                             style="
                                 display:flex;
                                 align-items:center;

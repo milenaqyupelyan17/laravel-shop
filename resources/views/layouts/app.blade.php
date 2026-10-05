@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 </head>
 
-<body> 
+<body>
     @include('header')
-    @yield('content') @if( request()->routeIs('home') || request()->routeIs('products') || request()->routeIs('about') || request()->routeIs('contact') ) 
+    @yield('content') @if( request()->routeIs('home') || request()->routeIs('products') || request()->routeIs('about') || request()->routeIs('contact') )
     @include('letter') @endif @include('footer') <script>
         const logoutForm = document.getElementById('logoutForm');
         if (logoutForm) {
@@ -47,6 +47,11 @@
                 });
             }
             updateCartCount();
+        });
+    </script>
+    <script>
+        window.addEventListener('load', function() {
+            window.scrollTo(0, 0);
         });
     </script>
 </body>

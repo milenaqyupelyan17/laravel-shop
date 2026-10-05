@@ -25,7 +25,7 @@
             <div class="wrapper bg-grey">
                 <div
                     class="flex flex-column gap-20"
-                    style="padding:25px;">
+                    style="padding: 30px;">
                     <div class="title-5 w-700">
                         My Account
                     </div>
