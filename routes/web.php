@@ -10,6 +10,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', [ProductController::class, 'home'])
     ->name('home');
@@ -84,9 +85,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/confirmation', [OrderController::class, 'confirmation'])
         ->name('confirmation');
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->middleware('auth')
+        ->name('dashboard');
 
     Route::get('/favorites', function () {
         return view('favorites');
