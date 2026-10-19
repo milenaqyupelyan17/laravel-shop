@@ -18,9 +18,10 @@
             <div class="col">
                 <div class="wrapper flex gap-20 align-items-center">
                     <a
-                        href="{{ route('carts') }}"
+                        href="{{ route('card') }}"
                         id="card-header-count"
-                        class="title-6 w-700 text-grey" style="letter-spacing: 1px;">
+                        class="title-6 w-700 text-grey"
+                        style="letter-spacing: 1px;">
                         CARD (0)
                     </a>
                     <div class="title-6 w-700">SHIPPING & PAYMENT</div>

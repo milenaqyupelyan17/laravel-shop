@@ -48,7 +48,8 @@ header {
     opacity: 0;
     transform: translateY(-20px);
     transition: all .3s ease;
-    pointer-events: none;
+    pointer-events: auto;
+    cursor: pointer;
 }
 
 .cart-toast.show {
@@ -1912,10 +1913,6 @@ input[type="email"] {
     padding-left: 6px;
 }
 
-#account .menu-button.active {
-    background: #fff;
-    border-radius: 8px;
-}
 
 .dashboard-sidebar {
     display: none;

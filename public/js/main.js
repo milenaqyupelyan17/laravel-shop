@@ -9,39 +9,69 @@ if (searchInput) {
     });
 }
 
+
 document.addEventListener('DOMContentLoaded', function () {
     const newsletterForm = document.getElementById('newsletter-form');
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            const formData = new FormData(newsletterForm);
-            fetch(newsletterForm.action, {
+
+    if (!newsletterForm) return;
+
+    newsletterForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const button = newsletterForm.querySelector('button[type="submit"]');
+        const originalText = button ? button.textContent : '';
+
+        if (button) {
+            button.disabled = true;
+            button.textContent = 'Sending...';
+        }
+
+        try {
+            const response = await fetch(newsletterForm.action, {
                 method: 'POST',
-                body: formData,
+                body: new FormData(newsletterForm),
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
                     'Accept': 'application/json'
                 }
-            })
-                .then(response => response.json()).then(data => {
-                    if (data.success) {
-                        newsletterForm.reset();
-                        const notify = document.createElement('div');
-                        notify.className = 'newsletter-notify';
-                        notify.innerHTML = '✓ ' + data.message;
-                        document.body.appendChild(notify);
+            });
 
-                        setTimeout(function () {
-                            notify.remove();
-                        }, 5000);
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-        });
-    }
+            const data = await response.json();
+
+            let notify = document.querySelector('.newsletter-notify');
+
+            if (!notify) {
+                notify = document.createElement('div');
+                notify.className = 'newsletter-notify';
+                newsletterForm.insertAdjacentElement('afterend', notify);
+            }
+
+            notify.textContent = (data.success ? '✓ ' : '⚠ ') + data.message;
+            notify.style.cssText = `
+                display: block;
+                margin-top: 12px;
+                padding: 12px 16px;
+                border-radius: 4px;
+                font-size: 14px;
+                color: ${data.success ? '#ffffff' : '#ffd6d6'};
+                background: ${data.success ? '#245b42' : '#742d2d'};
+            `;
+
+            if (data.success) {
+                newsletterForm.reset();
+            }
+        } catch (error) {
+            console.error('Newsletter error:', error);
+            alert('Something went wrong. Please try again.');
+        } finally {
+            if (button) {
+                button.disabled = false;
+                button.textContent = originalText;
+            }
+        }
+    });
 });
+
 
 function updateCartCount() {
     const cartKey = 'cart_user_' + userId;
