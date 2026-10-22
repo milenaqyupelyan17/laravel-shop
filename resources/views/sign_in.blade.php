@@ -4,7 +4,7 @@
 
 <main>
 
-    <div class="row">
+    <div class="row w-100 justify-content-center">
         <div class="col">
             <div class="wrapper">
                 <div class="title-6 flex gap-5 align-items-center">
